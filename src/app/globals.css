@@ -2,25 +2,92 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-}
+  /* -----------------------------------
+     BRAND COLORS
+  ----------------------------------- */
+  --brandColor: #0db9c7;            /* Main teal / primary */
+  --brandColorDark: #0796a0;        /* Darker shade */
+  --brandColorLight: #e8fafa;       /* Very light background teal */
+  --brandAccent: #1bb9c3;           /* Button hover / accents */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* -----------------------------------
+     TEXT COLORS
+  ----------------------------------- */
+  --textDark: #2b2b2b;              /* Default dark text */
+  --textLight: #6f6f6f;             /* Light gray paragraph text */
+  --textWhite: #ffffff;             /* White */
+  --textMuted: #9ca3af;             /* muted text */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* -----------------------------------
+     BACKGROUND COLORS
+  ----------------------------------- */
+  --bgWhite: #ffffff;
+  --bgLight: #f7fdfd;               /* Light page sections */
+  --bgSection: #f4ffff;             /* Section soft background */
+  --bgGray: #f3f4f6;                /* Very light gray areas */
+
+  /* -----------------------------------
+     BORDER / DIVIDER
+  ----------------------------------- */
+  --borderLight: #e5e7eb;
+  --borderTeal: #a5e7eb;
+
+  /* -----------------------------------
+     BUTTON COLORS
+  ----------------------------------- */
+  --btnPrimary: var(--brandColor);
+  --btnPrimaryHover: var(--brandColorDark);
+  --btnLight: #e8ffff;
+  --btnLightHover: #dffafa;
+
+  /* -----------------------------------
+     HEADINGS / TYPOGRAPHY
+  ----------------------------------- */
+  --fontPrimary: 'Roboto', 'Inter', sans-serif;
+  --headingWeight: 700;
+  --bodyWeight: 400;
+
+  /* -----------------------------------
+     SPACING SYSTEM
+  ----------------------------------- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* -----------------------------------
+     SHADOWS
+  ----------------------------------- */
+  --shadowSoft: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadowCard: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadowHover: 0 6px 18px rgba(0, 0, 0, 0.12);
+
+  /* -----------------------------------
+     RADIUS
+  ----------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* -----------------------------------
+     SECTION HEIGHTS
+  ----------------------------------- */
+  --heroHeight: 580px;
+
+  /* -----------------------------------
+     TRANSITIONS
+  ----------------------------------- */
+  --transitionFast: 0.2s ease;
+  --transitionMedium: 0.3s ease;
+  --transitionSlow: 0.5s ease;
+
+
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: var(--textDark);
   font-family: Arial, Helvetica, sans-serif;
 }
