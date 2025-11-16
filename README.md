@@ -1,8 +1,7 @@
 # Frontend – WebDot
 
 ## Project Overview
-The goal of this project is to rebuild the entire website with a fully custom frontend while maintaining the original design language.  
-The new system includes improved search functionality, a clinician/patient console interface, appointment booking, and various interactive components that enhance usability and performance across all devices.
+The system includes improved search functionality, a clinician/patient console interface, appointment booking, and various interactive components that enhance usability and performance across all devices.
 
 ## Key Features (Frontend)
 - Fully custom UI developed with Next.js & Tailwind CSS  
