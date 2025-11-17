@@ -3,87 +3,60 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import NavButton from "./NavButton";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  // { label: "Services", href: "#" },
-  // { label: "Departments", href: "#" },
   { label: "Doctors", href: "/doctors" },
-  // {
-  //   label: "Dropdown",
-  //   dropdown: ["Option 1", "Option 2", "Option 3"],
-  // },
   { label: "Articles", href: "/articles" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const pathname = usePathname();
+
+  // ✅ Detect first segment after the domain
+  const firstSegment = pathname.split("/")[1] || "";
+
+  const isActive = (href) => {
+    if (href === "/") return firstSegment === "";
+    const segment = href.replace("/", "");
+    return firstSegment === segment;
+  };
 
   return (
-    <nav className="relative bg-white w-full border-b border-gray-100">
+    <nav className="fixed top-0 left-0 w-full bg-white z-50 border-b border-gray-100 shadow-sm">
       <div className="container mx-auto flex justify-between items-center px-6 lg:px-12 py-3">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <Link href='/'>
-            <Image src="/logos/headLogo.png" alt="MedEase Logo" width={70} height={70} />
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/logos/headLogo.png"
+            alt="White Cross Clinic Logo"
+            width={70}
+            height={70}
+            priority
+          />
+        </Link>
 
         {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((item, idx) =>
-            item.dropdown ? (
-              <div key={idx} className="relative">
-                <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-1 text-gray-700 hover:text-[var(--brandColor)] font-medium"
-                >
-                  {item.label}
-                  <ChevronDown
-                    size={16}
-                    className={`transition-transform ${dropdownOpen ? "rotate-180" : ""
-                      }`}
-                  />
-                </button>
-
-                <AnimatePresence>
-                  {dropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-8 left-0 bg-white rounded-md shadow-md w-40 overflow-hidden border border-gray-100"
-                    >
-                      {item.dropdown.map((opt, i) => (
-                        <Link
-                          key={i}
-                          href="#"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                        >
-                          {opt}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
-              <Link
-                key={idx}
-                href={item.href}
-                className="text-gray-700 hover:text-[var(--brandColor)] font-medium"
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-
+        <div className="hidden md:flex items-center gap-8">
+          {navLinks.map((item, idx) => (
+            <Link
+              key={idx}
+              href={item.href}
+              className={`relative font-medium transition-all duration-200 pb-1 
+                ${isActive(item.href)
+                  ? "text-[var(--brandColor)] font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[var(--brandColor)]"
+                  : "text-gray-700 hover:text-[var(--brandColor)]"
+                }`}
+            >
+              {item.label}
+            </Link>
+          ))}
           <NavButton />
         </div>
 
@@ -109,7 +82,12 @@ export default function Navbar() {
               <Link
                 key={idx}
                 href={item.href}
-                className="block text-gray-700 hover:text-[var(--brandColor)]"
+                onClick={() => setIsOpen(false)}
+                className={`block font-medium transition-all duration-200 
+                  ${isActive(item.href)
+                    ? "text-[var(--brandColor)] font-semibold"
+                    : "text-gray-700 hover:text-[var(--brandColor)]"
+                  }`}
               >
                 {item.label}
               </Link>
