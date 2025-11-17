@@ -70,26 +70,182 @@ const doctorsByCategory = {
             description:
               "Focused on brain disorders, migraines, and neuro-rehabilitation with a holistic approach.",
           },
+          {
+            id: 5,
+            slug: "isabella-grant",
+            name: "Dr. Isabella Grant",
+            title: "Neurophysiologist",
+            experience: "9 years",
+            image: "/images/doctor2.jpg",
+            description:
+              "Specializes in EEG diagnostics and cognitive rehabilitation for neurological disorders.",
+          },
         ],
       },
       {
         name: "Neurosurgery",
         doctors: [
           {
-            id: 5,
+            id: 6,
             slug: "olivia-carter",
             name: "Dr. Olivia Carter",
             title: "Neurosurgeon",
             experience: "8 years",
-            image: "/images/doctor4.jpg",
+            image: "/images/doctor1.jpg",
             description:
               "Performs advanced microsurgeries for epilepsy and Parkinson’s patients.",
+          },
+          {
+            id: 7,
+            slug: "daniel-reed",
+            name: "Dr. Daniel Reed",
+            title: "Spinal Neurosurgeon",
+            experience: "11 years",
+            image: "/images/doctor2.jpg",
+            description:
+              "Expert in complex spinal reconstruction and minimally invasive neurosurgical techniques.",
+          },
+        ],
+      },
+    ],
+  },
+
+  pediatrics: {
+    subcategories: [
+      {
+        name: "General Pediatrics",
+        doctors: [
+          {
+            id: 8,
+            slug: "lina-miah",
+            name: "Dr. Lina Miah",
+            title: "Pediatrician",
+            experience: "10 years",
+            image: "/images/doctor2.jpg",
+            description:
+              "Dedicated to promoting children’s health through preventive care and early diagnosis.",
+          },
+          {
+            id: 9,
+            slug: "rafi-hassan",
+            name: "Dr. Rafi Hassan",
+            title: "Child Health Specialist",
+            experience: "7 years",
+            image: "/images/doctor4.jpg",
+            description:
+              "Provides care for childhood illnesses and developmental monitoring for long-term well-being.",
+          },
+        ],
+      },
+      {
+        name: "Neonatology",
+        doctors: [
+          {
+            id: 10,
+            slug: "emily-rose",
+            name: "Dr. Emily Rose",
+            title: "Neonatologist",
+            experience: "9 years",
+            image: "/images/doctor2.jpg",
+            description:
+              "Specialized in the care of newborn infants with complex medical and developmental needs.",
+          },
+        ],
+      },
+    ],
+  },
+
+  orthopedics: {
+    subcategories: [
+      {
+        name: "General Orthopedics",
+        doctors: [
+          {
+            id: 11,
+            slug: "liam-anderson",
+            name: "Dr. Liam Anderson",
+            title: "Orthopedic Surgeon",
+            experience: "14 years",
+            image: "/images/doctor3.jpg",
+            description:
+              "Performs joint replacement and trauma surgeries with a focus on patient mobility recovery.",
+          },
+          {
+            id: 12,
+            slug: "claire-hudson",
+            name: "Dr. Claire Hudson",
+            title: "Sports Injury Specialist",
+            experience: "9 years",
+            image: "/images/doctor1.jpg",
+            description:
+              "Treats sports-related injuries using minimally invasive arthroscopic techniques.",
+          },
+        ],
+      },
+      {
+        name: "Spine & Trauma",
+        doctors: [
+          {
+            id: 13,
+            slug: "michael-hunt",
+            name: "Dr. Michael Hunt",
+            title: "Spine and Trauma Surgeon",
+            experience: "13 years",
+            image: "/images/doctor2.jpg",
+            description:
+              "Expert in spinal deformity corrections and accident-related orthopedic trauma cases.",
+          },
+        ],
+      },
+    ],
+  },
+
+  endocrinology: {
+    subcategories: [
+      {
+        name: "Diabetes & Metabolism",
+        doctors: [
+          {
+            id: 14,
+            slug: "maria-islam",
+            name: "Dr. Maria Islam",
+            title: "Endocrinologist",
+            experience: "11 years",
+            image: "/images/doctor2.jpg",
+            description:
+              "Focuses on managing diabetes and metabolic syndromes with personalized treatment plans.",
+          },
+          {
+            id: 15,
+            slug: "ethan-jones",
+            name: "Dr. Ethan Jones",
+            title: "Metabolic Specialist",
+            experience: "10 years",
+            image: "/images/doctor3.jpg",
+            description:
+              "Expert in obesity management, thyroid disorders, and hormonal balance therapies.",
+          },
+        ],
+      },
+      {
+        name: "Hormonal Disorders",
+        doctors: [
+          {
+            id: 16,
+            slug: "sophia-lee",
+            name: "Dr. Sophia Lee",
+            title: "Hormone Specialist",
+            experience: "8 years",
+            image: "/images/doctor4.jpg",
+            description:
+              "Provides treatments for thyroid, adrenal, and reproductive hormone imbalances.",
           },
         ],
       },
     ],
   },
 };
+
 
 /* ----------------------------------------------
    🔹 Page Component
