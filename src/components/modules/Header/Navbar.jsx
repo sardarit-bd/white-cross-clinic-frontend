@@ -13,11 +13,10 @@ const navLinks = [
   // { label: "Services", href: "#" },
   // { label: "Departments", href: "#" },
   { label: "Doctors", href: "/doctors" },
-  {
-    label: "Dropdown",
-    dropdown: ["Option 1", "Option 2", "Option 3"],
-  },
-  { label: "Contact", href: "/contact" },
+  // {
+  //   label: "Dropdown",
+  //   dropdown: ["Option 1", "Option 2", "Option 3"],
+  // },
   { label: "Articles", href: "/articles" },
 ];
 

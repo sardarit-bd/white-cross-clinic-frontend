@@ -23,7 +23,7 @@ const missions = [
 export default function MissionSection() {
   return (
     <section className="py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-6 text-center">
+      <div className="container mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-4">
           Our Mission
         </h2>
