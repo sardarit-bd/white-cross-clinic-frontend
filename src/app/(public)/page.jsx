@@ -1,8 +1,10 @@
+import ArticlesPreviewSection from '@/components/modules/Home/ArticlesPreviewSection'
 import BannerSlider from '@/components/modules/Home/BannerSlider'
 import CoreServicesSection from '@/components/modules/Home/CoreServicesSection'
 import DepartmentsSection from '@/components/modules/Home/DepartmentsSection'
 import DoctorsSection from '@/components/modules/Home/DoctorSection'
 import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import TestimonialsSection from '@/components/modules/Home/TestimonialsSection'
 import React from 'react'
 
 export default function Home() {
@@ -13,6 +15,8 @@ export default function Home() {
       <DepartmentsSection />
       <DoctorsSection />
       <EmergencyCTA />
+      <ArticlesPreviewSection />
+      <TestimonialsSection />
     </>
   )
 }
