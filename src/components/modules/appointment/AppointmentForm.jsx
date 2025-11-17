@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
+import { useParams, useSearchParams } from "next/navigation";
 
 // Mock backend data
 const mockData = {
@@ -29,6 +30,9 @@ const generateSlots = () => {
 };
 
 export default function AppointmentFormPro() {
+  const params = useSearchParams()
+  const paramsDepartment = params.get('department')
+  const paramsDoctor = params.get('doctor')
   const [department, setDepartment] = useState("");
   const [doctor, setDoctor] = useState("");
   const [selectedDate, setSelectedDate] = useState(dayjs());
@@ -58,7 +62,7 @@ export default function AppointmentFormPro() {
     e.preventDefault();
     if (!selectedSlot) return alert("Please select a time slot!");
     alert(
-      `✅ Appointment booked!\n\nPatient: ${formData.name}\nDepartment: ${department}\nDoctor: ${doctor}\nDate: ${selectedDate.format(
+      `Appointment booked!\n\nPatient: ${formData.name}\nDepartment: ${department}\nDoctor: ${doctor}\nDate: ${selectedDate.format(
         "dddd, MMM D YYYY"
       )}\nTime: ${selectedSlot}`
     );
@@ -125,7 +129,7 @@ export default function AppointmentFormPro() {
               ))}
             </select>
 
-            {department && (
+            {(
               <select
                 value={doctor}
                 onChange={(e) => setDoctor(e.target.value)}
@@ -133,7 +137,7 @@ export default function AppointmentFormPro() {
                 className="border border-[var(--borderLight)] rounded-lg p-3 bg-white focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
               >
                 <option value="">Select Doctor</option>
-                {mockData[department].doctors.map((d) => (
+                {mockData[department]?.doctors.map((d) => (
                   <option key={d} value={d}>
                     {d}
                   </option>
