@@ -72,7 +72,7 @@ export default function DepartmentsSection() {
   };
 
   return (
-    <section className="py-20 bg-[var(--bgLight)]">
+    <section className="py-20">
       <div className="container mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="text-center mb-10">

@@ -45,7 +45,7 @@ export default function EmergencyCTA() {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           <Link
-            href="/appointments"
+            href="/appointment"
             className="inline-block px-8 py-3 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-[var(--brandColor)] transition-all duration-300"
           >
             Make an Appointment

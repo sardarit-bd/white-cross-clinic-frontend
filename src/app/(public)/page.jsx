@@ -17,8 +17,9 @@ export default function Home() {
       <DoctorsSection />
       <EmergencyCTA />
       <ArticlesPreviewSection />
-      <TestimonialsSection />
       <GallerySection />
+      <TestimonialsSection />
+
     </>
   )
 }

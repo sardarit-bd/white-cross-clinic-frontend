@@ -22,7 +22,7 @@ export default function GallerySection() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    <section className="py-20 bg-[var(--bgLight)] relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
         {/* Header */}
         <motion.div
