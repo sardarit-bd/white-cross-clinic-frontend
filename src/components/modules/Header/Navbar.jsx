@@ -8,16 +8,17 @@ import NavButton from "./NavButton";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "About", href: "#" },
-  { label: "Services", href: "#" },
-  { label: "Departments", href: "#" },
-  { label: "Doctors", href: "#" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  // { label: "Services", href: "#" },
+  // { label: "Departments", href: "#" },
+  { label: "Doctors", href: "/doctors" },
   {
     label: "Dropdown",
     dropdown: ["Option 1", "Option 2", "Option 3"],
   },
-  { label: "Contact", href: "#" },
+  { label: "Contact", href: "/contact" },
+  { label: "Articles", href: "/articles" },
 ];
 
 export default function Navbar() {
@@ -46,9 +47,8 @@ export default function Navbar() {
                   {item.label}
                   <ChevronDown
                     size={16}
-                    className={`transition-transform ${
-                      dropdownOpen ? "rotate-180" : ""
-                    }`}
+                    className={`transition-transform ${dropdownOpen ? "rotate-180" : ""
+                      }`}
                   />
                 </button>
 
@@ -62,26 +62,26 @@ export default function Navbar() {
                       className="absolute top-8 left-0 bg-white rounded-md shadow-md w-40 overflow-hidden border border-gray-100"
                     >
                       {item.dropdown.map((opt, i) => (
-                        <a
+                        <Link
                           key={i}
                           href="#"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         >
                           {opt}
-                        </a>
+                        </Link>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
             ) : (
-              <a
+              <Link
                 key={idx}
                 href={item.href}
                 className="text-gray-700 hover:text-[var(--brandColor)] font-medium"
               >
                 {item.label}
-              </a>
+              </Link>
             )
           )}
 
@@ -107,13 +107,13 @@ export default function Navbar() {
             className="md:hidden bg-white shadow-md border-t border-gray-100 px-6 py-4 space-y-3"
           >
             {navLinks.map((item, idx) => (
-              <a
+              <Link
                 key={idx}
                 href={item.href}
                 className="block text-gray-700 hover:text-[var(--brandColor)]"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
             <NavButton />
           </motion.div>
