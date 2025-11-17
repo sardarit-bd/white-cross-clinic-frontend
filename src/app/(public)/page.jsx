@@ -19,7 +19,7 @@ export default function Home() {
       <ArticlesPreviewSection />
       <GallerySection />
       <TestimonialsSection />
-
+      
     </>
   )
 }
