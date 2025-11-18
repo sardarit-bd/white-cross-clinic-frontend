@@ -21,14 +21,15 @@ function addMinutes(time, minsToAdd) {
   return `${hours}:${minutes}`;
 }
 
+// Generate dates for the next 30 days for one day
 function getUpcomingDates(dayName, limit = 30) {
   const dayIndex = [
     "Sunday", "Monday", "Tuesday",
     "Wednesday", "Thursday", "Friday", "Saturday"
   ].indexOf(dayName);
 
-  const dates = [];
   const today = new Date();
+  let dates = [];
 
   for (let i = 0; i < limit; i++) {
     const d = new Date();
@@ -41,9 +42,12 @@ function getUpcomingDates(dayName, limit = 30) {
   return dates;
 }
 
-// ====================================================== //
+// ===================================================== //
 
 export default function DoctorSchedulePage() {
+
+  // =================== STATES =================== //
+
   const [workingDays, setWorkingDays] = useState([]);
   const [allSchedules, setAllSchedules] = useState([]);
 
@@ -57,15 +61,15 @@ export default function DoctorSchedulePage() {
 
   const [generatedSlots, setGeneratedSlots] = useState([]);
 
-  // Break times
+  // Break State
   const [breaks, setBreaks] = useState([]);
   const [breakStart, setBreakStart] = useState("");
   const [breakEnd, setBreakEnd] = useState("");
 
-  // Editing mode
+  // Edit Mode
   const [editingIndex, setEditingIndex] = useState(null);
 
-  // ===================== ADD WORKING DAY ===================== //
+  // =================== DAY MANAGEMENT =================== //
 
   const addDay = () => {
     if (!selectedDay || workingDays.includes(selectedDay)) return;
@@ -73,17 +77,32 @@ export default function DoctorSchedulePage() {
     setSelectedDay("");
   };
 
-  // Generate dates when day selected
-  useEffect(() => {
-    if (selectedDay) {
-      setAvailableDates(getUpcomingDates(selectedDay));
-    }
-  }, [selectedDay]);
+  const removeDay = (dayToRemove) => {
+    setWorkingDays(workingDays.filter((d) => d !== dayToRemove));
+    setAllSchedules(allSchedules.filter((sc) => sc.day !== dayToRemove));
+  };
 
-  // ===================== AUTO SLOT GENERATION ===================== //
+  // Generate dates for ALL selected days
+  useEffect(() => {
+    let totalDates = [];
+
+    workingDays.forEach((day) => {
+      const dts = getUpcomingDates(day);
+      totalDates.push(...dts);
+    });
+
+    const uniqueSortedDates = [...new Set(totalDates)].sort();
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setAvailableDates(uniqueSortedDates);
+  }, [workingDays]);
+
+
+  // =================== SLOT GENERATION =================== //
 
   useEffect(() => {
     if (!start || !end) return;
+
     let temp = [];
     let current = start;
 
@@ -94,24 +113,25 @@ export default function DoctorSchedulePage() {
       current = next;
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setGeneratedSlots(temp);
   }, [start, end, slotDuration]);
 
-  // ===================== ADD BREAK TIME ===================== //
+
+  // =================== BREAK TIME MANAGEMENT =================== //
 
   const addBreak = () => {
     if (!breakStart || !breakEnd) return;
+
     setBreaks([...breaks, { from: breakStart, to: breakEnd }]);
     setBreakStart("");
     setBreakEnd("");
   };
 
-  // Remove break
-  const removeBreak = (i) => {
-    setBreaks(breaks.filter((_, index) => index !== i));
+  const removeBreak = (index) => {
+    setBreaks(breaks.filter((_, i) => i !== index));
   };
 
-  // Remove overlapping slots automatically
   const filterSlotsForBreaks = (slots, breaks) => {
     return slots.filter((slot) => {
       return !breaks.some(
@@ -122,16 +142,22 @@ export default function DoctorSchedulePage() {
     });
   };
 
-  // ===================== SAVE SCHEDULE ===================== //
+
+  // =================== SAVE SCHEDULE =================== //
 
   const saveSchedule = () => {
-    const cleanSlots = filterSlotsForBreaks(generatedSlots, breaks);
+    if (!date || generatedSlots.length === 0) return;
+
+    const finalSlots = filterSlotsForBreaks(generatedSlots, breaks);
 
     const newSchedule = {
-      day: selectedDay,
+      day: workingDays.find((d) => {
+        const day = new Date(date).getDay();
+        return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].indexOf(d) === day;
+      }) || "",
       date,
       slotDuration,
-      slots: cleanSlots,
+      slots: finalSlots,
       breaks,
     };
 
@@ -155,16 +181,21 @@ export default function DoctorSchedulePage() {
     setGeneratedSlots([]);
   };
 
-  // ===================== EDIT / DELETE ===================== //
+
+  // =================== EDIT / DELETE =================== //
 
   const editSchedule = (index) => {
     const sc = allSchedules[index];
-    setSelectedDay(sc.day);
-    setAvailableDates(getUpcomingDates(sc.day));
+
+    if (!workingDays.includes(sc.day)) {
+      setWorkingDays([...workingDays, sc.day]);
+    }
+
     setDate(sc.date);
-    setSlotDuration(sc.slotDuration);
     setBreaks(sc.breaks);
     setGeneratedSlots(sc.slots);
+    setSlotDuration(sc.slotDuration);
+
     setEditingIndex(index);
   };
 
@@ -172,16 +203,17 @@ export default function DoctorSchedulePage() {
     setAllSchedules(allSchedules.filter((_, i) => i !== index));
   };
 
-  // =========================================================== //
+
+  // =================== UI =================== //
 
   return (
-    <div className="p-6 space-y-8">
-      <h1 className="text-2xl font-bold text-[var(--textDark)]">
-        Doctor Schedule Management
-      </h1>
+    <div className="p-6 space-y-10">
 
-      {/* ------------------ WORKING DAYS ------------------ */}
+      <h1 className="text-2xl font-bold text-[var(--textDark)]">Doctor Schedule Management</h1>
+
+      {/* ============= Working Days ============= */}
       <div className="bg-white p-6 rounded-xl shadow-[var(--shadowCard)]">
+
         <h2 className="text-lg font-semibold mb-4">Weekly Working Days</h2>
 
         <div className="flex gap-4 max-sm:flex-col mb-4">
@@ -191,10 +223,7 @@ export default function DoctorSchedulePage() {
             className="border border-[var(--borderLight)] rounded-lg px-3 py-2 w-full"
           >
             <option value="">Select Day</option>
-            {[
-              "Monday", "Tuesday", "Wednesday", "Thursday",
-              "Friday", "Saturday", "Sunday",
-            ].map((day) => (
+            {["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"].map((day) => (
               <option key={day}>{day}</option>
             ))}
           </select>
@@ -207,23 +236,31 @@ export default function DoctorSchedulePage() {
           </button>
         </div>
 
+        {/* SHOW SELECTED DAYS */}
         <div className="flex gap-2 flex-wrap">
           {workingDays.map((d, i) => (
             <span
               key={i}
-              className="px-4 py-1 bg-[var(--brandColorLight)] text-[var(--brandColor)] rounded-full text-sm"
+              className="flex items-center gap-2 px-4 py-1 bg-[var(--brandColorLight)] text-[var(--brandColor)] rounded-full text-sm"
             >
               {d}
+              <button onClick={() => removeDay(d)} className="text-red-500 hover:text-red-700">
+                <X size={14} />
+              </button>
             </span>
           ))}
         </div>
+
       </div>
 
-      {/* ------------------ SLOT GENERATOR ------------------ */}
+
+      {/* ============= Slot Generator ============= */}
       <div className="bg-white p-6 rounded-xl shadow-[var(--shadowCard)]">
+
         <h2 className="text-lg font-semibold mb-4">Generate Time Slots</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
+
           {/* DATE */}
           <div>
             <label className="text-sm font-medium">Date</label>
@@ -239,29 +276,29 @@ export default function DoctorSchedulePage() {
             </select>
           </div>
 
-          {/* START */}
+          {/* START TIME */}
           <div>
             <label className="text-sm font-medium">Start Time</label>
             <input
               type="time"
-              className="border border-[var(--borderLight)] rounded-lg px-3 py-2 w-full mt-1"
               value={start}
               onChange={(e) => setStart(e.target.value)}
+              className="border border-[var(--borderLight)] rounded-lg px-3 py-2 w-full mt-1"
             />
           </div>
 
-          {/* END */}
+          {/* END TIME */}
           <div>
             <label className="text-sm font-medium">End Time</label>
             <input
               type="time"
-              className="border border-[var(--borderLight)] rounded-lg px-3 py-2 w-full mt-1"
               value={end}
               onChange={(e) => setEnd(e.target.value)}
+              className="border border-[var(--borderLight)] rounded-lg px-3 py-2 w-full mt-1"
             />
           </div>
 
-          {/* DURATION */}
+          {/* SLOT DURATION */}
           <div>
             <label className="text-sm font-medium">Slot Duration</label>
             <select
@@ -269,14 +306,14 @@ export default function DoctorSchedulePage() {
               onChange={(e) => setSlotDuration(Number(e.target.value))}
               className="border border-[var(--borderLight)] rounded-lg px-3 py-2 w-full mt-1"
             >
-              {[5, 10, 15, 20, 30, 60].map((m) => (
+              {[5,10,15,20,30,60].map((m) => (
                 <option key={m}>{m} minutes</option>
               ))}
             </select>
           </div>
         </div>
 
-        {/* BREAK TIMES */}
+        {/* BREAKS */}
         <h3 className="font-semibold mt-4 mb-2">Break Times</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-3">
@@ -285,7 +322,6 @@ export default function DoctorSchedulePage() {
             value={breakStart}
             onChange={(e) => setBreakStart(e.target.value)}
             className="border border-[var(--borderLight)] rounded-lg px-3 py-2"
-            placeholder="Break Start"
           />
 
           <input
@@ -293,12 +329,11 @@ export default function DoctorSchedulePage() {
             value={breakEnd}
             onChange={(e) => setBreakEnd(e.target.value)}
             className="border border-[var(--borderLight)] rounded-lg px-3 py-2"
-            placeholder="Break End"
           />
 
           <button
             onClick={addBreak}
-            className="px-4 py-2 bg-[var(--brandAccent)] text-white rounded-lg hover:bg-green-600"
+            className="px-4 py-2 bg-[var(--brandAccent)] text-white rounded-lg hover:bg-green-700"
           >
             Add Break
           </button>
@@ -307,14 +342,9 @@ export default function DoctorSchedulePage() {
         {/* SHOW BREAKS */}
         <div className="flex gap-2 flex-wrap">
           {breaks.map((b, i) => (
-            <span
-              key={i}
-              className="flex items-center gap-2 px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm"
-            >
+            <span key={i} className="flex items-center gap-2 px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">
               {formatTime(b.from)} - {formatTime(b.to)}
-              <button onClick={() => removeBreak(i)}>
-                <X size={16} />
-              </button>
+              <button onClick={() => removeBreak(i)}><X size={14} /></button>
             </span>
           ))}
         </div>
@@ -324,16 +354,13 @@ export default function DoctorSchedulePage() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {generatedSlots.map((slot, i) => (
-            <div
-              key={i}
-              className="p-2 border border-[var(--borderLight)] rounded-lg bg-[var(--bgLight)] text-center text-sm"
-            >
+            <div key={i} className="p-2 border border-[var(--borderLight)] rounded-lg bg-[var(--bgLight)] text-center text-sm">
               {formatTime(slot.from)} - {formatTime(slot.to)}
             </div>
           ))}
         </div>
 
-        {/* SAVE */}
+        {/* SAVE BUTTON */}
         {generatedSlots.length > 0 && (
           <button
             onClick={saveSchedule}
@@ -342,10 +369,13 @@ export default function DoctorSchedulePage() {
             {editingIndex !== null ? "Update Schedule" : "Save Schedule"}
           </button>
         )}
+
       </div>
 
-      {/* ------------------ SAVED SCHEDULES ------------------ */}
+
+      {/* ============= SAVED SCHEDULES ============= */}
       <div className="bg-white p-6 rounded-xl shadow-[var(--shadowCard)]">
+
         <h2 className="text-lg font-semibold mb-4">Your Schedules</h2>
 
         {allSchedules.length === 0 && (
@@ -353,30 +383,27 @@ export default function DoctorSchedulePage() {
         )}
 
         <div className="space-y-4">
-          {allSchedules.map((sc, index) => (
-            <div
-              key={index}
-              className="p-4 border border-[var(--borderLight)] rounded-xl bg-[var(--bgLight)] shadow-sm"
-            >
-              <div className="flex justify-between mb-2">
+          {allSchedules.map((sc, i) => (
+            <div key={i} className="p-4 border border-[var(--borderLight)] rounded-xl bg-[var(--bgLight)] shadow-sm">
+
+              <div className="flex justify-between">
                 <div>
-                  <p className="font-semibold">
-                    {sc.day} — {sc.date}
-                  </p>
+                  <p className="font-semibold">{sc.day} — {sc.date}</p>
                   <p className="text-sm text-gray-500">
-                    Slot Duration: {sc.slotDuration} minutes
+                    Slot Duration: {sc.slotDuration} mins
                   </p>
                 </div>
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => editSchedule(index)}
+                    onClick={() => editSchedule(i)}
                     className="p-2 rounded-lg bg-blue-100 text-blue-600 hover:bg-blue-200"
                   >
                     <Pencil size={16} />
                   </button>
+
                   <button
-                    onClick={() => deleteSchedule(index)}
+                    onClick={() => deleteSchedule(i)}
                     className="p-2 rounded-lg bg-red-100 text-red-600 hover:bg-red-200"
                   >
                     <Trash2 size={16} />
@@ -384,38 +411,33 @@ export default function DoctorSchedulePage() {
                 </div>
               </div>
 
-              {/* Slots */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
-                {sc.slots.map((slot, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1 text-xs bg-[var(--brandColorLight)] text-[var(--brandColor)] rounded-lg text-center"
-                  >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-3">
+                {sc.slots.map((slot, j) => (
+                  <span key={j} className="px-3 py-1 text-xs bg-[var(--brandColorLight)] text-[var(--brandColor)] rounded-lg">
                     {formatTime(slot.from)} - {formatTime(slot.to)}
                   </span>
                 ))}
               </div>
 
-              {/* Breaks */}
               {sc.breaks.length > 0 && (
                 <div className="mt-3">
-                  <p className="font-medium text-sm mb-1">Breaks:</p>
-                  <div className="flex gap-2 flex-wrap">
-                    {sc.breaks.map((b, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 bg-red-100 text-red-600 rounded-lg text-xs"
-                      >
+                  <p className="font-semibold text-sm">Breaks:</p>
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {sc.breaks.map((b, j) => (
+                      <span key={j} className="px-3 py-1 text-xs bg-red-100 text-red-600 rounded-lg">
                         {formatTime(b.from)} - {formatTime(b.to)}
                       </span>
                     ))}
                   </div>
                 </div>
               )}
+
             </div>
           ))}
         </div>
+
       </div>
+
     </div>
   );
 }
