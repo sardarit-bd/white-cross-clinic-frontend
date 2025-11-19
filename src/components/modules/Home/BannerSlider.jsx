@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 const slides = [
@@ -45,7 +45,7 @@ export default function BannerSlider() {
   }, []);
 
   return (
-    <section className="relative w-full h-[80vh] md:h-[90vh] overflow-hidden">
+    <section className="relative w-full h-[55vh] md:h-[70vh] overflow-hidden">
       <AnimatePresence>
         {slides.map(
           (slide, index) =>
@@ -68,11 +68,12 @@ export default function BannerSlider() {
                 />
 
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/60" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70" />
 
-                {/* Content Section */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 md:px-12">
-                  {/* Top Tagline */}
+                {/* Content */}
+                <div className="absolute mt-40 inset-0 flex flex-col items-center justify-center text-center px-6 md:px-12">
+
+                  {/* Tagline */}
                   <motion.div
                     initial={{ y: -40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -84,7 +85,7 @@ export default function BannerSlider() {
                     </span>
                   </motion.div>
 
-                  {/* Main Title */}
+                  {/* Title */}
                   <motion.h2
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -104,11 +105,12 @@ export default function BannerSlider() {
                     {slide.description}
                   </motion.p>
 
-                  {/* CTA Button */}
+                  {/* CTA */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9, duration: 0.8 }}
+                    className="mb-10"
                   >
                     <Link
                       href="/appointment"
@@ -127,7 +129,7 @@ export default function BannerSlider() {
         )}
       </AnimatePresence>
 
-      {/* Navigation Arrows */}
+      {/* Arrows */}
       <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/25 hover:bg-white/40 text-[var(--brandColor)] p-2 rounded-full transition"
@@ -141,7 +143,7 @@ export default function BannerSlider() {
         <ArrowRight size={24} />
       </button>
 
-      {/* Slide Dots */}
+      {/* Dots */}
       <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3">
         {slides.map((_, i) => (
           <button
