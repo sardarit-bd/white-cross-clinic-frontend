@@ -32,10 +32,10 @@ export default function ArticlesPage() {
 
   const handleSearch = (query) => {
     if (!query.trim()) return setFiltered(categories);
-    const results = categories.filter(
+    const results = categories?.filter(
       (cat) =>
-        cat.name.toLowerCase().includes(query) ||
-        cat.description.toLowerCase().includes(query)
+        cat?.name?.toLowerCase().includes(query) ||
+        cat?.description?.toLowerCase()?.includes(query)
     );
     setFiltered(results);
   };
@@ -80,16 +80,16 @@ export default function ArticlesPage() {
                 />
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold text-[var(--textDark)] mb-2">
-                    {cat.name}
+                    {cat?.name}
                   </h3>
                   <p className="text-[var(--textLight)] text-sm mb-4">
-                    {cat.description}
+                    {cat?.description}
                   </p>
                   <Link
                     href={`/articles/${cat.name.toLowerCase()}`}
                     className="inline-block text-[var(--brandColor)] font-medium hover:underline"
                   >
-                    Explore {cat.name}
+                    Explore {cat?.name}
                   </Link>
                 </div>
               </motion.div>

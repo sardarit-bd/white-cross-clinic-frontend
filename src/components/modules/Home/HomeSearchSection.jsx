@@ -1,8 +1,29 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Search, Sparkles } from "lucide-react";
 
 export default function HomeSearchSection() {
+  const router = useRouter();
+
+  const [normalQuery, setNormalQuery] = useState("");
+  const [aiQuery, setAiQuery] = useState("");
+
+  // 🔍 Normal search redirect
+  const handleNormalKey = (e) => {
+    if (e.key === "Enter" && normalQuery.trim()) {
+      router.push(`/find?q=${encodeURIComponent(normalQuery)}`);
+    }
+  };
+
+  // 🤖 AI Search redirect
+  const handleAIKey = (e) => {
+    if (e.key === "Enter" && aiQuery.trim()) {
+      router.push(`/search?ai=${encodeURIComponent(aiQuery)}`);
+    }
+  };
+
   return (
     <section className="w-full bg-white py-12 px-6 md:px-12">
       <div className="max-w-4xl mx-auto">
@@ -11,10 +32,6 @@ export default function HomeSearchSection() {
         <h2 className="text-center text-2xl md:text-3xl font-bold text-[var(--textDark)] mb-4">
           Find What You’re Looking For
         </h2>
-
-        {/* <p className="text-center text-[var(--textLight)] mb-10 max-w-2xl mx-auto">
-          Search medical articles, doctors, symptoms — or ask our AI assistant for smarter health insights.
-        </p> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -25,11 +42,14 @@ export default function HomeSearchSection() {
               type="text"
               placeholder="Search normally..."
               className="w-full bg-transparent focus:outline-none text-[var(--textDark)]"
+              value={normalQuery}
+              onChange={(e) => setNormalQuery(e.target.value)}
+              onKeyDown={handleNormalKey}
             />
           </div>
 
-          {/* AI SEARCH - HIGH CONTRAST & VISIBLE */}
-          <div className="rounded-xl p-[2px] bg-[var(--bgLight)] shadow-xl">
+          {/* AI SEARCH */}
+          <div className="rounded-xl p-[2px] bg-[var(--brandGradient)] shadow-xl">
             <div className="bg-white rounded-xl p-4 flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-[var(--brandColorLight)] flex items-center justify-center">
                 <Sparkles size={20} className="text-[var(--brandColor)]" />
@@ -38,6 +58,9 @@ export default function HomeSearchSection() {
                 type="text"
                 placeholder="Ask AI anything about your health..."
                 className="w-full bg-transparent focus:outline-none text-[var(--textDark)] placeholder-[var(--textLight)]"
+                value={aiQuery}
+                onChange={(e) => setAiQuery(e.target.value)}
+                onKeyDown={handleAIKey}
               />
             </div>
           </div>
