@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import NavButton from "./NavButton";
 
 // -------------------------
 // Mega Menu Data
@@ -126,9 +127,10 @@ export default function Navbar() {
           ))}
 
           {/* Login & Button */}
-          <button className="px-5 py-2 rounded-lg bg-[var(--brandColor)] text-white hover:bg-[var(--brandColorDark)]">
-            Login
-          </button>
+          {/* <button className="px-5 py-2 rounded-lg bg-[var(--brandColor)] text-white hover:bg-[var(--brandColorDark)]">
+            <Link href="/login">Login</Link>
+          </button> */}
+          <NavButton />
         </div>
 
         {/* Mobile Menu Button */}
@@ -160,6 +162,7 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <NavButton />
           </motion.div>
         )}
       </AnimatePresence>
