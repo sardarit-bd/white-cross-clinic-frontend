@@ -1,6 +1,6 @@
 export async function normalSearch(query) {
   try {
-    const response = await fetch("http://localhost:3001/search", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SEARCH_API}/search`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query }),

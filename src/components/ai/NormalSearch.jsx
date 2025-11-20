@@ -17,7 +17,7 @@ export default function NormalSearch() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3001/search", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SEARCH_API}/search`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),

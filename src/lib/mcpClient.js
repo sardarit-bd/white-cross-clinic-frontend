@@ -2,7 +2,7 @@ export async function callMCP(query) {
     try {
         console.log("🔍 Searching for:", query);
         
-        const response = await fetch("http://localhost:3001/mcp", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SEARCH_API}/mcp`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export async function searchWithMCP(query, options = {}) {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), config.timeout);
         
-        const response = await fetch("http://localhost:3001/mcp", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SEARCH_API}/mcp`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
