@@ -27,16 +27,15 @@ const doctorDepartments = [
 ];
 
 const articleCategories = [
-  "Heart Health",
-  "Brain Health",
-  "Mental Wellness",
+  "Cardiology",
+  "Neurology",
   "Nutrition",
-  "Children's Health",
-  "Women’s Health",
-  "Chronic Illness",
   "Fitness",
   "Sleep",
-  "Skin Care",
+  "Cardiology",
+  "Neurology",
+  "Nutrition",
+ 
 ];
 
 const navLinks = [
