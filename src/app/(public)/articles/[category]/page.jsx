@@ -157,17 +157,17 @@ export default function CategoryArticlesPage() {
           {/* === RIGHT: Articles === */}
           <div>
             <motion.h2
-              key={activeSubcategory.name}
+              key={activeSubcategory?.name}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
               className="text-2xl font-semibold mb-6 text-[var(--brandColor)]"
             >
-              {activeSubcategory.name}
+              {activeSubcategory?.name}
             </motion.h2>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {activeSubcategory.articles.map((article, i) => (
+              {activeSubcategory?.articles.map((article, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ y: -4 }}

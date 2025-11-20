@@ -81,8 +81,8 @@ export default function CoreServicesSection() {
                 key={item.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ scale: 1.03 }}
+                // transition={{ duration: 0.5 }}
+                // whileHover={{ scale: 1.03 }}
                 className="relative p-8 bg-white rounded-xl shadow-md cursor-default transition-all duration-500 overflow-hidden hover:shadow-lg"
               >
 
