@@ -101,7 +101,7 @@ export default function Navbar() {
                       doctorDepartments.map((d, i) => (
                         <Link
                           key={i}
-                          href={`/doctors/${d}`}
+                          href={`/doctors/${d.toLowerCase()}`}
                           className="text-gray-700 hover:text-[var(--brandColor)] transition text-sm"
                         >
                           {d}
@@ -113,7 +113,7 @@ export default function Navbar() {
                       articleCategories.map((c, i) => (
                         <Link
                           key={i}
-                          href={`/articles?category=${c}`}
+                          href={`/articles/${c.toLowerCase()}`}
                           className="text-gray-700 hover:text-[var(--brandColor)] transition text-sm"
                         >
                           {c}
