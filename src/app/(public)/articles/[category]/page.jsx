@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
 import ArticleSearchBar from "@/components/modules/articles/ArticleSearchBar";
+import AlphabetFilter from "@/components/shared/AlphabetFilter";
 
 // ✅ Mock Data (subcategory + articles combined)
 const categoryData = {
@@ -165,7 +166,7 @@ export default function CategoryArticlesPage() {
             >
               {activeSubcategory?.name}
             </motion.h2>
-
+              <AlphabetFilter />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {activeSubcategory?.articles.map((article, i) => (
                 <motion.div

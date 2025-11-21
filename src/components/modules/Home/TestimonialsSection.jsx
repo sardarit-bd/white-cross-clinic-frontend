@@ -94,9 +94,9 @@ export default function TestimonialsSection() {
           {testimonials.map((item) => (
             <SwiperSlide key={item.id}>
               <motion.div
-                whileHover={{ scale: 1.02 }}
+                // whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 text-left flex flex-col justify-between h-full mb-10"
+                className="bg-white rounded-xl shadow-md transition-all duration-300 p-6 text-left flex flex-col justify-between h-full mb-10"
               >
                 <p className="text-[var(--textDark)] text-sm md:text-base italic mb-6 leading-relaxed relative pl-8">
                   <span className="absolute left-0 top-0 text-[var(--brandColor)] text-3xl font-serif">“</span>

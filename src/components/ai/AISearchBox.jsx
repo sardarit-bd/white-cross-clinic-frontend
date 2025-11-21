@@ -70,7 +70,7 @@ export default function AISearchBox() {
   }, [results]);
 
   return (
-    <div className="space-y-8 container mx-auto my-10">
+    <div className="space-y-8 container mx-auto py-10">
       
       {/* ===================================================== */}
       {/* SEARCH INPUT BOX */}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
+import AlphabetFilter from "@/components/shared/AlphabetFilter";
 
 /* ----------------------------------------------
    🔹 Mock Data (Replace with API Later)
@@ -328,7 +329,7 @@ export default function DoctorsByCategoryPage() {
             >
               {activeSubcategory?.name}
             </motion.h2>
-
+              <AlphabetFilter />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {activeSubcategory?.doctors?.map((doc) => (
                 <motion.div
