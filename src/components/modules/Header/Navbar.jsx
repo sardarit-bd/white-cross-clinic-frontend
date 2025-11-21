@@ -25,8 +25,9 @@ const articleCategories = [
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Social Media", href: "/social" },
   { label: "Doctors", href: "/doctors", mega: "doctors" },
-  { label: "Articles", href: "/articles", mega: "articles" },
+  { label: "News", href: "/articles", mega: "articles" },
   { label: "Dashboard", href: "/dashboard" },
 ];
 

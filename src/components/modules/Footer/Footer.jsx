@@ -1,132 +1,115 @@
 "use client";
-import { Facebook, Linkedin, Twitter, Instagram } from "lucide-react";
-import Link from "next/link";
+
+import Image from "next/image";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Phone,
+  Mail,
+  MapPin,
+} from "lucide-react";
+import { FaTiktok, FaPaypal } from "react-icons/fa";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="bg-[var(--bgLight)] text-[var(--textLight)] pt-16 pb-8 border-t border-[var(--borderLight)]">
-      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-black text-white pt-14 pb-6">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
 
-        {/* Column 1 — Clinic Info */}
+        {/* ============ LEFT COLUMN ============ */}
         <div>
-          <h2 className="text-[var(--textDark)] text-xl font-semibold mb-4">
-            White Cross Clinic
-          </h2>
-          <p className="text-sm leading-relaxed">
-            A108 Adam Street <br />
-            New York, NY 535022
-          </p>
-          <p className="mt-3 text-sm">
-            <strong>Phone:</strong> +1 5589 55488 55 <br />
-            <strong>Email:</strong> info@example.com
+          <Image
+            src="/logos/headLogo.png"
+            width={80}
+            height={80}
+            alt="White Cross Clinic"
+            className="mb-4"
+          />
+
+          <p className="text-gray-300 leading-relaxed text-sm max-w-sm">
+            At White Cross Clinic, we’re dedicated to providing exceptional
+            healthcare services that prioritise your physical, emotional, and
+            mental well-being.
           </p>
 
-          {/* Social icons */}
-          <div className="flex items-center gap-4 mt-5">
-            {[Twitter, Facebook, Instagram, Linkedin].map((Icon, i) => (
-              <a
+          {/* Social Icons */}
+          <div className="flex items-center gap-3 mt-6">
+            {[
+              { icon: <Facebook size={18} /> },
+              { icon: <Twitter size={18} /> },
+              { icon: <Instagram size={18} /> },
+              { icon: <FaTiktok size={18} /> },
+              { icon: <Linkedin size={18} /> },
+              { icon: <FaPaypal size={20} /> },
+            ].map((item, i) => (
+              <div
                 key={i}
-                href="#"
-                className="w-10 h-10 flex items-center justify-center rounded-full border border-[var(--borderLight)] hover:bg-[var(--brandColor)] hover:text-white transition-all duration-300"
+                className="w-10 h-10 rounded bg-[#1e1e1e] flex items-center justify-center 
+                hover:bg-[#2e2e2e] transition cursor-pointer"
               >
-                <Icon size={18} />
-              </a>
+                {item.icon}
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Column 2 — Useful Links */}
+        {/* ============ MIDDLE COLUMN ============ */}
         <div>
-          <h3 className="text-[var(--textDark)] text-lg font-semibold mb-4">
-            Useful Links
-          </h3>
-          <ul className="space-y-2 text-sm">
-            {["Home", "About", "Services", "Terms of service", "Privacy policy"].map(
-              (item, idx) => (
-                <li key={idx}>
-                  <Link
-                    href="#"
-                    className="hover:text-[var(--brandColor)] transition-colors"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              )
-            )}
+          <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
+          <ul className="space-y-3 text-gray-300 text-sm">
+            <li className="hover:text-white transition cursor-pointer">Home</li>
+            <li className="hover:text-white transition cursor-pointer">Self Collect Kits</li>
+            <li className="hover:text-white transition cursor-pointer">About Us</li>
+            <li className="hover:text-white transition cursor-pointer">Specialties</li>
+            <li className="hover:text-white transition cursor-pointer">Contact</li>
           </ul>
         </div>
 
-        {/* Column 3 — Our Services */}
+        {/* ============ RIGHT COLUMN ============ */}
         <div>
-          <h3 className="text-[var(--textDark)] text-lg font-semibold mb-4">
-            Our Services
-          </h3>
-          <ul className="space-y-2 text-sm">
-            {[
-              "Web Design",
-              "Web Development",
-              "Product Management",
-              "Marketing",
-              "Graphic Design",
-            ].map((service, idx) => (
-              <li key={idx}>
-                <Link
-                  href="#"
-                  className="hover:text-[var(--brandColor)] transition-colors"
-                >
-                  {service}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
 
-        {/* Column 4 — Extra Section */}
-        <div>
-          <h3 className="text-[var(--textDark)] text-lg font-semibold mb-4">
-            Resources
-          </h3>
-          <ul className="space-y-2 text-sm">
-            {[
-              "Health Insights",
-              "Community Support",
-              "Patient Education",
-              "News & Events",
-              "Careers",
-            ].map((link, idx) => (
-              <li key={idx}>
-                <Link
-                  href="#"
-                  className="hover:text-[var(--brandColor)] transition-colors"
-                >
-                  {link}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="text-gray-300 text-sm space-y-4">
+            <div className="flex items-start gap-3">
+              <MapPin size={18} className="mt-1" />
+              <p>
+                Meanwhile Garden Medical Centre <br />
+                Westbourne Park 5 Elkstone Rd, London W105NT <br />
+                Trains and Buses Hammersmith & City line (buses 23, 28, 31, 7)
+              </p>
+            </div>
+
+            {/* Phone Numbers */}
+            <div className="space-y-2">
+              {[ "07784732485", "02081246643", "02031004441", "02045521337" ].map(
+                (num, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <Phone size={16} />
+                    <p>{num}</p>
+                  </div>
+                )
+              )}
+            </div>
+
+            {/* Emails */}
+            <div className="space-y-2 mt-4">
+              <div className="flex items-center gap-3">
+                <Mail size={16} />
+                <p>info@whitecrosspolyclinics.com</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail size={16} />
+                <p>info@whitecrossclinics.com</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="border-t border-[var(--borderLight)] mt-10 pt-6 text-center text-sm text-[var(--textMuted)]">
-        <p>
-          © {currentYear}{" "}
-          <span className="text-[var(--brandColor)] font-semibold">
-            White Cross Clinic
-          </span>
-          . All Rights Reserved.
-        </p>
-        <p className="mt-1">
-          Designed by{" "}
-          <a
-            href="#"
-            className="text-[var(--brandAccent)] hover:underline transition-all"
-          >
-            WebDot
-          </a>
-        </p>
+      {/* Bottom Copyright */}
+      <div className="text-center text-gray-400 text-sm mt-10 pt-6 border-t border-gray-800">
+        © White Cross Poly Clinic (WCPC) {new Date().getFullYear()}
       </div>
     </footer>
   );

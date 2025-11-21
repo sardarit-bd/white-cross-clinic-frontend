@@ -25,7 +25,7 @@ export default function HomeSearchSection() {
   };
 
   return (
-    <section className="w-full bg-white py-12 px-6 md:px-12">
+    <section className="w-full bg-[var(--bgLight)] py-12 px-6 md:px-12">
       <div className="max-w-4xl mx-auto">
 
         {/* Title */}
@@ -55,6 +55,7 @@ export default function HomeSearchSection() {
                 <Sparkles size={20} className="text-[var(--brandColor)]" />
               </div>
               <input
+              autoFocus
                 type="text"
                 placeholder="Ask AI anything about your health..."
                 className="w-full bg-transparent focus:outline-none text-[var(--textDark)] placeholder-[var(--textLight)]"
