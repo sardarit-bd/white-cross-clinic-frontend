@@ -26,6 +26,8 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Social Media", href: "/social" },
+  { label: "Top Services", href: "/topservices" },
+  { label: "Test", href: "/test" },
   { label: "Doctors", href: "/doctors", mega: "doctors" },
   { label: "News", href: "/articles", mega: "articles" },
   { label: "Dashboard", href: "/dashboard" },
@@ -75,11 +77,10 @@ export default function Navbar() {
               >
                 <Link
                   href={item.href}
-                  className={`pb-1 flex items-center gap-1 font-medium transition ${
-                    isActive(item.href)
+                  className={`pb-1 flex items-center gap-1 font-medium transition ${isActive(item.href)
                       ? "text-[var(--brandColor)] font-semibold"
                       : "text-gray-700 hover:text-[var(--brandColor)]"
-                  }`}
+                    }`}
                 >
                   {item.label}
                   {item.mega && <ChevronDown size={16} />}
@@ -131,10 +132,10 @@ export default function Navbar() {
                     className="
                       flex items-center gap-2 p-1 text-[var(--textDark)] 
                       hover:text-[var(--brandColor)] 
-                      hover:underline underline-offset-2 transition text-sm
+                      hover:underline underline-offset-2 transition text-md
                     "
                   >
-                    <span className="w-2 h-2 bg-[var(--brandColor)] rounded-full"></span>
+                    {/* <span className="w-2 h-2 bg-[var(--brandColor)] rounded-full"></span> */}
                     {dept}
                   </Link>
                 ))}
@@ -146,12 +147,12 @@ export default function Navbar() {
                     key={i}
                     href={`/articles/${cat.toLowerCase()}`}
                     className="
-                      flex items-center gap-2 p-1 text-[var(--textDark)]
-                      hover:text-[var(--brandAccent)]
-                      hover:underline underline-offset-2 transition text-sm
+                       flex items-center gap-2 p-1 text-[var(--textDark)] 
+                      hover:text-[var(--brandColor)] 
+                      hover:underline underline-offset-2 transition text-md
                     "
                   >
-                    <span className="w-2 h-2 bg-[var(--brandAccent)] rounded-full"></span>
+                    {/* <span className="w-2 h-2 bg-[var(--brandAccent)] rounded-full"></span> */}
                     {cat}
                   </Link>
                 ))}
@@ -178,15 +179,14 @@ export default function Navbar() {
                   onClick={() =>
                     item.mega
                       ? setMobileDropdown(
-                          mobileDropdown === item.mega ? null : item.mega
-                        )
+                        mobileDropdown === item.mega ? null : item.mega
+                      )
                       : setIsOpen(false)
                   }
-                  className={`flex justify-between items-center text-lg font-medium ${
-                    isActive(item.href)
+                  className={`flex justify-between items-center text-lg font-medium ${isActive(item.href)
                       ? "text-[var(--brandColor)]"
                       : "text-gray-700"
-                  }`}
+                    }`}
                 >
                   {item.label}
                   {item.mega && <ChevronDown size={18} />}
