@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function AboutHero() {
   return (
-    <section className="relative py- pt-48 overflow-hidden bg-[var(--bgLight)] py-10">
+    <section className="relative py- pt-48 overflow-hidden bg-[var(--bgLight)] py-10 pb-20">
       <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left Text */}
         <motion.div
