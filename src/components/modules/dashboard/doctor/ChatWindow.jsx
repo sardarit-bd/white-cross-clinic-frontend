@@ -4,11 +4,13 @@ import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useEffect, useState, useRef } from "react";
 import { sendMessage } from "@/lib/sendMessage";
+import { ArrowLeft } from "lucide-react";
 
-export default function ChatWindow({ conversationId }) {
+export default function ChatWindow({ conversationId, onBack }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     if (!conversationId) return;
@@ -26,7 +28,6 @@ export default function ChatWindow({ conversationId }) {
   }, [conversationId]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/immutability
     scrollToBottom();
   }, [messages]);
 
@@ -39,6 +40,10 @@ export default function ChatWindow({ conversationId }) {
 
     await sendMessage(conversationId, input, "admin");
     setInput("");
+    // Reset textarea height
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -48,24 +53,59 @@ export default function ChatWindow({ conversationId }) {
     }
   };
 
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+    
+    // Auto-resize textarea
+    const textarea = e.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+  };
+
+  if (!conversationId) {
+    return (
+      <div className="hidden md:flex flex-1 flex-col items-center justify-center bg-[var(--bgLight)]">
+        <div className="text-center">
+          <h3 className="text-lg font-semibold text-[var(--textDark)] mb-2">
+            Select a conversation
+          </h3>
+          <p className="text-[var(--textLight)]">
+            Choose a chat from the list to start messaging
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col h-[95vh] bg-[var(--bgLight)] w-full">
+    <div className={`
+      flex flex-col h-full bg-[var(--bgLight)] 
+      ${conversationId ? 'flex-1 flex' : 'hidden md:flex'}
+    `}>
       {/* Header */}
-      <div className="bg-[var(--bgWhite)] border-b border-[var(--borderLight)] px-6 py-4 shadow-sm">
+      <div className="bg-[var(--bgWhite)] border-b border-[var(--borderLight)] px-4 py-3">
         <div className="flex items-center gap-3">
+          {/* Back button for mobile */}
+          <button 
+            onClick={onBack}
+            className="md:hidden p-1 hover:bg-[var(--bgLight)] rounded"
+          >
+            <ArrowLeft size={20} className="text-[var(--textDark)]" />
+          </button>
+          
           <div className="w-10 h-10 rounded-full bg-[var(--brandColor)] flex items-center justify-center text-white font-semibold">
             U
           </div>
-          <div>
+          <div className="flex-1">
             <h3 className="font-semibold text-[var(--textDark)]">User</h3>
-            {/* <p className="text-sm text-[var(--textMuted)]">Active now</p> */}
+            <p className="text-sm text-[var(--textMuted)]">Online</p>
           </div>
         </div>
       </div>
 
-      {/* Messages area */}
-      <div className="flex-1 overflow-y-auto px-6 py-4 bg-[var(--bgLight)]">
-        <div className="max-w-3xl mx-auto space-y-3">
+      {/* Messages area - Scrollable */}
+      <div className="flex-1 overflow-y-auto px-4 py-4 bg-[var(--bgLight)]">
+        <div className="mx-auto space-y-3">
           {messages.map((m) => (
             <div
               key={m.id}
@@ -73,26 +113,24 @@ export default function ChatWindow({ conversationId }) {
                 m.sender === "admin" ? "flex-row-reverse" : "flex-row"
               }`}
             >
-              {/* Avatar */}
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold ${
-                  m.sender === "admin" 
-                    ? "bg-[var(--brandColor)]" 
-                    : "bg-[var(--brandAccent)]"
-                }`}
-              >
+              {/* Avatar - Hidden on mobile for sent messages */}
+              <div className={`
+                w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold
+                ${m.sender === "admin" ? "bg-[var(--brandColor)]" : "bg-[var(--brandAccent)]"}
+                ${m.sender === "admin" ? "hidden sm:flex" : "flex"}
+              `}>
                 {m.sender === "admin" ? "A" : "U"}
               </div>
 
               {/* Message bubble */}
               <div
-                className={`max-w-md px-4 py-2 rounded-2xl ${
+                className={`max-w-[85%] sm:max-w-md px-4 py-2 rounded-2xl ${
                   m.sender === "admin"
                     ? "bg-[var(--brandColor)] text-[var(--textWhite)] rounded-tr-none"
                     : "bg-[var(--bgWhite)] text-[var(--textDark)] border border-[var(--borderLight)] rounded-tl-none shadow-sm"
                 }`}
               >
-                <p className="text-sm leading-relaxed">{m.text}</p>
+                <p className="text-sm leading-relaxed break-words">{m.text}</p>
                 <div
                   className={`text-xs mt-1 ${
                     m.sender === "admin"
@@ -112,18 +150,19 @@ export default function ChatWindow({ conversationId }) {
         </div>
       </div>
 
-      {/* Input area */}
-      <div className="bg-[var(--bgWhite)] border-t border-[var(--borderLight)] px-6 py-4">
+      {/* Input area - Fixed at bottom */}
+      <div className="bg-[var(--bgWhite)] border-t border-[var(--borderLight)] px-4 py-4">
         <div className="max-w-3xl mx-auto">
           <div className="flex gap-3 items-end">
             {/* Input field */}
             <div className="flex-1 relative">
               <textarea
+                ref={textareaRef}
                 className="w-full border border-[var(--borderLight)] rounded-2xl px-4 py-3 pr-12 resize-none focus:outline-none focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent bg-[var(--bgLight)]"
                 placeholder="Type a message..."
                 rows="1"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 style={{
                   minHeight: "44px",
@@ -136,7 +175,7 @@ export default function ChatWindow({ conversationId }) {
             <button
               onClick={handleSend}
               disabled={!input.trim()}
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
+              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
                 input.trim()
                   ? "bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white"
                   : "bg-[var(--bgGray)] text-[var(--textMuted)] cursor-not-allowed"
