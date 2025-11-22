@@ -51,7 +51,8 @@ export default function ChatWindow({ conversationId, onBack }) {
 
     await sendMessage(conversationId, input, "admin");
     await updateDoc(doc(db, "conversations", conversationId), {
-      unreadForAdmin: false
+      unreadForAdmin: false,
+      lastMessage: input
     });
     setInput("");
     // Reset textarea height
