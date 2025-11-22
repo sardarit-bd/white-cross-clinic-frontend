@@ -1,6 +1,6 @@
 "use client";
 
-import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import { collection, query, orderBy, onSnapshot, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useEffect, useState, useRef } from "react";
 import { sendMessage } from "@/lib/sendMessage";
@@ -9,11 +9,22 @@ import { ArrowLeft } from "lucide-react";
 export default function ChatWindow({ conversationId, onBack }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [conversationData, setConversationData] = useState(null);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
 
   useEffect(() => {
     if (!conversationId) return;
+
+    // Fetch conversation data to get user info
+    const fetchConversationData = async () => {
+      const conversationDoc = await getDoc(doc(db, "conversations", conversationId));
+      if (conversationDoc.exists()) {
+        setConversationData(conversationDoc.data());
+      }
+    };
+
+    fetchConversationData();
 
     const q = query(
       collection(db, `conversations/${conversationId}/messages`),
@@ -39,6 +50,9 @@ export default function ChatWindow({ conversationId, onBack }) {
     if (!input.trim()) return;
 
     await sendMessage(conversationId, input, "admin");
+    await updateDoc(doc(db, "conversations", conversationId), {
+      unreadForAdmin: false
+    });
     setInput("");
     // Reset textarea height
     if (textareaRef.current) {
@@ -55,7 +69,7 @@ export default function ChatWindow({ conversationId, onBack }) {
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
-    
+
     // Auto-resize textarea
     const textarea = e.target;
     textarea.style.height = 'auto';
@@ -86,19 +100,23 @@ export default function ChatWindow({ conversationId, onBack }) {
       <div className="bg-[var(--bgWhite)] border-b border-[var(--borderLight)] px-4 py-3">
         <div className="flex items-center gap-3">
           {/* Back button for mobile */}
-          <button 
+          <button
             onClick={onBack}
             className="md:hidden p-1 hover:bg-[var(--bgLight)] rounded"
           >
             <ArrowLeft size={20} className="text-[var(--textDark)]" />
           </button>
-          
+
           <div className="w-10 h-10 rounded-full bg-[var(--brandColor)] flex items-center justify-center text-white font-semibold">
-            U
+            {conversationData?.userName?.charAt(0) || conversationData?.userInfo?.name?.charAt(0) || "U"}
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold text-[var(--textDark)]">User</h3>
-            <p className="text-sm text-[var(--textMuted)]">Online</p>
+            <h3 className="font-semibold text-[var(--textDark)]">
+              {conversationData?.userName || conversationData?.userInfo?.name || "User"}
+            </h3>
+            <p className="text-sm text-[var(--textMuted)]">
+              {conversationData?.userEmail || conversationData?.userInfo?.email || "No email"}
+            </p>
           </div>
         </div>
       </div>
@@ -109,9 +127,8 @@ export default function ChatWindow({ conversationId, onBack }) {
           {messages.map((m) => (
             <div
               key={m.id}
-              className={`flex gap-3 ${
-                m.sender === "admin" ? "flex-row-reverse" : "flex-row"
-              }`}
+              className={`flex gap-3 ${m.sender === "admin" ? "flex-row-reverse" : "flex-row"
+                }`}
             >
               {/* Avatar - Hidden on mobile for sent messages */}
               <div className={`
@@ -119,24 +136,26 @@ export default function ChatWindow({ conversationId, onBack }) {
                 ${m.sender === "admin" ? "bg-[var(--brandColor)]" : "bg-[var(--brandAccent)]"}
                 ${m.sender === "admin" ? "hidden sm:flex" : "flex"}
               `}>
-                {m.sender === "admin" ? "A" : "U"}
+                {m.sender === "admin" ? "A" :
+                  conversationData?.userName?.charAt(0) ||
+                  conversationData?.userInfo?.name?.charAt(0) ||
+                  "U"
+                }
               </div>
 
               {/* Message bubble */}
               <div
-                className={`max-w-[85%] sm:max-w-md px-4 py-2 rounded-2xl ${
-                  m.sender === "admin"
+                className={`max-w-[85%] sm:max-w-md px-4 py-2 rounded-2xl ${m.sender === "admin"
                     ? "bg-[var(--brandColor)] text-[var(--textWhite)] rounded-tr-none"
                     : "bg-[var(--bgWhite)] text-[var(--textDark)] border border-[var(--borderLight)] rounded-tl-none shadow-sm"
-                }`}
+                  }`}
               >
                 <p className="text-sm leading-relaxed break-words">{m.text}</p>
                 <div
-                  className={`text-xs mt-1 ${
-                    m.sender === "admin"
+                  className={`text-xs mt-1 ${m.sender === "admin"
                       ? "text-blue-100"
                       : "text-[var(--textMuted)]"
-                  }`}
+                    }`}
                 >
                   {m.createdAt?.toDate().toLocaleTimeString([], {
                     hour: "2-digit",
@@ -175,14 +194,13 @@ export default function ChatWindow({ conversationId, onBack }) {
             <button
               onClick={handleSend}
               disabled={!input.trim()}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                input.trim()
+              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${input.trim()
                   ? "bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white"
                   : "bg-[var(--bgGray)] text-[var(--textMuted)] cursor-not-allowed"
-              }`}
+                }`}
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
               </svg>
             </button>
           </div>

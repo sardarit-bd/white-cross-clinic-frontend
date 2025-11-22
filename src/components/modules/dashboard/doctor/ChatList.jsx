@@ -65,7 +65,7 @@ export default function ChatList({ onSelect, selectedChat }) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-[var(--textDark)] truncate">
-                  {c.userId || "Guest User"}
+                  {c.userName || c.userInfo?.name || "Guest User"}
                 </p>
                 <span className="text-xs text-[var(--textMuted)]">
                   {c.updatedAt?.toDate().toLocaleTimeString([], {
@@ -76,11 +76,15 @@ export default function ChatList({ onSelect, selectedChat }) {
               </div>
 
               <p className="text-xs text-[var(--textLight)] mt-1 truncate">
+                {c.userEmail || c.userInfo?.email || "No email"}
+              </p>
+
+              <p className="text-xs text-[var(--textMuted)] mt-1 truncate">
                 {c.lastMessage || "No messages"}
               </p>
 
               {/* Unread badge */}
-              {c.unread && (
+              {c.unreadForAdmin && (
                 <div className="flex items-center gap-2 mt-2">
                   <span className="px-2 py-1 text-[10px] rounded-full bg-[var(--brandColor)] text-white">
                     New
