@@ -26,7 +26,7 @@ export default function HomeSearchSection() {
 
   return (
     <section className="w-full bg-[var(--bgLight)] py-12 px-6 md:px-12">
-      <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto">
 
         {/* Title */}
         <h2 className="text-center text-2xl md:text-3xl font-bold text-[var(--textDark)] mb-4">
@@ -41,7 +41,7 @@ export default function HomeSearchSection() {
             <input
               type="text"
               placeholder="Search normally..."
-              className="w-full bg-transparent focus:outline-none text-[var(--textDark)]"
+              className="w-full font-bold bg-transparent focus:outline-none text-[var(--textDark)]"
               value={normalQuery}
               onChange={(e) => setNormalQuery(e.target.value)}
               onKeyDown={handleNormalKey}
@@ -57,8 +57,8 @@ export default function HomeSearchSection() {
               <input
               autoFocus
                 type="text"
-                placeholder="Ask AI anything about your health..."
-                className="w-full bg-transparent focus:outline-none text-[var(--textDark)] placeholder-[var(--textLight)]"
+                placeholder="Ask AI  anything about your health..."
+                className="w-full font-bold bg-transparent focus:outline-none text-[var(--textDark)] placeholder-[var(--textLight)]"
                 value={aiQuery}
                 onChange={(e) => setAiQuery(e.target.value)}
                 onKeyDown={handleAIKey}

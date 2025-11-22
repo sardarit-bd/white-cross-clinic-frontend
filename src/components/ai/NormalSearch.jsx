@@ -53,7 +53,7 @@ export default function NormalSearch() {
         <input
           type="text"
           placeholder="Search doctors or articles..."
-          className="w-full outline-none text-[var(--textDark)]"
+          className="w-full font-bold outline-none text-[var(--textDark)]"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyPress={handleKeyPress}

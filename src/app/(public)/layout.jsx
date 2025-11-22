@@ -1,3 +1,4 @@
+import ChatButton from '@/components/chat/ChatButton'
 import Footer from '@/components/modules/Footer/Footer'
 import Header from '@/components/modules/Header/Header'
 import React from 'react'
@@ -10,6 +11,7 @@ export default function publicLayout({ children }) {
                 {children}
             </main>
             <Footer />
+            <ChatButton />
         </>
     )
 }

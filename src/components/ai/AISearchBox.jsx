@@ -88,7 +88,7 @@ export default function AISearchBox() {
           <input
             type="text"
             placeholder="Ask AI about doctors, diseases or articles..."
-            className="w-full text-[var(--textDark)] focus:outline-none"
+            className="w-full font-bold text-[var(--textDark)] focus:outline-none"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyPress}
