@@ -9,9 +9,9 @@ export default function AdminChatPage() {
   const [selectedChat, setSelectedChat] = useState(null);
 
   return (
-    <div className="flex">
-      <ChatList onSelect={setSelectedChat} />
-      <ChatWindow conversationId={selectedChat} />
-    </div>
+    <div className="flex h-screen overflow-hidden">
+  <ChatList onSelect={setSelectedChat} />
+  <ChatWindow conversationId={selectedChat} />
+</div>
   );
 }

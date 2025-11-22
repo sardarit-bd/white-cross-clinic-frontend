@@ -49,16 +49,16 @@ export default function ChatWindow({ conversationId }) {
   };
 
   return (
-    <div className="flex flex-col h-[95vh] bg-[var(--bgLight)]">
+    <div className="flex flex-col h-[95vh] bg-[var(--bgLight)] w-full">
       {/* Header */}
       <div className="bg-[var(--bgWhite)] border-b border-[var(--borderLight)] px-6 py-4 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="h-10 rounded-full bg-[var(--brandColor)] flex items-center justify-center text-white font-semibold">
+          <div className="w-10 h-10 rounded-full bg-[var(--brandColor)] flex items-center justify-center text-white font-semibold">
             U
           </div>
           <div>
             <h3 className="font-semibold text-[var(--textDark)]">User</h3>
-            <p className="text-sm text-[var(--textMuted)]">Active now</p>
+            {/* <p className="text-sm text-[var(--textMuted)]">Active now</p> */}
           </div>
         </div>
       </div>
