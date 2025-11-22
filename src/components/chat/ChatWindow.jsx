@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { X, MessageCircle, Minimize2, User, Mail } from "lucide-react";
 import { db } from "@/lib/firebase";
 
@@ -27,6 +27,8 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
         email: ""
     });
     const [showUserForm, setShowUserForm] = useState(true);
+    const messagesEndRef = useRef(null);
+    const messagesContainerRef = useRef(null);
 
     // Predefined starter questions
     const suggestions = [
@@ -61,6 +63,20 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
         return () => unsubscribe();
     }, [conversationId]);
 
+    // Auto scroll to bottom when new messages arrive
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+    const scrollToBottom = () => {
+        setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ 
+                behavior: "smooth",
+                block: "end"
+            });
+        }, 100);
+    };
+
     // Save user info and start conversation
     const handleUserRegistration = async () => {
         if (!userData.name.trim() || !userData.email.trim()) {
@@ -83,9 +99,10 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
     };
 
     const createNewConversation = async (userInfo) => {
+        // eslint-disable-next-line react-hooks/purity
         const id = `user_${Date.now()}`;
         setConversationId(id);
-        
+
         // Save conversation ID to session storage
         sessionStorage.setItem('conversationId', id);
 
@@ -99,12 +116,14 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
             userInfo: userInfo
         });
 
-        // Send welcome message
-        await addDoc(collection(db, "conversations", id, "messages"), {
-            text: `Hello ${userInfo.name}! Welcome to White Cross Clinic. How can we help you today?`,
-            sender: "bot",
-            createdAt: serverTimestamp(),
-        });
+        // Send welcome message after a short delay
+        setTimeout(async () => {
+            await addDoc(collection(db, "conversations", id, "messages"), {
+                text: `Hello ${userInfo.name}! Welcome to White Cross Clinic. How can we help you today?`,
+                sender: "bot",
+                createdAt: serverTimestamp(),
+            });
+        }, 500);
     };
 
     const sendMessage = async (text) => {
@@ -136,12 +155,12 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
         });
 
         setInput("");
-        
+
         // Find predefined answer
         const found = predefinedQA.find(
             item => item.q.toLowerCase() === text.toLowerCase()
         );
-       
+
         if (found) {
             // Auto reply after 1 second
             setTimeout(async () => {
@@ -167,7 +186,7 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
 
     // User registration form
     const renderUserForm = () => (
-        <div className="fixed bottom-6 right-6 w-80 h-96 bg-white shadow-2xl rounded-xl overflow-hidden border border-[var(--borderLight)] flex flex-col z-50">
+        <div className="fixed bottom-6 right-6 w-80 h-[500px] bg-white shadow-2xl rounded-xl overflow-hidden border border-[var(--borderLight)] flex flex-col z-50">
             {/* Header */}
             <div className="flex justify-between items-center bg-[var(--brandColor)] text-white px-4 py-3">
                 <div className="flex items-center gap-3">
@@ -176,10 +195,10 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                     </div>
                     <div>
                         <h3 className="font-semibold text-sm">Welcome to White Cross</h3>
-                        <p className="text-xs text-blue-100">Let's get started</p>
+                        <p className="text-xs text-blue-100">Lets get started</p>
                     </div>
                 </div>
-                <button 
+                <button
                     onClick={onClose}
                     className="w-8 h-8 hover:bg-[var(--brandColorDark)] rounded flex items-center justify-center transition-colors"
                 >
@@ -207,7 +226,7 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                             <input
                                 type="text"
                                 value={userData.name}
-                                onChange={(e) => setUserData({...userData, name: e.target.value})}
+                                onChange={(e) => setUserData({ ...userData, name: e.target.value })}
                                 className="w-full border border-[var(--borderLight)] rounded-lg pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent"
                                 placeholder="Enter your full name"
                                 onKeyPress={handleKeyPress}
@@ -224,7 +243,7 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                             <input
                                 type="email"
                                 value={userData.email}
-                                onChange={(e) => setUserData({...userData, email: e.target.value})}
+                                onChange={(e) => setUserData({ ...userData, email: e.target.value })}
                                 className="w-full border border-[var(--borderLight)] rounded-lg pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent"
                                 placeholder="Enter your email address"
                                 onKeyPress={handleKeyPress}
@@ -235,11 +254,10 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                     <button
                         onClick={handleUserRegistration}
                         disabled={!userData.name.trim() || !userData.email.trim()}
-                        className={`w-full py-3 rounded-lg font-semibold transition-colors ${
-                            userData.name.trim() && userData.email.trim()
-                                ? "bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white"
-                                : "bg-[var(--bgGray)] text-[var(--textMuted)] cursor-not-allowed"
-                        }`}
+                        className={`w-full py-3 rounded-lg font-semibold transition-colors ${userData.name.trim() && userData.email.trim()
+                            ? "bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white"
+                            : "bg-[var(--bgGray)] text-[var(--textMuted)] cursor-not-allowed"
+                            }`}
                     >
                         Start Chatting
                     </button>
@@ -260,13 +278,13 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                         </span>
                     </div>
                     <div className="flex gap-2">
-                        <button 
+                        <button
                             onClick={() => setIsMinimized(false)}
                             className="hover:bg-[var(--brandColorDark)] p-1 rounded"
                         >
                             <MessageCircle size={16} />
                         </button>
-                        <button 
+                        <button
                             onClick={onClose}
                             className="hover:bg-[var(--brandColorDark)] p-1 rounded"
                         >
@@ -285,7 +303,7 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
 
     // Full chat window
     return (
-        <div className="fixed bottom-6 right-6 w-80 h-96 bg-white shadow-2xl rounded-xl overflow-hidden border border-[var(--borderLight)] flex flex-col z-50">
+        <div className="fixed bottom-6 right-6 w-80 h-[500px] bg-white shadow-2xl rounded-xl overflow-hidden border border-[var(--borderLight)] flex flex-col z-50">
             {/* Header */}
             <div className="flex justify-between items-center bg-[var(--brandColor)] text-white px-4 py-3">
                 <div className="flex items-center gap-3">
@@ -294,17 +312,17 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                     </div>
                     <div>
                         <h3 className="font-semibold text-sm">{userInfo?.name}</h3>
-                        <p className="text-xs text-blue-100">We're online • {userInfo?.email}</p>
+                        <p className="text-xs text-blue-100">We are online • {userInfo?.email}</p>
                     </div>
                 </div>
                 <div className="flex gap-1">
-                    <button 
+                    <button
                         onClick={() => setIsMinimized(true)}
                         className="w-8 h-8 hover:bg-[var(--brandColorDark)] rounded flex items-center justify-center transition-colors"
                     >
                         <Minimize2 size={16} />
                     </button>
-                    <button 
+                    <button
                         onClick={onClose}
                         className="w-8 h-8 hover:bg-[var(--brandColorDark)] rounded flex items-center justify-center transition-colors"
                     >
@@ -314,9 +332,41 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto bg-[var(--bgLight)] p-4">
-                {messages.length === 0 ? (
-                    <div className="space-y-3">
+            <div 
+                ref={messagesContainerRef}
+                className="flex-1 overflow-y-auto bg-[var(--bgLight)] p-4"
+            >
+                <div className="space-y-3">
+                    {messages.map((msg, index) => (
+                        <div
+                            key={index}
+                            className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                        >
+                            <div
+                                className={`max-w-[80%] px-3 py-2 rounded-2xl ${msg.sender === "user"
+                                    ? "bg-[var(--brandColor)] text-white rounded-br-none"
+                                    : "bg-white border border-[var(--borderLight)] text-[var(--textDark)] rounded-bl-none shadow-sm"
+                                    }`}
+                            >
+                                <p className="text-sm leading-relaxed">{msg.text}</p>
+                                <p className={`text-xs mt-1 ${msg.sender === "user" ? "text-blue-100" : "text-[var(--textMuted)]"
+                                    }`}>
+                                    {msg.createdAt?.toDate().toLocaleTimeString([], {
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    })}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                    
+                    {/* Scroll anchor */}
+                    <div ref={messagesEndRef} />
+                </div>
+                
+                {/* Show suggestions only if no messages or last message is from bot */}
+                {(messages.length === 0 || messages[messages.length - 1]?.sender === 'bot') && (
+                    <div className="space-y-3 mt-4">
                         <div className="text-center">
                             <div className="w-12 h-12 bg-[var(--brandColorLight)] rounded-full flex items-center justify-center mx-auto mb-2">
                                 <MessageCircle size={20} className="text-[var(--brandColor)]" />
@@ -324,45 +374,18 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                             <h4 className="font-semibold text-[var(--textDark)] text-sm">How can we help you?</h4>
                             <p className="text-[var(--textLight)] text-xs mt-1">Ask us anything</p>
                         </div>
-                        
+
                         <div className="space-y-2">
-                            {suggestions.map((suggestion, index) => (
+                            {suggestions?.map((suggestion, index) => (
                                 <button
                                     key={index}
                                     onClick={() => sendMessage(suggestion)}
-                                    className="w-full text-left p-3 bg-white border border-[var(--borderLight)] rounded-lg hover:bg-[var(--bgLight)] transition-colors text-sm text-[var(--textDark)]"
+                                    className="w-full text-left p-3 bg-white border border-[var(--borderLight)] rounded-lg hover:bg-[var(--bgLight)] transition-colors text-sm text-[var(--textDark)] hover:scale-[1.02] active:scale-[0.98] transform duration-200"
                                 >
                                     {suggestion}
                                 </button>
                             ))}
                         </div>
-                    </div>
-                ) : (
-                    <div className="space-y-3">
-                        {messages.map((msg, index) => (
-                            <div
-                                key={index}
-                                className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-                            >
-                                <div
-                                    className={`max-w-[80%] px-3 py-2 rounded-2xl ${
-                                        msg.sender === "user"
-                                            ? "bg-[var(--brandColor)] text-white rounded-br-none"
-                                            : "bg-white border border-[var(--borderLight)] text-[var(--textDark)] rounded-bl-none shadow-sm"
-                                    }`}
-                                >
-                                    <p className="text-sm leading-relaxed">{msg.text}</p>
-                                    <p className={`text-xs mt-1 ${
-                                        msg.sender === "user" ? "text-blue-100" : "text-[var(--textMuted)]"
-                                    }`}>
-                                        {msg.createdAt?.toDate().toLocaleTimeString([], {
-                                            hour: '2-digit',
-                                            minute: '2-digit'
-                                        })}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 )}
             </div>
@@ -380,11 +403,10 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
                     <button
                         onClick={() => sendMessage(input)}
                         disabled={!input.trim()}
-                        className={`px-4 py-2 rounded-lg transition-colors ${
-                            input.trim()
-                                ? "bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white"
-                                : "bg-[var(--bgGray)] text-[var(--textMuted)] cursor-not-allowed"
-                        }`}
+                        className={`px-4 py-2 rounded-lg transition-all duration-200 ${input.trim()
+                            ? "bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white hover:scale-105"
+                            : "bg-[var(--bgGray)] text-[var(--textMuted)] cursor-not-allowed"
+                            }`}
                     >
                         Send
                     </button>
