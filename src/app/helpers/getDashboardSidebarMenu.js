@@ -15,6 +15,7 @@ import {
     MessageSquare,
     FolderTree,
     BriefcaseMedical,
+    Inbox,
 } from "lucide-react";
 
 // ================================
@@ -47,6 +48,11 @@ const doctorMenu = [
         title: "Appointments",
         href: "/dashboard/doctor/appointments",
         icon: CalendarCheck
+    },
+    {
+        title: "Inbox",
+        href: "/dashboard/doctor/chat",
+        icon: Inbox
     },
 
     {
