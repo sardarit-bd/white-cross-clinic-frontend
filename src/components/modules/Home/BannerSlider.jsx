@@ -3,32 +3,34 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, Search, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const slides = [
   {
     id: 1,
-    title: "Your Health, Our Priority",
-    tagline: "Trusted Care Since 1990",
-    description:
-      "At White Cross Clinic, we provide compassionate and advanced medical care — ensuring every patient receives personalized treatment from start to recovery.",
+    title: "Patient Reception",
+    subtitle: "White's first clinic is CQC registered",
+    description: [
+      "Monday - Friday: 9:00 AM - 5:00 PM (Office Open)",
+      "Evening Support: 5:00 PM - 10:00 PM (Online / Telephone Only)",
+      "Saturday: Telephone Support Only (Office Closed)",
+      "Sunday: Closed",
+    ],
     image: "/images/slider1.jpg",
   },
   {
     id: 2,
-    title: "Excellence in Medical Services",
-    tagline: "Innovation Driven by Compassion",
-    description:
-      "From emergency care to preventive health programs, our specialists work tirelessly to deliver excellence with empathy and precision.",
+    title: "White's first clinic is CQC registered",
+    subtitle: "Accessible Healthcare Services – Anytime, Anywhere",
+    description: ["Check out more about us!"],
     image: "/images/slider2.jpg",
   },
   {
     id: 3,
-    title: "Trusted by Thousands of Families",
-    tagline: "Because Every Life Matters",
-    description:
-      "We deliver healthcare with precision, empathy, and innovation — serving communities with world-class facilities and trusted professionals.",
+    title: "Quality accredited services",
+    subtitle: "White's first clinic is CQC registered",
+    description: [],
     image: "/images/slider3.jpg",
   },
 ];
@@ -45,7 +47,7 @@ export default function BannerSlider() {
   }, []);
 
   return (
-    <section className="relative w-full h-[55vh] md:h-[70vh] overflow-hidden">
+    <section className="relative w-full h-[65vh] md:h-[80vh] overflow-hidden">
       <AnimatePresence>
         {slides.map(
           (slide, index) =>
@@ -63,65 +65,55 @@ export default function BannerSlider() {
                   src={slide.image}
                   alt={slide.title}
                   fill
-                  className="object-cover object-center brightness-90"
+                  className="object-cover object-center brightness-[0.55]"
                   priority
                 />
 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/50 to-black/70" />
-
-                {/* Content */}
-                <div className="absolute mt-40 inset-0 flex flex-col items-center justify-center text-center px-6 md:px-12">
-
-                  {/* Tagline */}
+                {/* Content Card */}
+                <div className="absolute inset-0 flex items-center justify-center px-6 md:px-16">
                   <motion.div
-                    initial={{ y: -40, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 0.8 }}
-                    className="mb-4"
-                  >
-                    <span className="text-[var(--brandAccent)] font-semibold tracking-wide text-sm md:text-base bg-white/70 px-4 py-1 rounded-full backdrop-blur-md">
-                      {slide.tagline}
-                    </span>
-                  </motion.div>
-
-                  {/* Title */}
-                  <motion.h2
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.5, duration: 0.8 }}
-                    className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg mb-4"
+                    transition={{ duration: 0.8 }}
+                    className="bg-white/85 backdrop-blur-lg shadow-xl rounded-xl p-8 md:p-12 max-w-2xl text-left"
                   >
-                    {slide.title}
-                  </motion.h2>
+                    <h1 className="text-3xl md:text-5xl font-bold text-[var(--textDark)] mb-4 leading-tight">
+                      {slide.title}
+                    </h1>
 
-                  {/* Description */}
-                  <motion.p
-                    initial={{ y: 40, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.7, duration: 0.8 }}
-                    className="max-w-3xl text-base md:text-lg text-white/90 mb-6"
-                  >
-                    {slide.description}
-                  </motion.p>
+                    <h3 className="text-lg md:text-xl font-semibold text-[var(--brandColor)] mb-4">
+                      {slide.subtitle}
+                    </h3>
 
-                  {/* CTA */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.9, duration: 0.8 }}
-                    className="mb-10"
-                  >
-                    <Link
-                      href="/appointment"
-                      className="px-6 py-3 font-medium text-white rounded-full shadow-lg transition-all duration-300 hover:scale-105"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, var(--brandColor), var(--brandAccent))",
-                      }}
-                    >
-                      Make an Appointment
-                    </Link>
+                    <div className="space-y-2 text-[var(--textDark)] text-base md:text-lg font-medium leading-relaxed">
+                      {slide.description.map((line, i) => (
+                        <p key={i}>{line}</p>
+                      ))}
+                    </div>
+
+                    {/* CTA Buttons */}
+                    <div className="flex gap-4 mt-8">
+                      <Link
+                        href="/about"
+                        className="px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 transition"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, var(--brandColor), var(--brandAccent))",
+                        }}
+                      >
+                        Read More
+                      </Link>
+                      <Link
+                        href="/appointment"
+                        className="px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 transition"
+                        style={{
+                          background:
+                            "linear-gradient(90deg, var(--brandAccent), var(--brandColor))",
+                        }}
+                      >
+                        Book Now
+                      </Link>
+                    </div>
                   </motion.div>
                 </div>
               </motion.div>
@@ -129,18 +121,18 @@ export default function BannerSlider() {
         )}
       </AnimatePresence>
 
-      {/* Arrows */}
+      {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/25 hover:bg-white/40 text-[var(--brandColor)] p-2 rounded-full transition"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/70 text-[var(--brandColor)] p-3 rounded-full transition shadow-md"
       >
-        <ArrowLeft size={24} />
+        <ArrowLeft size={26} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/25 hover:bg-white/40 text-[var(--brandColor)] p-2 rounded-full transition"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/70 text-[var(--brandColor)] p-3 rounded-full transition shadow-md"
       >
-        <ArrowRight size={24} />
+        <ArrowRight size={26} />
       </button>
 
       {/* Dots */}
@@ -152,7 +144,7 @@ export default function BannerSlider() {
             className={`w-3 h-3 rounded-full transition-all ${
               i === current
                 ? "bg-[var(--brandAccent)] scale-125"
-                : "bg-white/60 hover:bg-white/90"
+                : "bg-white/60 hover:bg-white"
             }`}
           ></button>
         ))}
