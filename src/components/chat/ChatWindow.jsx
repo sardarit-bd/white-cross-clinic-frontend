@@ -65,6 +65,7 @@ export default function ChatWindow({ onClose, userInfo, setUserInfo }) {
 
     // Auto scroll to bottom when new messages arrive
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/immutability
         scrollToBottom();
     }, [messages]);
 
