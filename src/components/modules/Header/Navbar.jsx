@@ -9,6 +9,74 @@ import { usePathname } from "next/navigation";
 import NavButton from "./NavButton";
 
 // Mega Menu Data
+const testItems = [
+  "Allergies",
+  "Allergy Test Library",
+  "Allergy Profiles",
+  "Individual Allergen Tests",
+  "Allergen components",
+  "Cross Reactivity",
+  "Pollen Calendar",
+  "Andrology",
+  "Pathology and Services",
+  "Oxidative Stress in Semen",
+  "Sperm DNA fragmentation",
+  "New High Dose Antibiotic Susceptibility Category",
+  "Trace metals in blood",
+  "Trace metals in urine",
+  "Tests for specific exposure",
+  "Reproductive health",
+  "Reproductive health tests",
+  "Rapid Xpert HIV-1",
+  "Sperm aneuploidy",
+  "Antibiotic assays",
+  "Biochemistry tests",
+  "Cervical screening",
+  "HPV tests",
+  "STI Screening from Hologic ThinPrep Vials",
+  "ThinPrep PAP Test Cervex Brush Protocol",
+  "WCC Self-Collection HPV Test",
+  "Cytology (Non-Gynaecological)",
+  "Infection",
+  "Lifestyle / Environment",
+  "Chromosomes / genetics",
+  "Unexplained infertility / implantation failure / recurrent miscarriage",
+  "Sexually transmitted infections",
+  "Sexual health tests",
+  "FAST sexual health screening tests",
+  "Drugs of abuse / Alcohol",
+  "Endocrinology",
+  "WCC Genetics",
+  "Non-invasive prenatal testing",
+  "Cytogenetics",
+  "Molecular Genetics",
+  "Array CGH testing",
+  "NIPT via the Fetal Aneuploidy Screening Programme",
+  "NIPT via the National Genomics Test Directory",
+  "Immunology",
+  "Therapeutic drug assays",
+  "Tumour markers tests",
+  "Immune status",
+  "Hepatitis tests",
+  "Hormones",
+  "Tropical and travel related immunology tests",
+  "Coeliac disease update",
+  "In-vivo tests",
+  "Medical microbiology",
+  "Urine culture processing and results",
+  "Red-topped boric acid containers",
+  "Stool test codes",
+  "Fungal detection",
+  "Mycobacterial and respiratory investigation",
+  "Swabs: Types and codes",
+  "HIV testing",
+  "Virology tests",
+  "Virology screens by blood",
+  "Virology screens by PCR",
+  "Nutrition and Lifestyle",
+  "Vitamin tests"
+];
+
 const doctorDepartments = [
   "Neurology", "Cardiology", "Orthopedics", "Pediatrics",
   "Gastroenterology", "Dermatology", "Psychiatry",
@@ -25,6 +93,7 @@ const articleCategories = [
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Specialties", href: '/specialties', mega: "specialties" },
   { label: "Social Media", href: "/social" },
   { label: "Top Services", href: "/topservices" },
   { label: "Test", href: "/test" },
@@ -47,7 +116,7 @@ export default function Navbar() {
     href === "/" ? firstSegment === "" : firstSegment === href.replace("/", "");
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+    <nav className="fixed md:top-8 top-0 left-0 w-full z-50 bg-white shadow-md">
 
       {/* HEADER */}
       <div className="h-[90px] flex items-center">
@@ -78,8 +147,8 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   className={`pb-1 flex items-center gap-1 font-medium transition ${isActive(item.href)
-                      ? "text-[var(--brandColor)] font-semibold"
-                      : "text-gray-700 hover:text-[var(--brandColor)]"
+                    ? "text-[var(--brandColor)] font-semibold"
+                    : "text-gray-700 hover:text-[var(--brandColor)]"
                     }`}
                 >
                   {item.label}
@@ -121,7 +190,7 @@ export default function Navbar() {
               py-10 shadow-lg
             "
           >
-            <div className="max-w-7xl mx-auto px-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="container mx-auto px-12 grid grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-6 gap-y-1">
 
               {/* DOCTORS MEGA MENU */}
               {hoveredMenu === "doctors" &&
@@ -139,6 +208,23 @@ export default function Navbar() {
                     {dept}
                   </Link>
                 ))}
+              {/* Specialities */}
+              {hoveredMenu === "specialties" &&
+                testItems.map((dept, i) => (
+                  <Link
+                    key={i}
+                    href={`/specialties/${dept.toLowerCase()}`}
+                    className="
+                      flex items-center gap-2 p-1 text-[var(--textDark)] 
+                      hover:text-[var(--brandColor)] 
+                      hover:underline underline-offset-2 transition text-md
+                    "
+                  >
+                    {/* <span className="w-2 h-2 bg-[var(--brandColor)] rounded-full"></span> */}
+                    {dept}
+                  </Link>
+                ))}
+
 
               {/* ARTICLES MEGA MENU */}
               {hoveredMenu === "articles" &&
@@ -184,8 +270,8 @@ export default function Navbar() {
                       : setIsOpen(false)
                   }
                   className={`flex justify-between items-center text-lg font-medium ${isActive(item.href)
-                      ? "text-[var(--brandColor)]"
-                      : "text-gray-700"
+                    ? "text-[var(--brandColor)]"
+                    : "text-gray-700"
                     }`}
                 >
                   {item.label}
@@ -194,9 +280,9 @@ export default function Navbar() {
 
                 {/* MOBILE DROPDOWN */}
                 {mobileDropdown === item.mega && (
-                  <div className="ml-4 mt-2 space-y-2">
+                  <div className="ml-4 mt-2 space-y-2 max-h-64 overflow-y-auto pr-2 custom-scroll">
                     {(item.mega === "doctors"
-                      ? doctorDepartments
+                      ? doctorDepartments : item.mega === 'specialties' ? testItems 
                       : articleCategories
                     ).map((sub, i) => (
                       <Link
