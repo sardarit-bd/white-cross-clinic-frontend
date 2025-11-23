@@ -197,7 +197,7 @@ export default function Navbar() {
                 doctorDepartments.map((dept, i) => (
                   <Link
                     key={i}
-                    href={`/doctors/${dept.toLowerCase()}`}
+                    href={`/doctors/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g)}`}
                     className="
                       flex items-center gap-2 p-1 text-[var(--textDark)] 
                       hover:text-[var(--brandColor)] 
@@ -213,7 +213,7 @@ export default function Navbar() {
                 testItems.map((dept, i) => (
                   <Link
                     key={i}
-                    href={`/specialties/${dept.toLowerCase()}`}
+                    href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g)}`}
                     className="
                       flex items-center gap-2 p-1 text-[var(--textDark)] 
                       hover:text-[var(--brandColor)] 
@@ -231,7 +231,7 @@ export default function Navbar() {
                 articleCategories.map((cat, i) => (
                   <Link
                     key={i}
-                    href={`/articles/${cat.toLowerCase()}`}
+                    href={`/articles/${cat.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g)}`}
                     className="
                        flex items-center gap-2 p-1 text-[var(--textDark)] 
                       hover:text-[var(--brandColor)] 
@@ -287,7 +287,7 @@ export default function Navbar() {
                     ).map((sub, i) => (
                       <Link
                         key={i}
-                        href={`/${item.mega}/${sub.toLowerCase()}`}
+                        href={`/${item.mega}/${sub.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g)}`}
                         onClick={() => setIsOpen(false)}
                         className="block text-gray-600 text-sm py-1"
                       >
