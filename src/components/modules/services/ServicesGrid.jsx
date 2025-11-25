@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const services = [
   {
@@ -107,37 +108,70 @@ export default function ServicesGrid() {
   return (
     <section
       className="relative py-20 bg-cover bg-center"
-      style={{ backgroundImage: "url('/images/serviceGridBanner.webp')" }} // Replace with your bg image
+      style={{ backgroundImage: "url('/images/serviceGridBanner.webp')" }}
     >
       <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
 
       <div className="relative container mx-auto px-4">
         {/* GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {services.map((srv, index) => (
-            <Link
-              key={index}
-              href={`/topservices/${srv?.link ? srv.link : srv?.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}`}
-              className="bg-[#0C2A5A] text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition"
-            >
-              <div className="flex justify-center mb-4">
-                <Image
-                  src={srv.icon}
-                  alt={srv.title}
-                  width={50}
-                  height={50}
-                />
-              </div>
+          {services.map((srv, index) => {
+            const slug =
+              srv?.link ||
+              srv.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-              <h3 className="text-lg font-semibold text-center mb-2">
-                {srv.title}
-              </h3>
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                viewport={{ once: true }}
+                className="bg-[#0C2A5A] text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition flex flex-col"
+              >
+                {/* ICON */}
+                <div className="flex justify-center mb-4">
+                  <Image
+                    src={srv.icon}
+                    alt={srv.title}
+                    width={50}
+                    height={50}
+                  />
+                </div>
 
-              <p className="text-sm text-center opacity-90 leading-relaxed">
-                {srv.desc}
-              </p>
-            </Link>
-          ))}
+                {/* TITLE */}
+                <h3 className="text-lg font-semibold text-center mb-2">
+                  {srv.title}
+                </h3>
+
+                {/* DESC */}
+                <p className="text-sm text-center opacity-90 leading-relaxed mb-6 flex-grow">
+                  {srv.desc}
+                </p>
+
+                {/* BUTTONS */}
+                <div className="mt-auto flex gap-3 justify-center">
+
+                  {/* SEE DETAILS */}
+                  <Link
+                    href={`/topservices/${slug}`}
+                    className="text-sm px-4 py-2 rounded-lg border border-[var(--brandColorLight)] bg-white/10 hover:bg-white/20 transition"
+                  >
+                    See Details
+                  </Link>
+
+                  {/* BOOK NOW */}
+                  <Link
+                    href={`/get-book?service=${slug}`}
+                    className="text-sm px-4 py-2 rounded-lg bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white transition"
+                  >
+                    Book Now
+                  </Link>
+
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
