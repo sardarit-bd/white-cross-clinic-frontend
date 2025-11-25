@@ -54,10 +54,12 @@ const sidebarItems = [
     {
         title: "Immunology",
         children: [
-            "Tropical And Travel Related Immunology Tests",
+            // "Tropical And Travel Related Immunology Tests",
             "Coeliac Disease Update",
-            "In Vivo Tests"
         ]
+    },
+    {
+        title: "In Vivo Tests"
     },
     {
         title: "Medical Microbiology",
