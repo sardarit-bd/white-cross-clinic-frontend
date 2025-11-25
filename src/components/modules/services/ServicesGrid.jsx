@@ -8,11 +8,13 @@ const services = [
     icon: "/icons/mobile.webp",
     title: "Offering Mobile Clinics",
     desc: "Convenient healthcare delivered to your doorstep.",
+    link: "mobile-clinics"
   },
   {
     icon: "/icons/clock.webp",
     title: "Out Of Hours Services",
     desc: "Medical services available beyond regular clinic hours.",
+    link: "out-of-hours-services"
   },
   {
     icon: "/icons/shield.webp",
@@ -115,7 +117,7 @@ export default function ServicesGrid() {
           {services.map((srv, index) => (
             <Link
               key={index}
-              href="/topservices/sdsd"
+              href={`/topservices/${srv?.link ? srv.link : srv?.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}`}
               className="bg-[#0C2A5A] text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition"
             >
               <div className="flex justify-center mb-4">

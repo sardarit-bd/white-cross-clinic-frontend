@@ -1,44 +1,57 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 
-export default function MobileClinicIntro() {
+
+export default function MobileClinicIntro({mobileClinicData}) {
   return (
-    <section className="bg-[var(--bgLight)]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center container mx-auto px-4 py-16">
+     <section className="bg-[var(--bgWhite)] py-20">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-16 px-4">
 
-        {/* LEFT: IMAGE */}
-        <div className="flex justify-center">
-          <div className="rounded-xl overflow-hidden shadow-lg max-w-xl">
+        {/* LEFT SIDE: IMAGE + BLUE BOTTOM BAR */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="relative flex justify-center"
+        >
+          {/* Rounded Top Image */}
+          <div className="rounded-t-3xl relative shadow-[var(--shadowCard)] max-w-2xl w-full">
             <Image
-              src="/images/mobile-clinic.webp" 
-              alt="Mobile Clinic"
-              width={700}
-              height={500}
-              className="object-cover"
+              src={mobileClinicData.image}
+              alt={mobileClinicData.title}
+              width={900}
+              height={600}
+              className="object-cover w-full h-full"
             />
-            <div className="bg-[#0C2A5A] h-8 w-full"></div>
+             <div className="absolute -bottom-14 w-full h-20 bg-[var(--brandColor)] rounded-b-3xl shadow-md"></div>
           </div>
-        </div>
 
-        {/* RIGHT: TEXT CONTENT */}
-        <div>
-          <span className="text-sm text-gray-500 uppercase tracking-wide">
-            Services
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0C2A5A] mt-2 mb-4">
-            Mobile Clinics Services
+          {/* Bottom Blue Section (Rounded Same Width) */}
+         
+        </motion.div>
+
+        {/* RIGHT SIDE: TEXT */}
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-sm tracking-wide text-[var(--brandColorDark)] font-semibold mb-2">
+            {mobileClinicData.tag}
+          </p>
+
+          <h2 className="text-3xl md:text-5xl font-bold text-[var(--textDark)] mb-6 leading-tight">
+            {mobileClinicData.title}
           </h2>
 
-          <p className="text-gray-700 leading-relaxed text-[15px]">
-            At White Cross Clinic, we understand that access to healthcare is essential,
-            regardless of where you live or work. Thats why were proud to offer our Mobile
-            Clinic services, bringing quality healthcare directly to communities across {`{your area}`}.
-            Our state-of-the-art mobile medical unit is fully equipped to provide a wide range of
-            healthcare services, making it easier and more convenient for you to prioritize your
-            health and well-being.
+          <p className="text-[var(--textMedium)] text-[16px] leading-relaxed max-w-xl">
+            {mobileClinicData.description}
           </p>
-        </div>
+        </motion.div>
 
       </div>
     </section>
