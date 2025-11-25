@@ -1,16 +1,17 @@
 "use client";
 
-import AppointmentsFollowups from "@/components/modules/dashboard/patient/AppointmentsFollowups";
-import BillingInsurance from "@/components/modules/dashboard/patient/BillingInsurance";
-import CurrentHealthStatus from "@/components/modules/dashboard/patient/CurrentHealthStatus";
-import LabDiagnostics from "@/components/modules/dashboard/patient/LabDiagnostics";
-import MedicalHistory from "@/components/modules/dashboard/patient/MedicalHistory";
-import MedicationsTreatment from "@/components/modules/dashboard/patient/MedicationsTreatment";
-import NotesDocuments from "@/components/modules/dashboard/patient/NotesDocuments";
+import { useState } from "react";
+import PatientTabs from "@/components/modules/dashboard/patient/PatientTabs";
 import PatientDemographics from "@/components/modules/dashboard/patient/PatientDemographics";
-import { useEffect, useState } from "react";
+import MedicalHistory from "@/components/modules/dashboard/patient/MedicalHistory";
+import LabDiagnostics from "@/components/modules/dashboard/patient/LabDiagnostics";
+import BillingInsurance from "@/components/modules/dashboard/patient/BillingInsurance";
+import NotesDocuments from "@/components/modules/dashboard/patient/NotesDocuments";
+import Perception from "@/components/modules/dashboard/patient/Perception";
 
-export default function PatientDashboardPage() {
+export default function PatientDashboard() {
+  const [activeTab, setActiveTab] = useState('demographics');
+
   // Patient Demographics
   const [patient, setPatient] = useState({
     fullName: "John Doe",
@@ -25,7 +26,7 @@ export default function PatientDashboardPage() {
     allergies: "Penicillin, Peanuts"
   });
 
-  // Medical History - variable name lowercase করে দিন
+  // Medical History
   const [medicalHistoryData, setMedicalHistoryData] = useState([
     {
       id: 1,
@@ -119,69 +120,68 @@ export default function PatientDashboardPage() {
     }
   ]);
 
-  // Appointments & Follow-ups
-  const [appointments, setAppointments] = useState([
-    {
-      id: 1,
-      doctorName: "Dr. Sarah Wilson",
-      specialization: "Cardiologist",
-      date: "2025-01-25",
-      time: "10:00 AM",
-      status: "Upcoming",
-      location: "City Medical Center, Room 304",
-      reason: "Heart Checkup",
-      type: "Follow-up"
-    },
-    {
-      id: 2,
-      doctorName: "Dr. Michael Chen",
-      specialization: "Neurologist",
-      date: "2025-01-20",
-      time: "02:30 PM",
-      status: "Completed",
-      location: "General Hospital, Room 102",
-      reason: "Headache Consultation",
-      type: "Consultation"
-    },
-    {
-      id: 3,
-      doctorName: "Dr. Emily Davis",
-      specialization: "Dermatologist",
-      date: "2025-02-05",
-      time: "11:15 AM",
-      status: "Scheduled",
-      location: "Skin Care Clinic, Room 205",
-      reason: "Annual Skin Check",
-      type: "Routine"
-    }
-  ]);
-
   // Billing & Insurance
   const [billingInfo, setBillingInfo] = useState({
-    insuranceProvider: "Blue Cross Blue Shield",
-    policyNumber: "BCBS123456789",
-    groupNumber: "GRP987654",
-    deductible: {
-      individual: "$500",
-      family: "$1500",
-      met: "$350"
-    },
-    copay: "$25",
-    outstandingBalance: "$120.50",
     recentClaims: [
       {
         id: 1,
         date: "2024-01-15",
-        service: "Consultation",
+        service: "Consultation Fee",
         amount: "$150.00",
-        status: "Paid"
+        status: "Paid",
+        receiptPdf: "data:application/pdf;base64,JVBERi0xLjcKJeLjz9MKMiAwIG9iago8PC9M...",
+        transactionId: "TXN001234",
+        paymentMethod: "Credit Card",
+        provider: "City Medical Center",
+        invoiceNumber: "INV-2024-001"
       },
       {
         id: 2,
         date: "2024-01-20",
-        service: "Lab Tests",
+        service: "Laboratory Tests",
         amount: "$85.50",
-        status: "Pending"
+        status: "Paid",
+        receiptPdf: "data:application/pdf;base64,JVBERi0xLjcKJeLjz9MKMiAwIG9iago8PC9M...",
+        transactionId: "TXN001235",
+        paymentMethod: "Debit Card",
+        provider: "LabCorp Diagnostics",
+        invoiceNumber: "INV-2024-002"
+      },
+      {
+        id: 3,
+        date: "2024-02-01",
+        service: "MRI Scan",
+        amount: "$450.00",
+        status: "Pending",
+        receiptPdf: "data:application/pdf;base64,JVBERi0xLjcKJeLjz9MKMiAwIG9iago8PC9M...",
+        transactionId: "TXN001236",
+        paymentMethod: "Insurance",
+        provider: "Advanced Imaging Center",
+        invoiceNumber: "INV-2024-003"
+      },
+      {
+        id: 4,
+        date: "2024-02-10",
+        service: "Medication Prescription",
+        amount: "$35.75",
+        status: "Paid",
+        receiptPdf: "data:application/pdf;base64,JVBERi0xLjcKJeLjz9MKMiAwIG9iago8PC9M...",
+        transactionId: "TXN001237",
+        paymentMethod: "Cash",
+        provider: "City Pharmacy",
+        invoiceNumber: "INV-2024-004"
+      },
+      {
+        id: 5,
+        date: "2024-02-15",
+        service: "Follow-up Visit",
+        amount: "$120.00",
+        status: "Paid",
+        receiptPdf: "data:application/pdf;base64,JVBERi0xLjcKJeLjz9MKMiAwIG9iago8PC9M...",
+        transactionId: "TXN001238",
+        paymentMethod: "Credit Card",
+        provider: "City Medical Center",
+        invoiceNumber: "INV-2024-005"
       }
     ]
   });
@@ -214,12 +214,125 @@ export default function PatientDashboardPage() {
     }
   ]);
 
-  // Quick Stats
+  const [prescriptions, setPrescriptions] = useState([
+    {
+      id: 1,
+      prescribedBy: "Dr. Sarah Wilson",
+      prescriptionDate: "2024-01-15",
+      prescriptionPdf:
+        "data:application/pdf;base64,JVBERi0xLjMKJFakeExamplePDFBase64...",
+    },
+    {
+      id: 2,
+      prescribedBy: "Dr. Michael Chen",
+      prescriptionDate: "2024-01-20",
+      prescriptionPdf:
+        "data:application/pdf;base64,JVBERi0xLjMKFakePdfData...",
+    },
+  ]);
+
+
+  // Quick Stats for Dashboard View
   const stats = {
-    upcomingAppointments: appointments.filter(a => a.status === "Upcoming" || a.status === 'Scheduled').length,
+    upcomingAppointments: 2,
     activeMedications: medications.filter(m => m.status === "Active").length,
     pendingResults: labResults.filter(l => l.status === "Abnormal").length,
-    recentVisits: appointments.filter(a => a.status === "Completed").length
+    recentVisits: 5
+  };
+
+  // Render active tab content
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'demographics':
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2">
+                <PatientDemographics
+                  patient={patient}
+                  onUpdate={setPatient}
+                />
+              </div>
+              <div className="space-y-6">
+                {/* Quick Stats Card */}
+                <div className="bg-white p-6 rounded-xl shadow-[var(--shadowCard)]">
+                  <h3 className="font-semibold mb-4">Quick Overview</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-[var(--textLight)]">Age</span>
+                      <span className="font-semibold">{patient.age} years</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-[var(--textLight)]">Blood Type</span>
+                      <span className="font-semibold">{patient.bloodType}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-[var(--textLight)]">Allergies</span>
+                      <span className="font-semibold text-red-600">{patient.allergies}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      // case 'health':
+      //   return (
+      //     <CurrentHealthStatus 
+      //       healthStatus={healthStatus} 
+      //       onUpdate={setHealthStatus} 
+      //     />
+      //   );
+
+      case 'medical-history':
+        return (
+          <MedicalHistory
+            medicalHistory={medicalHistoryData}
+            onUpdate={setMedicalHistoryData}
+          />
+        );
+
+      case 'lab':
+        return (
+          <LabDiagnostics
+            labResults={labResults}
+            onUpdate={setLabResults}
+          />
+        );
+
+      case "perception":
+        return (
+          <Perception
+            medications={prescriptions}
+            onUpdate={setPrescriptions}
+          />
+        );
+
+      case 'billing':
+        return (
+          <BillingInsurance
+            billingInfo={billingInfo}
+            onUpdate={setBillingInfo}
+          />
+        );
+
+      case 'documents':
+        return (
+          <NotesDocuments
+            documents={documents}
+            onUpdate={setDocuments}
+          />
+        );
+
+      default:
+        return (
+          <PatientDemographics
+            patient={patient}
+            onUpdate={setPatient}
+          />
+        );
+    }
   };
 
   return (
@@ -231,80 +344,47 @@ export default function PatientDashboardPage() {
             Patient Medical Profile
           </h1>
           <p className="text-[var(--textLight)]">
-            Comprehensive health information and medical records
+            {activeTab === 'demographics' ? 'Personal information and demographics' :
+              //  activeTab === 'health' ? 'Current health status and vitals' :
+              activeTab === 'medical-history' ? 'Medical conditions and history' :
+                activeTab === 'lab' ? 'Laboratory test results' :
+                  activeTab === 'medications' ? 'Medications and treatment plans' :
+                    activeTab === 'billing' ? 'Billing and insurance information' :
+                      'Medical documents and records'}
           </p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="flex gap-4 flex-wrap">
-          <div className="bg-white p-4 rounded-xl shadow-[var(--shadowCard)] min-w-[120px] text-center">
-            <p className="text-sm text-[var(--textLight)]">Upcoming</p>
-            <p className="text-xl font-bold text-[var(--brandColor)]">
-              {stats.upcomingAppointments}
-            </p>
+        {/* Quick Stats - Show only on demographics tab */}
+        {activeTab === 'demographics' && (
+          <div className="flex gap-4 flex-wrap">
+            <div className="bg-white p-4 rounded-xl shadow-[var(--shadowCard)] min-w-[120px] text-center">
+              <p className="text-sm text-[var(--textLight)]">Medications</p>
+              <p className="text-xl font-bold text-blue-600">
+                {stats.activeMedications}
+              </p>
+            </div>
+            <div className="bg-white p-4 rounded-xl shadow-[var(--shadowCard)] min-w-[120px] text-center">
+              <p className="text-sm text-[var(--textLight)]">Pending Results</p>
+              <p className="text-xl font-bold text-orange-600">
+                {stats.pendingResults}
+              </p>
+            </div>
+            <div className="bg-white p-4 rounded-xl shadow-[var(--shadowCard)] min-w-[120px] text-center">
+              <p className="text-sm text-[var(--textLight)]">Recent Visits</p>
+              <p className="text-xl font-bold text-green-600">
+                {stats.recentVisits}
+              </p>
+            </div>
           </div>
-          <div className="bg-white p-4 rounded-xl shadow-[var(--shadowCard)] min-w-[120px] text-center">
-            <p className="text-sm text-[var(--textLight)]">Medications</p>
-            <p className="text-xl font-bold text-blue-600">
-              {stats.activeMedications}
-            </p>
-          </div>
-          <div className="bg-white p-4 rounded-xl shadow-[var(--shadowCard)] min-w-[120px] text-center">
-            <p className="text-sm text-[var(--textLight)]">Pending Results</p>
-            <p className="text-xl font-bold text-orange-600">
-              {stats.pendingResults}
-            </p>
-          </div>
-        </div>
+        )}
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        {/* Left Column - Primary Medical Information */}
-        <div className="xl:col-span-2 space-y-6">
-          <PatientDemographics 
-            patient={patient} 
-            onUpdate={setPatient}
-          />
-          
-          <CurrentHealthStatus 
-            healthStatus={healthStatus} 
-            onUpdate={setHealthStatus} 
-          />
-          
-          <MedicalHistory 
-            medicalHistory={medicalHistoryData} 
-            onUpdate={setMedicalHistoryData} 
-          />
-          
-          <LabDiagnostics 
-            labResults={labResults} 
-            onUpdate={setLabResults} 
-          />
-        </div>
+      {/* Tab Navigation */}
+      <PatientTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
-        {/* Right Column - Treatment & Administrative */}
-        <div className="space-y-6">
-          <MedicationsTreatment 
-            medications={medications} 
-            onUpdate={setMedications} 
-          />
-          
-          {/* <AppointmentsFollowups 
-            appointments={appointments} 
-            onUpdate={setAppointments} 
-          /> */}
-          
-          <BillingInsurance 
-            billingInfo={billingInfo} 
-            onUpdate={setBillingInfo} 
-          />
-          
-          <NotesDocuments 
-            documents={documents} 
-            onUpdate={setDocuments} 
-          />
-        </div>
+      {/* Tab Content */}
+      <div className="animate-fadeIn">
+        {renderTabContent()}
       </div>
     </div>
   );

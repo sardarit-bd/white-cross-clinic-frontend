@@ -2,8 +2,8 @@
 "use client"
 import AdminDashboard from "@/components/modules/dashboard/admin/AdminDashboard";
 import DoctorDashboard from "@/components/modules/dashboard/doctor/DoctorOverview";
-import PatientDashboard from "@/components/modules/dashboard/patient/PatientDashboard";
 import { useAuth } from "@/hooks/useAuth";
+import PatientDashboard from "./patient/page";
 
 
 export default function DashboardHome() {
@@ -13,5 +13,5 @@ export default function DashboardHome() {
     return <p>Access denied</p>;
   }
 
-  return user.role === "admin" ? <AdminDashboard /> : user.role === "doctor" ? <DoctorDashboard /> : <PatientDashboard />;
+  return user.role === "admin" ? <AdminDashboard /> : user.role === "doctor" ? <DoctorDashboard /> : user.role ==="patient" ? <PatientDashboard /> : <p>Access denied</p>;
 }

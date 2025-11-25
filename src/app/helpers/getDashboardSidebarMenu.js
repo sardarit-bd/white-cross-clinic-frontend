@@ -24,7 +24,7 @@ import {
 const patientMenu = [
     { title: "Dashboard", href: "/dashboard", icon: Home },
     { title: "Search Medical Info", href: "/dashboard/search", icon: Search },
-    { title: "My Appointments", href: "/dashboard/appointments", icon: CalendarCheck },
+    { title: "My Appointments", href: "/dashboard/patient/appointments", icon: CalendarCheck },
     { title: "Purchase History", href: "/dashboard/purchase-history", icon: ShoppingBag },
     { title: "Profile", href: "/dashboard/profile", icon: User },
 ];
