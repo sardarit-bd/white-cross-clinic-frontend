@@ -55,6 +55,12 @@ const articleCategories = [
   "Fitness", "Heart", "Skin", "Women Health", "Men Health", "Children Health",
   "General Wellness",
 ];
+const patientMenuItems = [
+  // "Andrology Services",
+  "Home Visits",
+  "Patient Reception",
+  "Sample Collection Guide",
+];
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -64,6 +70,7 @@ const navLinks = [
   { label: "Top Services", href: "/topservices" },
   { label: "Test", href: "/test" },
   { label: "Doctors", href: "/doctors", mega: "doctors" },
+  { label: "Patients", href: "/patients", mega: "patients" },
   { label: "News", href: "/articles", mega: "articles" },
   { label: "Dashboard", href: "/dashboard" },
 ];
@@ -102,7 +109,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <div className="hidden md:flex items-center gap-8 relative">
+          <div className="hidden md:flex items-center gap-4 relative">
 
             {navLinks.map((item, idx) => (
               <div
@@ -121,11 +128,10 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={closeMegaMenu}
-                  className={`pb-1 flex items-center gap-1 font-medium transition ${
-                    isActive(item.href)
-                      ? "text-[var(--brandColor)] font-semibold"
-                      : "text-gray-700 hover:text-[var(--brandColor)]"
-                  }`}
+                  className={`pb-1 flex items-center gap-1 font-medium transition ${isActive(item.href)
+                    ? "text-[var(--brandColor)] font-semibold"
+                    : "text-gray-700 hover:text-[var(--brandColor)]"
+                    }`}
                 >
                   {item.label}
                   {item.mega && <ChevronDown size={16} />}
@@ -218,6 +224,23 @@ export default function Navbar() {
                     {cat}
                   </Link>
                 ))}
+
+              {/* PATIENTS MEGA MENU */}
+              {hoveredMenu === "patients" &&
+                patientMenuItems.map((item, i) => (
+                  <Link
+                    key={i}
+                    href={`/specialties/${item.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}`}
+                    className="
+        flex items-center gap-2 p-1 text-[var(--textDark)]
+        hover:text-[var(--brandColor)]
+        hover:underline underline-offset-2 transition text-md
+      "
+                  >
+                    {item}
+                  </Link>
+                ))}
+
             </div>
           </motion.div>
         )}
@@ -245,15 +268,14 @@ export default function Navbar() {
                     onClick={() =>
                       item.mega
                         ? setMobileDropdown(
-                            mobileDropdown === item.mega ? null : item.mega
-                          )
+                          mobileDropdown === item.mega ? null : item.mega
+                        )
                         : setIsOpen(false)
                     }
-                    className={`flex justify-between items-center text-lg font-medium ${
-                      isActive(item.href)
-                        ? "text-[var(--brandColor)]"
-                        : "text-gray-700"
-                    }`}
+                    className={`flex justify-between items-center text-lg font-medium ${isActive(item.href)
+                      ? "text-[var(--brandColor)]"
+                      : "text-gray-700"
+                      }`}
                   >
                     <Link
                       href={item.href}
@@ -274,21 +296,25 @@ export default function Navbar() {
                       {(item.mega === "doctors"
                         ? doctorDepartments
                         : item.mega === "specialties"
-                        ? testItems
-                        : articleCategories
-                      ).map((sub, i) => (
-                        <Link
-                          key={i}
-                          href={`/${item.mega}/${slugify(sub)}`}
-                          onClick={() => {
-                            closeMegaMenu();
-                            setIsOpen(false);
-                          }}
-                          className="block text-gray-600 text-sm py-1"
-                        >
-                          {sub}
-                        </Link>
-                      ))}
+                          ? testItems
+                          : item.mega === "articles"
+                            ? articleCategories
+                            : item.mega === "patients"
+                              ? patientMenuItems
+                              : [])
+                        .map((sub, i) => (
+                          <Link
+                            key={i}
+                            href={`/${item.mega}/${slugify(sub)}`}
+                            onClick={() => {
+                              closeMegaMenu();
+                              setIsOpen(false);
+                            }}
+                            className="block text-gray-600 text-sm py-1"
+                          >
+                            {sub}
+                          </Link>
+                        ))}
                     </div>
                   )}
                 </div>
