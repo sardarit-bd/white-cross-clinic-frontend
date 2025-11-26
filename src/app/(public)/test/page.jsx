@@ -1,116 +1,84 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 
-const alphabet = [
-  "A","B","C","D","E","F","G","H","I","J","K","L",
-  "M","N","O","P","Q","R","S","T","U","V","W","X",
-  "Y","Z","#"
-];
-
-const sampleTests = {
-  A: [
-    { title: "Coronary angioplasty and stents" },
-    { title: "Ankle surgery" },
-    { title: "Coronary angiogram" },
-    { title: "General anesthesia" },
-    { title: "ANA test" },
-  ],
-  B: [
-    { title: "Blood culture" },
-    { title: "Bone density scan" },
-  ],
-  C: [
-    { title: "CT scan" },
-    { title: "Cardiac MRI" },
-  ],
-};
-
-export default function TestsPage() {
-  const [selected, setSelected] = useState("A");
-
-  const tests = sampleTests[selected] || [];
+export default function TestPage() {
+  const cards = [
+    {
+      title: "Tests A-Z",
+      desc: "Test codes, sample requirements and turnaround times for our most requested tests.",
+      link: "/test/test-a-z",
+    },
+    {
+      title: "Specimens",
+      desc: "Guidance on specimen collection, packaging and transport, and rejection criteria.",
+      link: "/test/specimens",
+    },
+    {
+      title: "Sample requirements",
+      desc: "A quick guide to vacutainer colours, anticoagulants and capacities, and to other sample types.",
+      link: "/test/sample-requirements",
+    },
+    {
+      title: "Special instructions",
+      desc: "A summary list of special instructions for specimens used in our test lists.",
+      link: "/test/special-instructions",
+    },
+    {
+      title: "Request forms",
+      desc: "PDF versions of our request forms.",
+      link: "/test/request-forms",
+    },
+    {
+      title: "Discontinued tests",
+      desc: "Tests may be discontinued at short notice for various reasons.",
+      link: "/test/discontinued-tests",
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20 pt-48">
-      {/* Header */}
-      <div className="container mx-auto px-6 lg:px-12 py-12">
-        <p className="text-sm text-gray-600 font-medium">
-          Drugs and Supplements
-        </p>
-        <h1 className="text-4xl font-bold text-[var(--textDark)] tracking-tight">
-          Tests & Procedures
-        </h1>
+    <div className="py-10 px-4 md:px-10 container pt-48 mx-auto">
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-10">
-          
-          {/* LEFT FILTER BOX */}
-          <div className="bg-white border rounded-xl shadow-sm p-5 h-fit">
-            <h3 className="font-semibold text-gray-700 mb-4">
-              Narrow your search
-            </h3>
+      {/* TITLE */}
+      <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-3">
+        Test
+      </h1>
 
-            <div className="grid grid-cols-6 gap-3">
-              {alphabet.map((letter, i) => (
-                <button
-                  key={i}
-                  onClick={() => setSelected(letter)}
-                  className={`
-                    border rounded-md py-2 text-center text-sm font-medium
-                    transition-all
-                    ${
-                      selected === letter
-                        ? "bg-[var(--brandColor)] text-white border-[var(--brandColor)]"
-                        : "text-gray-700 hover:bg-gray-100"
-                    }
-                  `}
-                >
-                  {letter}
-                </button>
-              ))}
-            </div>
+      {/* SUBTEXT */}
+      <p className="text-[var(--textLight)] mb-6 leading-relaxed">
+        We offer an extensive range of pathology profiles and tests. If you are not able to find details 
+        for tests and services, please contact the laboratory on 
+        <a href="tel:07784732485" className="text-[var(--brandColor)] underline ml-1">
+          07784732485
+        </a>.
+      </p>
 
-            {/* Ad (Optional) */}
-            <div className="text-center text-gray-400 text-sm mt-8">
-              Advertisement
-            </div>
-            <div className="mt-4 bg-gray-200 h-32 rounded-xl"></div>
+      {/* CARDS GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+        {cards.map((c, i) => (
+          <div
+            key={i}
+            className="border border-[var(--borderLight)] rounded-xl p-6 bg-white shadow-sm
+                       hover:shadow-lg transition-all duration-300 group"
+          >
+            <h2 className="text-xl font-semibold text-[var(--textDark)] mb-3">{c.title}</h2>
+
+            <p className="text-[var(--textLight)] text-sm leading-relaxed mb-4">
+              {c.desc}
+            </p>
+
+            <Link
+              href={c.link}
+              className="inline-block px-4 py-2 rounded-full bg-[var(--brandColor)] text-white text-sm
+                         group-hover:bg-[var(--brandColorDark)] transition"
+            >
+              Click To View →
+            </Link>
           </div>
+        ))}
 
-          {/* RIGHT LIST */}
-          <div className="lg:col-span-2">
-            <h2 className="text-2xl font-semibold mb-6">
-              Test {selected}
-            </h2>
-
-            <div className="space-y-6">
-              {tests.map((test, i) => (
-                <div
-                  key={i}
-                  className="pb-4 border-b last:border-none"
-                >
-                  <p className="text-lg font-medium text-[var(--textDark)]">
-                    {test.title}
-                  </p>
-                  <p className="text-sm text-[var(--brandColor)] mt-1">
-                    <Link href={`/test/${test.title.toLowerCase().replace(/\s+/g, "-")}`}>
-                      See This article
-                    </Link>
-                  </p>
-                </div>
-              ))}
-
-              {tests.length === 0 && (
-                <p className="text-gray-500">No tests available for this letter.</p>
-              )}
-            </div>
-          </div>
-        </div>
       </div>
-
-      {/* Optional Banner Section */}
-      {/* <div className="mt-12 w-full h-64 bg-gray-200"></div> */}
     </div>
   );
 }
