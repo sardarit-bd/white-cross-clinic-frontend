@@ -62,13 +62,23 @@ const patientMenuItems = [
   "Sample Collection Guide",
 ];
 
+const testMegaMenu = [
+  "Special Instructions",
+  // "Request Forms",
+  "Test A–Z",
+  "Helpful Information",
+  "Specimens",
+  "Discounted Tests",
+  "Sample Requirements",
+  "WCC News"
+]
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Specialties", href: "/specialties", mega: "specialties" },
   { label: "Social Media", href: "/social" },
   { label: "Top Services", href: "/topservices" },
-  { label: "Test", href: "/test" },
+  { label: "Test", href: "/test", mega: "test" },
   { label: "Doctors", href: "/doctors", mega: "doctors" },
   { label: "Patients", href: "/patients", mega: "patients" },
   { label: "News", href: "/articles", mega: "articles" },
@@ -225,6 +235,23 @@ export default function Navbar() {
                   </Link>
                 ))}
 
+              {/* Test Mega Menu */}
+              {hoveredMenu === "test" &&
+                testMegaMenu.map((cat, i) => (
+                  <Link
+                    key={i}
+                    onClick={closeMegaMenu}
+                    href={`/test/${cat.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    className="
+                      flex items-center gap-2 p-1 text-[var(--textDark)] 
+                      hover:text-[var(--brandColor)] 
+                      hover:underline underline-offset-2 transition text-md
+                    "
+                  >
+                    {cat}
+                  </Link>
+                ))}
+
               {/* PATIENTS MEGA MENU */}
               {hoveredMenu === "patients" &&
                 patientMenuItems.map((item, i) => (
@@ -301,7 +328,7 @@ export default function Navbar() {
                             ? articleCategories
                             : item.mega === "patients"
                               ? patientMenuItems
-                              : [])
+                              : item.mega === 'test' ? testMegaMenu : [])
                         .map((sub, i) => (
                           <Link
                             key={i}
