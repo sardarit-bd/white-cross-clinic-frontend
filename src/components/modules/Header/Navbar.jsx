@@ -77,6 +77,7 @@ const navLinks = [
   { label: "About", href: "/about" },
   { label: "Specialties", href: "/specialties", mega: "specialties" },
   { label: "Social Media", href: "/social" },
+    { label: "Order kits", href: "/order-kits" },
   { label: "Top Services", href: "/topservices" },
   { label: "Test", href: "/test", mega: "test" },
   { label: "Doctors", href: "/doctors", mega: "doctors" },
