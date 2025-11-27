@@ -188,10 +188,10 @@ export default function Navbar() {
               left-0 top-14
             "
                     >
-                      {orderKitsDropdown.map((item, i) => (
+                      {orderKitsDropdown?.map((item, i) => (
                         <Link
                           key={i}
-                          href={item.href}
+                          href={`/order-kits/${item.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
                           onClick={closeAllMenus}
                           className="
                   block px-4 py-2 text-[var(--textDark)]
@@ -200,7 +200,7 @@ export default function Navbar() {
                   transition
                 "
                         >
-                          {item.label}
+                          {item}
                         </Link>
                       ))}
                     </motion.div>
