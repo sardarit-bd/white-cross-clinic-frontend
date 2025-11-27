@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HeartPulse, Pill, Syringe, Dna } from "lucide-react";
+import { HeartPulse, Pill, Syringe, Dna, ChevronsRight } from "lucide-react";
 
 const services = [
   {
@@ -34,11 +34,32 @@ const services = [
   },
 ];
 
+const leftColumn = {
+  title: "The Benefits of Private Medical Services",
+  items: [
+    "Excellent Service – Our Commitment to You",
+    "WCPC Collect Online Booking",
+    "Cost Management and Quality Assurance – Value for Money",
+  ],
+};
+
+const rightColumn = {
+  title: "Accessible Healthcare Services – Anytime, Anywhere",
+  items: [
+    "Personalised Care – Tailored to Your Needs",
+    "Confidentiality and Discretion – Your Trust is Our Priority",
+    "State-of-the-Art Facilities – Exceptional Care in Comfortable Surroundings",
+  ],
+};
+
 export default function CoreServicesSection() {
   return (
     <section className="py-20 bg-[var(--bgLight)]">
       <div className="container mx-auto px-6 md:px-12 text-center">
-        {/* Section Heading */}
+
+        {/* ===========================
+            SECTION HEADER
+        ============================ */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,7 +71,6 @@ export default function CoreServicesSection() {
             <span className="text-[var(--brandColor)]">White Cross Clinic</span>
           </h2>
 
-          {/* Animated Gradient Underline */}
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: "120px" }}
@@ -72,37 +92,74 @@ export default function CoreServicesSection() {
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((item, i) => {
+        {/* ===========================
+            SERVICES CARDS
+        ============================ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {services.map((item) => {
             const Icon = item.icon;
             return (
               <motion.div
                 key={item.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                // transition={{ duration: 0.5 }}
-                // whileHover={{ scale: 1.03 }}
-                className="relative p-8 bg-white rounded-xl shadow-md cursor-default transition-all duration-500 overflow-hidden hover:shadow-lg"
+                className="relative p-8 bg-white rounded-xl shadow-md cursor-default transition-all duration-500 hover:shadow-lg"
               >
-
-                {/* Icon */}
-                <div className="relative z-10 flex justify-center items-center mb-4 text-[var(--brandColor)]">
+                <div className="flex justify-center mb-4 text-[var(--brandColor)]">
                   <Icon size={38} />
                 </div>
 
-                {/* Title */}
-                <h3 className="relative z-10 text-lg font-semibold text-[var(--textDark)] mb-3">
+                <h3 className="text-lg font-semibold text-[var(--textDark)] mb-3">
                   {item.title}
                 </h3>
 
-                {/* Description */}
-                <p className="relative z-10 text-sm text-[var(--textLight)] leading-relaxed">
+                <p className="text-sm text-[var(--textLight)] leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
             );
           })}
+        </div>
+
+        {/* ===========================
+            NEW TWO-COLUMN SECTION
+        ============================ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          {/* LEFT COLUMN */}
+          <div className="bg-[var(--brandColorDark)] text-white rounded-xl shadow-[var(--shadowCard)]">
+            <h3 className="text-lg font-semibold px-6 py-4 border-b border-white/20">
+              {leftColumn.title}
+            </h3>
+
+            {leftColumn.items.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 px-6 py-3 border-b border-white/20"
+              >
+                <ChevronsRight size={18} className="text-[var(--brandAccent)]" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="bg-[var(--brandColorDark)] text-white rounded-xl shadow-[var(--shadowCard)]">
+            <h3 className="text-lg font-semibold px-6 py-4 border-b border-white/20">
+              {rightColumn.title}
+            </h3>
+
+            {rightColumn.items.map((item, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 px-6 py-3 border-b border-white/20"
+              >
+                <ChevronsRight size={18} className="text-[var(--brandAccent)]" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </section>
