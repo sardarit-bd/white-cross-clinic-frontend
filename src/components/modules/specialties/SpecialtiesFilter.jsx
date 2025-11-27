@@ -80,6 +80,57 @@ const sidebarItems = [
             "Trace Metals In Urine",
             "Tests For Specific Exposure"
         ]
+    },
+    {
+        title: "Reproductive Health",
+        children: [
+            "Reproductive Health Tests",
+            "Chromosomes/Genetics",
+            "Hormones",
+            "Infection",
+            "Lifestyle/Environment",
+            "Unexplained Infertility/Implantation Failure/Recurrent Miscarriage"
+        ]
+    },
+    {
+        title: "Sexual Health",
+        children: [
+            "Sexual Health Tests",
+            "Sexually Transmitted Infections",
+            "FAST Sexual Health Screening Tests",
+            "Rapid Xpert HIV-1"
+        ]
+    },
+    {
+        title: "Therapeutic Drug Assays",
+        children: [
+            "Therapeutic Drug Assay Tests"
+        ]
+    },
+    {
+        title: "Tumour Markers",
+        children: [
+            "Tumour Marker And Sites",
+            "Tumour Markers Tests"
+        ]
+    },
+    {
+        title: "Virology",
+        children: [
+            "Immune Status",
+            "HIV Testing",
+            "Hepatitis Tests",
+            "Virology Tests",
+            "Virology Screens By Blood",
+            "Virology Screens By PCR"
+        ]
+    },
+    {
+        title: "Vitamins, Nutrition And Lifestyle",
+        children: [
+            "Vitamin Tests",
+            "Nutrition And Lifestyle"
+        ]
     }
 ];
 
