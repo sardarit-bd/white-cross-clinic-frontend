@@ -17,21 +17,21 @@ const slides = [
       "Saturday: Telephone Support Only (Office Closed)",
       "Sunday: Closed",
     ],
-    image: "/images/slider1.jpg",
+    image: "/images/slider1.webp",
   },
   {
     id: 2,
     title: "White's first clinic is CQC registered",
     subtitle: "Accessible Healthcare Services – Anytime, Anywhere",
     description: ["Check out more about us!"],
-    image: "/images/slider2.jpg",
+    image: "/images/slider2.webp",
   },
   {
     id: 3,
     title: "Quality accredited services",
     subtitle: "White's first clinic is CQC registered",
     description: [],
-    image: "/images/slider3.jpg",
+    image: "/images/slider3.webp",
   },
 ];
 
