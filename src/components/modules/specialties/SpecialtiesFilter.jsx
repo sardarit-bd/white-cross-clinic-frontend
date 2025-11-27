@@ -99,7 +99,8 @@ const sidebarItems = [
             "Sexually Transmitted Infections",
             "FAST Sexual Health Screening Tests",
             "Rapid Xpert HIV-1"
-        ]
+        ],
+        link: "#"
     },
     {
         title: "Therapeutic Drug Assays",
@@ -110,9 +111,10 @@ const sidebarItems = [
     {
         title: "Tumour Markers",
         children: [
-            "Tumour Marker And Sites",
+            // "Tumour Marker And Sites",
             "Tumour Markers Tests"
-        ]
+        ],
+        link: "#"
     },
     {
         title: "Virology",
@@ -123,14 +125,16 @@ const sidebarItems = [
             "Virology Tests",
             "Virology Screens By Blood",
             "Virology Screens By PCR"
-        ]
+        ],
+        link: "#"
     },
     {
         title: "Vitamins, Nutrition And Lifestyle",
         children: [
             "Vitamin Tests",
             "Nutrition And Lifestyle"
-        ]
+        ],
+        link: "#"
     }
 ];
 
@@ -147,7 +151,7 @@ export default function SpecialitiesFilter() {
             <h2 className="font-bold text-xl text-[var(--textDark)] mb-4">Specialties</h2>
 
             {sidebarItems.map((item, index) => {
-                const parentSlug = `/specialties/${slugify(item.title)}`;
+                const parentSlug = item?.link || `/specialties/${slugify(item.title)}`;
                 const isParentActive = pathname === parentSlug;
 
                 return (

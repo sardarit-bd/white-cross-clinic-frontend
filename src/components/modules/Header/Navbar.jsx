@@ -208,7 +208,7 @@ export default function Navbar() {
                   <Link
                     key={i}
                     onClick={closeMegaMenu}
-                    href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}`}
                     className="
                       flex items-center gap-2 p-1 text-[var(--textDark)] 
                       hover:text-[var(--brandColor)] 
