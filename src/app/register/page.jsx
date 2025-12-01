@@ -59,7 +59,7 @@ export default function RegisterPage() {
                 <div className="flex justify-center mb-6">
                     <Link href="/">
                         <Image
-                            src="/logos/headLogo.png" // change to your logo
+                            src="/logos/navLogo.png" // change to your logo
                             width={100}
                             height={100}
                             alt="White Cross Clinic"
