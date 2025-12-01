@@ -8,6 +8,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavButton from "./NavButton";
 
+/* -----------------------------
+      GROUP SPECIALTIES (A–Z)
+------------------------------ */
+
+function groupByAlphabet(items) {
+  const groups = {};
+
+  items.forEach((item) => {
+    const letter = item[0].toUpperCase();
+    if (!groups[letter]) groups[letter] = [];
+    groups[letter].push(item);
+  });
+
+  return groups;
+}
 // =============================================
 //        DATA ARRAYS
 // =============================================
@@ -76,7 +91,7 @@ const testItems = [
   "WCC Genetics",
   "WCC Self-Collection HPV Test"
 ];
-
+const groupedTestItems = groupByAlphabet(testItems);
 const doctorDepartments = [
   "Cardiology",
   "Dental",
@@ -295,10 +310,10 @@ export default function Navbar() {
             className="
               hidden md:block absolute left-0 w-full 
               bg-[var(--brandColorLight)]
-              py-10 shadow-lg
+              py-10 shadow-lg max-h-[80vh] overflow-y-auto
             "
           >
-            <div className="container mx-auto px-12 grid grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-6 gap-y-1">
+            <div className="container mx-auto px-12 grid grid-cols-2  md:grid-cols-5 lg:grid-cols-5 gap-6 gap-y-1">
 
               {hoveredMenu === "doctors" &&
                 doctorDepartments.map((dept, i) => (
@@ -317,20 +332,33 @@ export default function Navbar() {
                 ))}
 
               {hoveredMenu === "specialties" &&
-                testItems.map((dept, i) => (
-                  <Link
-                    key={i}
-                    onClick={closeAllMenus}
-                    href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                    className="
-                      flex items-center gap-2 p-1 text-[var(--textDark)]
-                      hover:text-[var(--brandColor)]
-                      hover:underline underline-offset-2 transition text-md
-                    "
-                  >
-                    {dept}
-                  </Link>
-                ))}
+                Object.keys(groupedTestItems)
+                  .sort()
+                  .map((letter, index) => (
+                    <div key={index}>
+
+                      {/* Letter header */}
+                      <div className="text-lg font-semibold mb-2 text-[var(--brandColor)]">
+                        {letter}
+                      </div>
+
+                      {/* Items under this letter */}
+                      {groupedTestItems[letter].map((dept, i) => (
+                        <Link
+                          key={i}
+                          onClick={closeAllMenus}
+                          href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                          className="
+                            block p-1 text-[var(--textDark)]
+                            hover:text-[var(--brandColor)]
+                            hover:underline underline-offset-2 transition text-md
+                          "
+                        >
+                          {dept}
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
 
               {hoveredMenu === "articles" &&
                 articleCategories.map((cat, i) => (
