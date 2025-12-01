@@ -47,7 +47,7 @@ export default function BannerSlider() {
   }, [current]);
 
   return (
-    <section className="relative w-full h-[65vh] md:h-[80vh] overflow-hidden">
+    <section className="relative w-full h-[75vh] md:h-[80vh] overflow-hidden">
       <AnimatePresence>
         {slides.map(
           (slide, index) =>
