@@ -7,7 +7,7 @@ export default function ContactSection() {
     <section className="relative py-20  overflow-hidden">
 
 
-      <div className="container mx-auto md:px-10 relative z-10">
+      <div className="container mx-auto relative z-10">
         {/* Heading */}
         <div className="text-center mb-12">
           <motion.h2

@@ -78,12 +78,12 @@ const services = [
     desc: "Access to gynecology, gastroenterology, and more.",
   },
   {
-    icon: "/icons/surgeon.webp",
+    icon: "/icons/surgeon.png",
     title: "General Surgeon",
     desc: "Surgical solutions for various medical conditions.",
   },
   {
-    icon: "/icons/psychology.webp",
+    icon: "/icons/psychology.png",
     title: "Psychiatrist",
     desc: "Mental health assessments and treatments by trained professionals.",
   },
@@ -98,7 +98,7 @@ const services = [
     desc: "Hair removal and skin treatments for advanced appearance.",
   },
   {
-    icon: "/icons/bloodtest.webp",
+    icon: "/icons/bloodtest.png",
     title: "Blood Test",
     desc: "Comprehensive laboratory tests for various health indicators.",
   },

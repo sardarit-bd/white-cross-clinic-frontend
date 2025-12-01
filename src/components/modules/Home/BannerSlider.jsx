@@ -10,7 +10,7 @@ const slides = [
   {
     id: 1,
     title: "Patient Reception",
-    subtitle: "White's first clinic is CQC registered",
+    subtitle: "White Cross Clinic is CQC registered",
     description: [
       "Monday - Friday: 9:00 AM - 5:00 PM (Office Open)",
       "Evening Support: 5:00 PM - 10:00 PM (Online / Telephone Only)",
@@ -21,7 +21,7 @@ const slides = [
   },
   {
     id: 2,
-    title: "White's first clinic is CQC registered",
+    title: "White Cross Clinic is CQC registered",
     subtitle: "Accessible Healthcare Services – Anytime, Anywhere",
     description: ["Check out more about us!"],
     image: "/images/slider2.webp",
@@ -29,7 +29,7 @@ const slides = [
   {
     id: 3,
     title: "Quality accredited services",
-    subtitle: "White's first clinic is CQC registered",
+    subtitle: "White Cross Clinic is CQC registered",
     description: [],
     image: "/images/slider3.webp",
   },
@@ -42,9 +42,9 @@ export default function BannerSlider() {
   const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 8000);
+    const interval = setInterval(nextSlide, 18000);
     return () => clearInterval(interval);
-  }, []);
+  }, [current]);
 
   return (
     <section className="relative w-full h-[65vh] md:h-[80vh] overflow-hidden">

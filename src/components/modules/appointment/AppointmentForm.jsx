@@ -6,6 +6,9 @@ import { useParams, useSearchParams } from "next/navigation";
 
 // Mock backend data
 const mockData = {
+  Generale: {
+    doctors: []
+  },
   Cardiology: {
     doctors: ["Dr. Ahsan Rahman", "Dr. Maria Islam"],
   },
@@ -16,6 +19,8 @@ const mockData = {
     doctors: ["Dr. Rafi Hassan", "Dr. Lina Miah"],
   },
 };
+
+mockData.Generale.doctors = [...mockData.Cardiology.doctors, ...mockData.Neurology.doctors, ...mockData.Pediatrics.doctors]
 
 const generateSlots = () => {
   // Create times between 9:00 and 6:00 every 30min

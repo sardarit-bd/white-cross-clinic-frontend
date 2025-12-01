@@ -12,52 +12,107 @@ import NavButton from "./NavButton";
 //        DATA ARRAYS
 // =============================================
 const testItems = [
-  "Allergies", "Allergy Test Library", "Allergy Profiles",
-  "Individual Allergen Tests", "Allergen components", "Cross Reactivity",
-  "Pollen Calendar", "Andrology", "Pathology and Services",
-  "Oxidative Stress in Semen", "Sperm DNA fragmentation",
+  "Allergies",
+  "Allergen components",
+  "Allergy Profiles",
+  "Allergy Test Library",
+  "Andrology",
+  "Antibiotic assays",
+  "Array CGH testing",
+  "Biochemistry tests",
+  "Chromosomes / genetics",
+  "Coeliac disease update",
+  "Cervical screening",
+  "Cytogenetics",
+  "Cytology (Non-Gynaecological)",
+  "Drugs of abuse / Alcohol",
+  "Endocrinology",
+  "FAST sexual health screening tests",
+  "Fungal detection",
+  "Hepatitis tests",
+  "Hormones",
+  "HPV tests",
+  "HIV testing",
+  "Immune status",
+  "Immunology",
+  "In-vivo tests",
+  "Individual Allergen Tests",
+  "Infection",
+  "Lifestyle / Environment",
+  "Medical microbiology",
+  "Molecular Genetics",
+  "Mycobacterial and respiratory investigation",
   "New High Dose Antibiotic Susceptibility Category",
-  "Trace metals in blood", "Trace metals in urine",
-  "Tests for specific exposure", "Reproductive health",
-  "Reproductive health tests", "Rapid Xpert HIV-1", "Sperm aneuploidy",
-  "Antibiotic assays", "Biochemistry tests", "Cervical screening",
-  "HPV tests", "STI Screening from Hologic ThinPrep Vials",
-  "ThinPrep PAP Test Cervex Brush Protocol",
-  "WCC Self-Collection HPV Test", "Cytology (Non-Gynaecological)",
-  "Infection", "Lifestyle / Environment", "Chromosomes / genetics",
-  "Unexplained infertility / implantation failure / recurrent miscarriage",
-  "Sexually transmitted infections", "Sexual health tests",
-  "FAST sexual health screening tests", "Drugs of abuse / Alcohol",
-  "Endocrinology", "WCC Genetics", "Non-invasive prenatal testing",
-  "Cytogenetics", "Molecular Genetics", "Array CGH testing",
   "NIPT via the Fetal Aneuploidy Screening Programme",
   "NIPT via the National Genomics Test Directory",
-  "Immunology", "Therapeutic drug assays", "Tumour markers tests",
-  "Immune status", "Hepatitis tests", "Hormones",
-  "Tropical and travel related immunology tests", "Coeliac disease update",
-  "In-vivo tests", "Medical microbiology",
-  "Urine culture processing and results", "Red-topped boric acid containers",
-  "Stool test codes", "Fungal detection",
-  "Mycobacterial and respiratory investigation",
-  "Swabs: Types and codes", "HIV testing", "Virology tests",
-  "Virology screens by blood", "Virology screens by PCR",
-  "Nutrition and Lifestyle", "Vitamin tests",
+  "Non-invasive prenatal testing",
+  "Nutrition and Lifestyle",
+  "Oxidative Stress in Semen",
+  "Pathology and Services",
+  "Pollen Calendar",
+  "Rapid Xpert HIV-1",
+  "Red-topped boric acid containers",
+  "Reproductive health",
+  "Reproductive health tests",
+  "Sperm aneuploidy",
+  "Sexual health tests",
+  "Sexually transmitted infections",
+  "Sperm DNA fragmentation",
+  "Stool test codes",
+  "Swabs: Types and codes",
+  "Tests for specific exposure",
+  "Therapeutic drug assays",
+  "ThinPrep PAP Test Cervex Brush Protocol",
+  "Trace metals in blood",
+  "Trace metals in urine",
+  "Tropical and travel related immunology tests",
+  "Tumour markers tests",
+  "Unexplained infertility / implantation failure / recurrent miscarriage",
+  "Urine culture processing and results",
+  "Virology screens by blood",
+  "Virology screens by PCR",
+  "Virology tests",
+  "Vitamin tests",
+  "WCC Genetics",
+  "WCC Self-Collection HPV Test"
 ];
 
 const doctorDepartments = [
-  "Neurology", "Cardiology", "Orthopedics", "Pediatrics", "Gastroenterology",
-  "Dermatology", "Psychiatry", "ENT", "Oncology", "Gynecology", "Urology",
-  "Dental", "Radiology", "Nephrology", "Physiotherapy",
+  "Cardiology",
+  "Dental",
+  "Dermatology",
+  "ENT",
+  "Gastroenterology",
+  "Gynecology",
+  "Nephrology",
+  "Neurology",
+  "Oncology",
+  "Orthopedics",
+  "Pediatrics",
+  "Physiotherapy",
+  "Psychiatry",
+  "Radiology",
+  "Urology"
 ];
 
 const articleCategories = [
-  "Cardiology", "Neurology", "Mental Health", "Nutrition",
-  "Fitness", "Heart", "Skin", "Women Health", "Men Health", "Children Health",
+  "Cardiology",
+  "Children Health",
+  "Fitness",
   "General Wellness",
+  "Heart",
+  "Men Health",
+  "Mental Health",
+  "Neurology",
+  "Nutrition",
+  "Skin",
+  "Women Health"
 ];
 
 const patientMenuItems = [
-  "Home Visits", "Patient Reception", "Sample Collection Guide",
+  "Home Visits",
+  "Patient Reception",
+  "Sample Collection Guide"
 ];
 
 // ⭐ NEW DROPDOWN ITEMS
@@ -67,12 +122,12 @@ const orderKitsDropdown = [
 ];
 
 const testMegaMenu = [
+  "Discounted Tests",
+  "Helpful Information",
+  "Sample Requirements",
+  "Specimens",
   "Special Instructions",
   "Test A–Z",
-  "Helpful Information",
-  "Specimens",
-  "Discounted Tests",
-  "Sample Requirements",
   "WCC News"
 ];
 
@@ -87,8 +142,9 @@ const navLinks = [
   { label: "Test", href: "/test", mega: "test" },
   { label: "Doctors", href: "/doctors", mega: "doctors" },
   { label: "Patients", href: "/patients", mega: "patients" },
+  { label: "Contact Us", href: "/contact-us" },
   { label: "News", href: "/articles", mega: "articles" },
-  { label: "Dashboard", href: "/dashboard" },
+  // { label: "Dashboard", href: "/dashboard" },
 ];
 
 // =============================================
@@ -127,7 +183,7 @@ export default function Navbar() {
 
           {/* LOGO */}
           <Link href="/" className="flex items-center" onClick={closeAllMenus}>
-            <Image src="/logos/headLogo.png" width={75} height={75} alt="logo" />
+            <Image src="/logos/navLogo.png" width={75} height={75} alt="logo" />
           </Link>
 
           {/* DESKTOP NAV */}
