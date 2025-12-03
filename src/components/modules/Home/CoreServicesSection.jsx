@@ -1,36 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HeartPulse, Pill, Syringe, Dna, ChevronsRight } from "lucide-react";
+import { CalendarClock, ChevronsRight, MonitorSmartphone, ShieldCheck, Stethoscope } from "lucide-react";
 
 const services = [
   {
     id: 1,
-    icon: HeartPulse,
-    title: "Comprehensive Patient Care",
+    icon: Stethoscope,
+    title: "Comprehensive Care Under One Roof",
     description:
-      "From diagnosis to recovery, we ensure a seamless healthcare journey built on compassion and precision.",
+      "From routine check-ups to advanced treatments, all essential healthcare services are available in one place for seamless, coordinated care.",
   },
   {
     id: 2,
-    icon: Pill,
-    title: "Advanced Treatments",
+    icon: CalendarClock,
+    title: "Same / Next-Day Appointments",
     description:
-      "Our modern medical technology and expert specialists deliver world-class care and faster healing.",
+      "We prioritize timely care with flexible scheduling, ensuring patients can be seen as early as the same day or the very next day.",
   },
   {
     id: 3,
-    icon: Syringe,
-    title: "Preventive Healthcare",
+    icon: MonitorSmartphone,
+    title: "Clinic, Virtual, or Mobile Visits",
     description:
-      "Early detection and regular check-ups to keep you ahead of potential health issues.",
+      "Receive care your way—visit the clinic, connect virtually, or request optional mobile visits based on your convenience.",
   },
   {
     id: 4,
-    icon: Dna,
-    title: "Precision Diagnostics",
+    icon: ShieldCheck,
+    title: "Preventative & Accessible Healthcare",
     description:
-      "Our lab and imaging facilities provide reliable, data-driven insights for personalized treatments.",
+      "We focus on preventive care while ensuring our services remain inclusive, accessible, and welcoming to everyone.",
   },
 ];
 
@@ -137,7 +137,7 @@ export default function CoreServicesSection() {
                 key={i}
                 className="flex items-center gap-2 px-6 py-3 border-b border-white/20"
               >
-                <ChevronsRight size={18} className="text-[var(--brandAccent)]" />
+                <ChevronsRight size={18} className="text-white" />
                 <span>{item}</span>
               </div>
             ))}
@@ -154,7 +154,7 @@ export default function CoreServicesSection() {
                 key={i}
                 className="flex items-center gap-2 px-6 py-3 border-b border-white/20"
               >
-                <ChevronsRight size={18} className="text-[var(--brandAccent)]" />
+                <ChevronsRight size={18} className="text-white" />
                 <span>{item}</span>
               </div>
             ))}
