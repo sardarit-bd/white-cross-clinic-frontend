@@ -1,22 +1,32 @@
 "use client";
-import { HeartPulse, Stethoscope, Users } from "lucide-react";
+import { Accessibility, Heart, HeartPulse, Stethoscope, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 const missions = [
   {
     icon: <HeartPulse size={28} />,
-    title: "Patient First",
-    desc: "Every decision we make revolves around one goal — improving patient health and satisfaction.",
+    title: "Comprehensive Care Under One Roof",
+    desc: "From routine checkups to advanced treatments, we provide all essential healthcare services in a single, convenient location.",
   },
   {
     icon: <Stethoscope size={28} />,
-    title: "Medical Excellence",
-    desc: "We uphold the highest standards in healthcare, supported by modern technology and expertise.",
+    title: "Same / Next-Day Appointments",
+    desc: "We prioritize timely access to care with flexible scheduling designed to support your health without long waiting periods.",
   },
   {
     icon: <Users size={28} />,
-    title: "Collaborative Care",
-    desc: "Our multidisciplinary team ensures holistic, continuous support for every individual we serve.",
+    title: "In-Clinic, Virtual, or Mobile Visits",
+    desc: "Choose the care experience that fits your lifestyle — visit our clinic, connect virtually, or request optional mobile services.",
+  },
+  {
+    icon: <Heart size={28} />,
+    title: "Preventative Care Focus",
+    desc: "Our approach emphasizes early detection, long-term wellness, and proactive care to help you stay healthy year-round.",
+  },
+  {
+    icon: <Accessibility size={28} />,
+    title: "Inclusive & Accessible for Everyone",
+    desc: "We welcome individuals from all backgrounds with affordable, barrier-free healthcare designed to serve our entire community.",
   },
 ];
 

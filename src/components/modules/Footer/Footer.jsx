@@ -20,7 +20,7 @@ export default function Footer() {
         {/* ============ LEFT COLUMN ============ */}
         <div>
           <Image
-            src="/logos/headLogo.png"
+            src="/logos/navLogo.png"
             width={80}
             height={80}
             alt="White Cross Clinic"
