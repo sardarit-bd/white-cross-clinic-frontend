@@ -16,6 +16,12 @@ export default function DrugsOfAbuseAlcohol() {
     "Drugs of Abuse Profile – Random Urine Sample/No Chain of Custody",
     "Drugs of Abuse Profile – Random Urine Sample/No Chain of Custody Plus Alcohol",
     "Drugs of Abuse Profile – With Chain of Custody",
+    "Ketamine Screen",
+    "LSD",
+    "Opiate Screen (Urine)",
+    "PEth (Phosphatidylethanol) (Self-collect)",
+    "PEth (Phosphatidylethanol) (Venous / Self-collect)",
+    "Urine EtG (Ethyl glucuronide)"
   ];
 
   const filtered = tests.filter((item) =>
@@ -33,7 +39,7 @@ export default function DrugsOfAbuseAlcohol() {
 
         {/* PAGE INTRO */}
         <p className="text-[var(--textLight)] leading-relaxed mb-6">
-          WCC offers a number of profiles for drugs of abuse and alcohol, as well as 
+          WCC offers a number of profiles for drugs of abuse and alcohol, as well as
           testing for individual drugs.
         </p>
 
@@ -42,16 +48,16 @@ export default function DrugsOfAbuseAlcohol() {
           Testing process
         </h2>
         <p className="text-[var(--textLight)] leading-relaxed mb-6">
-          Samples submitted for analysis will undergo initial screening. Urinary 
-          creatinine is routinely measured during testing to verify the validity of the 
-          sample submitted. Creatinine levels below normal occur when the urine has 
-          been diluted, either directly or by drinking large amounts of water before 
-          providing the urine sample. Chain of custody containers, forms, seals and 
+          Samples submitted for analysis will undergo initial screening. Urinary
+          creatinine is routinely measured during testing to verify the validity of the
+          sample submitted. Creatinine levels below normal occur when the urine has
+          been diluted, either directly or by drinking large amounts of water before
+          providing the urine sample. Chain of custody containers, forms, seals and
           barcodes are provided by WCC on request.
         </p>
 
         <p className="text-[var(--textLight)] leading-relaxed mb-6">
-          All Chain of Custody, and non-chain, samples with positive findings will 
+          All Chain of Custody, and non-chain, samples with positive findings will
           proceed to identification/confirmation by Gas Chromatography/Mass Spectrometry.
         </p>
 
@@ -60,16 +66,16 @@ export default function DrugsOfAbuseAlcohol() {
           Chain of custody
         </h2>
         <p className="text-[var(--textLight)] leading-relaxed mb-6">
-          Chain of custody refers to the system of controls governing the entire urine 
-          collection, processing and storage of the sample. It ensures that a particular 
-          urine specimen originated from a particular individual, and that the reported 
+          Chain of custody refers to the system of controls governing the entire urine
+          collection, processing and storage of the sample. It ensures that a particular
+          urine specimen originated from a particular individual, and that the reported
           results relate, beyond doubt, to that specimen.
         </p>
 
         <p className="text-[var(--textLight)] leading-relaxed mb-10">
-          Chain of custody requires attention to detail so that it is possible to prove 
-          that there has been no opportunity for the sample to be accidentally or 
-          maliciously adulterated. Sample collection should be undertaken by collectors 
+          Chain of custody requires attention to detail so that it is possible to prove
+          that there has been no opportunity for the sample to be accidentally or
+          maliciously adulterated. Sample collection should be undertaken by collectors
           who are well versed in the protocols of chain of custody.
         </p>
 

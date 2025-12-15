@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function WCCSelfCollectionHPVTest() {
   return (
     <div className="w-full bg-[var(--bgLight)] py-10">
@@ -81,7 +83,9 @@ export default function WCCSelfCollectionHPVTest() {
             <button
               className="text-[var(--brandColor)] font-medium hover:underline"
             >
-              Read More →
+              <Link href='/specialties/andrology-pathology-and-services'>
+                Read More →
+              </Link>
             </button>
           </div>
 
@@ -95,7 +99,9 @@ export default function WCCSelfCollectionHPVTest() {
             <button
               className="text-[var(--brandColor)] font-medium hover:underline"
             >
-              Read More →
+              <Link href='/specialties/oxidative-stress-in-semen'>
+                Read More →
+              </Link> 
             </button>
           </div>
 

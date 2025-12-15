@@ -35,7 +35,7 @@ export default function MedicalMicrobiology() {
           </p>
 
           <Link 
-            href="#"
+            href="/specialties/new-high-dose-antibiotic-susceptibility-category"
             className="text-[var(--brandColor)] font-medium hover:underline"
           >
             Read More →

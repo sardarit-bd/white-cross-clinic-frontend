@@ -33,11 +33,7 @@ export default function UrineCultureProcessing() {
           </p>
 
           <p>
-            Culture results should be interpreted alongside the microscopy WBC count
-            and clinical signs and symptoms. Significant growth in the absence of
-            pyuria may be suggestive of contamination rather than true infection.
-            However, WBC degrade rapidly in urine, and delays between collection and
-            microscopy may cause falsely low readings.
+           Culture results should be interpreted alongside the microscopy WBC count and clinical signs and symptoms. Significant growth on culture in the absence of pyuria may be suggestive of contamination with regional flora rather than true infection. It should be noted, however, that WBC degrade in urine quite rapidly and delays between sample collection and microscopy may lead to falsely low WBC readings which may account for these findings.
           </p>
         </div>
 

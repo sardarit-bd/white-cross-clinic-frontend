@@ -23,10 +23,12 @@ export default function Overview() {
             </h1>
 
             <p className="text-[var(--textLight)] leading-relaxed max-w-3xl mb-10">
-                At White Cross Clinic, we offer a range of specialist services to address
-                specific health concerns and needs. Our team of experienced healthcare
-                professionals has expertise across various medical disciplines.
+                At White Cross Clinic, we offer a range of specialist services to address specific health concerns and needs. Our team of experienced healthcare professionals has expertise in various areas.
             </p>
+            <p className="text-[var(--textLight)] leading-relaxed max-w-3xl mb-10">
+               Our specialist services are designed to provide comprehensive care for your specific needs, ensuring that you receive the best possible treatment and support. Whether you’re managing a chronic condition, seeking advice on men’s or women’s health, or need travel vaccinations, our team is here to help.
+            </p>
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5">
 

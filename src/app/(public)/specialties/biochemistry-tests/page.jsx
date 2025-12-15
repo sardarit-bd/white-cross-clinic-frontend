@@ -25,8 +25,22 @@ const biochemistryTests = [
   "Alpha-1-Microglobulin",
   "Alpha-2-Macroglobulins",
   "Alpha-Fetoprotein",
+  "ALT (Alanine Aminotransferase) (SGPT)",
+  "Aluminium (Blood)",
+  "Amino Acid (EDTA Plasma)",
+  "Amino Acid Quantitative (Urine)",
+  "Aminolevulinic",
+  "Ammonia",
+  "Amylase (Self-collect)",
+  "Amylase (Urine)",
+  "Amylase (Venous/Self-collect)",
+  "Amylase Isoenzymes",
+  "Beta 2 Microglobulin (Serum)",
+  "Bicarbonate",
+  "Bone Screen (Bloods only)",
+  "BUN (Blood Urea Nitrogen)",
+  "Lactate Dehydrogenase (LDH)"
 ];
-
 // Slug generator
 const toSlug = (str) =>
   str
@@ -77,13 +91,13 @@ export default function BiochemistryTests() {
         {/* Table Rows */}
         <div className="divide-y">
           {filtered.map((item, index) => (
-            <Link
+            <p
               key={index}
-              href={`/biochemistry-tests/${toSlug(item)}`}
+              // href={`/biochemistry-tests/${toSlug(item)}`}
               className="block px-4 py-3 hover:bg-[var(--brandColorLight)] text-[var(--textDark)] transition"
             >
               {item}
-            </Link>
+            </p>
           ))}
 
           {filtered.length === 0 && (

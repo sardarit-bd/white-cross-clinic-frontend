@@ -114,6 +114,46 @@ export default function AndrologyPage() {
         </div>
 
       </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        
+        {/* Card 1 */}
+        <div className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col">
+          <h3 className="text-xl font-bold text-[var(--textDark)] mb-3">
+            Sperm DNA fragmentation
+          </h3>
+
+          <p className="text-[var(--textLight)] text-base leading-relaxed flex-grow">
+            High sperm DNA fragmentation is associated with reduced natural pregnancy rates and assisted conception pregnancy rates as well as live birth rates.
+          </p>
+
+          <Link
+            href="/specialties/sperm-dna-fragmentation"
+            className="mt-4 inline-block font-semibold text-[var(--brandColor)] hover:underline"
+          >
+            Read More →
+          </Link>
+        </div>
+
+        {/* Card 2 */}
+        <div className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col">
+          <h3 className="text-xl font-bold text-[var(--textDark)] mb-3">
+           Sperm aneuploidy
+          </h3>
+
+          <p className="text-[var(--textLight)] text-base leading-relaxed flex-grow">
+            Sperm with a high rate of aneuploidy have a negative impact on pregnancy rate and are associated with recurrent pregnancy loss.
+          </p>
+
+          <Link
+            href="/specialties/sperm-aneuploidy"
+            className="mt-4 inline-block font-semibold text-[var(--brandColor)] hover:underline"
+          >
+            Read More →
+          </Link>
+        </div>
+
+      </div>
     </div>
   );
 }

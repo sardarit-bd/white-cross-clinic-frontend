@@ -33,7 +33,7 @@ export default function InVivoTestsPage() {
     "Vancomycin Hydrochloride",
   ];
 
-  const microbiologyTests = [
+ const microbiologyTests = [
     "16S rRNA Bacterial Gene",
     "18S rRNA Fungal Gene",
     "Aspergillus Precipitins",
@@ -65,7 +65,51 @@ export default function InVivoTestsPage() {
     "MRSA (Rapid PCR) one swab per site",
     "MRSA Culture one swab per site",
     "MRSA Culture (Self-collect) – Nose/Groin",
-  ];
+    "MRSA Culture (Self-collect) – Nose/Groin/Axilla",
+    "MRSA PCR (Self-collect) – Nose/Groin",
+    "MRSA PCR (Self-collect) – Nose/Groin/Axilla",
+    "Mycology/Skin Scrapings by PCR",
+    "Nail Clippings",
+    "Pleural Fluid for Culture",
+    "Pneumococcal Antigen",
+    "Pneumocystis Jiroveci (PCP) Examination",
+    "QFIT/Calprotectin Profile (Combined)",
+    "Quantitative Faecal Immunochemical Test (QFIT/Self-collect)",
+    "Quantitative Faecal Immunochemical Test (QFIT) (Self-collect)",
+    "Rapid Strep (incl. m/c/s)",
+    "Schistosoma (Urine)",
+    "Sellotape Test",
+    "Semen Culture",
+    "Skin Scrapings/Mycology by PCR",
+    "Sputum for Routine Culture",
+    "Sputum for TB Culture (AFB)",
+    "Stool for OCP and Culture",
+    "Stool for OVA Cysts & Parasites by PCR",
+    "Stool Reducing Substances",
+    "Swab (Cervical)",
+    "Swab (Ear)",
+    "Swab (Eye)",
+    "Swab (Nasal)",
+    "Swab (Oral)",
+    "Swab (Penile)",
+    "Swab (Rectal)",
+    "Swab (Skin)",
+    "Swab (Throat)",
+    "Swab (Urethral)",
+    "Swab (Vaginal)",
+    "Swab (Vulval)",
+    "Swab (Wound)",
+    "Synovial Fluid (for microscopy and culture)",
+    "TB (Pleural Fluid)",
+    "TB Culture",
+    "TB Culture (Urine)",
+    "TB Slopes – Confirmation and Sensitivity",
+    "Tissue for culture",
+    "Urine (Microscopy Only)",
+    "Urine Chemistry, Microscopy and Culture (Self-collect)",
+    "Urine for Extended Culture",
+    "Urine for Microscopy and Culture"
+];
 
   const filter = (list, search) =>
     list.filter((item) =>
@@ -100,15 +144,15 @@ export default function InVivoTestsPage() {
                 className="border-b hover:bg-[var(--brandColorLight)] transition cursor-pointer"
               >
                 <td className="px-4 py-3">
-                  <Link
-                    href={`/tests/${item
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]+/g, "-")
-                      .replace(/^-+|-+$/g, "")}`}
+                  <p
+                    // href={`/tests/${item
+                    //   .toLowerCase()
+                    //   .replace(/[^a-z0-9]+/g, "-")
+                    //   .replace(/^-+|-+$/g, "")}`}
                     className="text-[var(--brandColor)] hover:underline"
                   >
                     {item}
-                  </Link>
+                  </p>
                 </td>
               </tr>
             ))}
@@ -150,8 +194,8 @@ export default function InVivoTestsPage() {
             Extended Testing
           </h2>
           <p className="mt-3 text-[var(--textLight)] leading-relaxed">
-            50g liquid glucose is consumed for the glucose challenge test/Mini-GTT.  
-            75g liquid glucose is consumed for all other glucose tests.  
+            50g liquid glucose is consumed for the glucose challenge test/Mini-GTT.  <br />
+            75g liquid glucose is consumed for all other glucose tests.  <br />
             Each sample tube must be labeled with time of collection.
           </p>
         </div>

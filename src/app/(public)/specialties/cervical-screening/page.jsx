@@ -6,22 +6,22 @@ const cards = [
   {
     title: "HPV Tests",
     desc: "Further details on how requests for HPV testing are processed.",
-    href: "/cervical-screening/hpv-tests",
+    href: "/specialties/hpv-tests",
   },
   {
     title: "STI Screening From Hologic ThinPrep Vials",
     desc: "In addition to HPV, other STIs can be tested from the same Thin Prep vial.",
-    href: "/cervical-screening/sti-screening-hologic",
+    href: "/specialties/sti-screening-from-hologic-thinprep-vials",
   },
   {
     title: "ThinPrep® PAP Test Cervex Brush Protocol",
     desc: "DOs, DON’Ts.",
-    href: "/cervical-screening/thinprep-protocol",
+    href: "/specialties/thinprep-pap-test-cervex-brush-protocol",
   },
   {
     title: "TDL Self-Collection HPV Test",
-    desc: "The Self Collection HPV Test provides women with the option to self-collect a vaginal specimen.",
-    href: "/cervical-screening/self-collection-hpv",
+    desc: "The Self Collection HPV Test provides women with the option to self-collect a vaginal specimen that is then sent to the laboratory for testing.",
+    href: "/specialties/wcc-self-collection-hpv-test",
   },
 ];
 

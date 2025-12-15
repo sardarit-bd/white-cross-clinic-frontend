@@ -31,6 +31,7 @@ const specialArrangement = [
   "Sperm preparation for overnight survival",
   "Sperm motility and vitality testing for epididymal toxicity",
   "Sperm retrieval procedures (biopsy, PESA, MESA)",
+  "Sperm cryopreservation and storage (undertaken by Andrology Solutions – HFEA licensed)"
 ];
 
 const toSlug = (str) =>
@@ -86,13 +87,13 @@ export default function AndrologyPathology() {
         {/* ITEMS */}
         <div className="divide-y">
           {filteredTests.map((item, index) => (
-            <Link
+            <p
               key={index}
-              href={`/andrology-tests/${toSlug(item)}`}
+              // href={`/andrology-tests/${toSlug(item)}`}
               className="block px-4 py-3 hover:bg-[var(--brandColorLight)] text-[var(--textDark)] transition"
             >
               {item}
-            </Link>
+            </p>
           ))}
 
           {filteredTests.length === 0 && (
@@ -112,6 +113,8 @@ export default function AndrologyPathology() {
             <li key={i}>{item}</li>
           ))}
         </ul>
+
+        <p className="mt-4 text-[var(--textLight)]">All men who store sperm must be screened for HIV 1&2, Hepatitis B, Hepatitis C and HTLV. Under HFEA regulations, sperm can be stored for an initial period of 10 years with formal consent. All patients are offered counseling prior to sperm cryopreservation</p>
       </div>
 
     </div>
