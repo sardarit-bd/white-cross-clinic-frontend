@@ -7,11 +7,11 @@ import PatientDashboard from "./patient/page";
 
 
 export default function DashboardHome() {
-  const user = useAuth();
+  const { user } = useAuth();
 
   if (!user) {
     return <p>Access denied</p>;
   }
 
-  return user.role === "admin" ? <AdminDashboard /> : user.role === "doctor" ? <DoctorDashboard /> : user.role ==="patient" ? <PatientDashboard /> : <p>Access denied</p>;
+  return user.role === "admin" || user.role === 'super_admin' ? <AdminDashboard /> : user.role === "doctor" ? <DoctorDashboard /> : user.role ==="patient" ? <PatientDashboard /> : <p>Access denied</p>;
 }
