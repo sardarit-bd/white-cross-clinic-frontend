@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
 import AlphabetFilter from "@/components/shared/AlphabetFilter";
+import { useCategory } from "@/hooks/useCategory";
 
 /* ----------------------------------------------
    🔹 Mock Data (Replace with API Later)
@@ -254,11 +255,14 @@ const doctorsByCategory = {
 export default function DoctorsByCategoryPage() {
   const params = useParams();
   const category = params?.category || "cardiology";
-  const { subcategories = [] } = doctorsByCategory[category] || {};
+  const { subcategories } = useCategory();
+  const filteredSubCategory = subcategories.filter(sub =>  sub?.category?.slug === category)
+  
 
-  const [selectedSub, setSelectedSub] = useState(subcategories[0]?.name || "");
+  const [selectedSub, setSelectedSub] = useState(filteredSubCategory[0]?.name || "");
+
   const activeSubcategory =
-    subcategories.find((s) => s.name === selectedSub) || subcategories[0];
+    filteredSubCategory.find((s) => s.name === selectedSub) || subcategories[0];
 
   const categoryTitle =
     category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
@@ -301,7 +305,7 @@ export default function DoctorsByCategoryPage() {
               Sub-Specialties
             </h3>
             <ul className="space-y-2">
-              {subcategories.map((sub, i) => (
+              {filteredSubCategory.map((sub, i) => (
                 <li key={i}>
                   <button
                     onClick={() => setSelectedSub(sub.name)}

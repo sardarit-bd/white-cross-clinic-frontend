@@ -84,7 +84,7 @@ const adminMenu = [
 
     // Unified Category + Department Page
     { title: "Categories", href: "/dashboard/admin/categories", icon: FolderTree },
-    { title: "Departments", href: "/dashboard/admin/departments", icon: BriefcaseMedical },
+    // { title: "Departments", href: "/dashboard/admin/departments", icon: BriefcaseMedical },
 
     // Blog System
     { title: "All Blog Posts", href: "/dashboard/admin/blog/posts", icon: FileText },

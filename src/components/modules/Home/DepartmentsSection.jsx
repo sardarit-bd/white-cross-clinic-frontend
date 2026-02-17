@@ -1,5 +1,6 @@
 "use client";
 
+import { useCategory } from "@/hooks/useCategory";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -47,9 +48,25 @@ const departments = [
 ];
 
 export default function DepartmentsSection() {
-  const [activeDept, setActiveDept] = useState(departments[0]);
+  const [activeDept, setActiveDept] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
 
+  const { categories, catLoading } = useCategory()
+  const departments = categories.map(category => {
+    return {
+      id: category._id,
+      name: category.name,
+      short: category.short,
+      long: category.description,
+      image: category.thumbnail
+    }
+  })
+
+  useEffect(() => {
+    if (departments.length > 0 && !activeDept) {
+      setActiveDept(departments[0]);
+    }
+  }, [departments]);
   // Auto-rotate departments every 6 seconds
   useEffect(() => {
     if (isPaused) return;
@@ -63,7 +80,7 @@ export default function DepartmentsSection() {
     }, 8000);
 
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, departments]);
 
   const handleClick = (dept) => {
     setActiveDept(dept);
@@ -71,6 +88,9 @@ export default function DepartmentsSection() {
     setTimeout(() => setIsPaused(false), 10000); // Resume auto after 10s
   };
 
+  if(!activeDept){
+    return <h2>Data Is Not Found</h2>
+  }
   return (
     <section className="py-20">
       <div className="container mx-auto px-6 md:px-12">
@@ -89,16 +109,15 @@ export default function DepartmentsSection() {
         {/* Layout */}
         <div className="grid md:grid-cols-[250px_1fr_400px] gap-8 items-start">
           {/* Sidebar Menu */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 max-h-[200px] overflow-auto">
             {departments.map((dept) => (
               <button
                 key={dept.id}
                 onClick={() => handleClick(dept)}
-                className={`text-left font-semibold transition-all duration-300 ${
-                  activeDept.id === dept.id
+                className={`text-left font-semibold transition-all duration-300 ${activeDept.id === dept.id
                     ? "text-[var(--brandColor)] border-l-4 border-[var(--brandColor)] pl-3"
                     : "text-[var(--textDark)] hover:text-[var(--brandColor)] pl-3"
-                }`}
+                  }`}
               >
                 {dept.name}
               </button>

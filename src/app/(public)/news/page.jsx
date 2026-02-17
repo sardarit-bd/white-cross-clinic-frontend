@@ -3,7 +3,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import { useNewsBySubCategory, useSingleNewsBySlug } from "@/hooks/useNews";
 
 // 🩵 Mock Data — Replace later with API
 export const articlesData = {
@@ -82,16 +83,18 @@ export const articlesData = {
 };
 
 export default function SingleArticlePage() {
-  const { category, subcategory, article: id } = useParams();
+  const params = useSearchParams()
+  const slug = params.get('slug')
+  const {data: article} = useSingleNewsBySlug(slug)
+  const {data: relatedArticles = []} = useNewsBySubCategory(article?.subcategory?._id)
+  console.log(relatedArticles)
+  console.log(article)
 
-  // Find the article by slug
-  const articleList = articlesData?.[category]?.[subcategory] || [];
-  const article = articleList.find((a) => a.slug === id);
 
   const formattedCategory =
-    category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+    slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
   const formattedSubcategory =
-    subcategory.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+    slug.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 
   if (!article)
     return (
@@ -100,28 +103,26 @@ export default function SingleArticlePage() {
       </div>
     );
 
-  const relatedArticles = articleList.filter((a) => a.id !== article.id);
-
   return (
     <section className="py-16 pt-48 bg-[var(--bgLight)] min-h-screen">
       <div className="container mx-auto px-6 md:px-12 grid lg:grid-cols-3 gap-10 relative">
         {/* ===== Main Article ===== */}
         <div className="lg:col-span-2">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-[var(--textLight)] mb-6">
+          {/* <nav className="flex items-center gap-2 text-sm text-[var(--textLight)] mb-6">
             <Link href="/articles" className="hover:text-[var(--brandColor)]">
               Articles
             </Link>
             <ChevronRight size={14} />
             <Link
-              href={`/articles/${category}`}
+              href={`/articles/${slug}`}
               className="hover:text-[var(--brandColor)]"
             >
               {formattedCategory}
             </Link>
             <ChevronRight size={14} />
             <Link
-              href={`/articles/${category}/${subcategory}`}
+              href={`/articles/${slug}`}
               className="hover:text-[var(--brandColor)]"
             >
               {formattedSubcategory}
@@ -130,7 +131,7 @@ export default function SingleArticlePage() {
             <span className="text-[var(--brandColor)] font-medium truncate">
               {article.title}
             </span>
-          </nav>
+          </nav> */}
 
           {/* Hero Image */}
           <motion.div
@@ -150,13 +151,13 @@ export default function SingleArticlePage() {
 
           {/* Article Info */}
           <div className="mb-6 flex flex-wrap justify-between text-sm text-[var(--textLight)]">
-            <span>👨‍⚕️ {article.author}</span>
-            <span>📅 {new Date(article.date).toLocaleDateString()}</span>
+            <span> {article?.user?.avatar || '👨‍⚕️'}  {article.user?.name}</span>
+            <span>📅 {new Date(article.createdDate).toLocaleDateString()}</span>
           </div>
 
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-6">
-            {article.tags.map((tag, i) => (
+            {article?.tags?.split(',').map((tag, i) => (
               <span
                 key={i}
                 className="bg-[var(--brandColorLight)] text-[var(--brandColor)] text-xs px-3 py-1 rounded-full font-medium"
@@ -173,7 +174,7 @@ export default function SingleArticlePage() {
             transition={{ duration: 0.5 }}
             className="prose max-w-none leading-relaxed text-[var(--textDark)]"
           >
-            {article.content.split("\n").map((para, idx) => (
+            {article.description?.split("\n").map((para, idx) => (
               <p key={idx} className="mb-4">
                 {para}
               </p>
@@ -190,30 +191,18 @@ export default function SingleArticlePage() {
             </h3>
             <ul className="space-y-4">
               {relatedArticles.map((ra) => (
-                <li key={ra.id}>
+                <li key={ra.slug}>
                   <Link
-                    href={`/articles/${category}/${subcategory}/${ra.slug}`}
+                    href={`/news?slug=${ra.slug}`}
                     className="text-[var(--brandColor)] hover:underline"
                   >
                     {ra.title}
                   </Link>
                   <p className="text-xs text-[var(--textLight)]">
-                    by {ra.author}
+                    by {ra.user?.name}
                   </p>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Latest Posts */}
-          <div className="bg-white shadow-md rounded-2xl p-6 border border-[var(--borderLight)]">
-            <h3 className="text-lg font-semibold text-[var(--textDark)] mb-4">
-              Latest Updates
-            </h3>
-            <ul className="space-y-3 text-[var(--textLight)] text-sm">
-              <li>🩺 New Study Reveals Benefits of Omega-3</li>
-              <li>❤️ How Exercise Strengthens the Heart</li>
-              <li>🧠 Sleep & Brain Health: The Hidden Connection</li>
             </ul>
           </div>
         </aside>

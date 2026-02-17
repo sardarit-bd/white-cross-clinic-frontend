@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useCategory } from "@/hooks/useCategory";
 
 // 🩵 Mock Department Data
 const doctorCategories = [
@@ -38,6 +39,15 @@ const doctorCategories = [
 ];
 
 export default function DoctorCategoriesPage() {
+  const { categories, catLoading } = useCategory()
+    const doctorCategories = categories.map(category => {
+      return {
+        slug: category.slug,
+        name: category.name,
+        description: category.description,
+        image: category.thumbnail
+      }
+    })
   return (
     <section className="py-20 pt-48 bg-[var(--bgLight)] min-h-screen">
       <div className="container mx-auto px-6 md:px-12">
