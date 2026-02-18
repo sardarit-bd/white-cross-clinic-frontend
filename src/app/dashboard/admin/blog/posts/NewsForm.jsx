@@ -138,14 +138,12 @@ export default function NewsForm({
       category: form.category,
       subcategory: form.subcategory
     }
-    console.log(payload)
 
     try {
       let res;
 
       if (isEdit) {
         payload.id = initialData?._id
-        console.log(payload)
         res = await updateNews.mutateAsync(payload);
         toast.success(
           <div className="flex items-center gap-2">

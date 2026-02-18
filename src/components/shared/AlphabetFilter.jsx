@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 
 export default function AlphabetFilter({ onSelect, active }) {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  letters.unshift("ALL")
 
   return (
     <motion.div 
@@ -24,7 +25,7 @@ export default function AlphabetFilter({ onSelect, active }) {
                 text-sm md:text-base font-medium
                 transition-all duration-200
                 ${
-                  active === letter 
+                  active?.toLowerCase() === letter?.toLowerCase()
                     ? "bg-[var(--brandColor)] text-white shadow-md" 
                     : "text-gray-600 hover:bg-gray-100 hover:text-[var(--brandColor)]"
                 }

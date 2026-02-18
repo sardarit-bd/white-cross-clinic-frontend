@@ -5,7 +5,7 @@ import { User, Mail, MapPin, Phone, Award, FileText } from "lucide-react";
 import Image from "next/image";
 
 export default function ProfileHeader({ doctorData }) {
-    const user = doctorData?.user || {};
+    const user = doctorData || {};
     
     return (
         <motion.div

@@ -65,7 +65,7 @@ export default function DoctorProfilePage() {
                 </motion.div>
 
                 {/* Profile Header Card */}
-                <ProfileHeader doctorData={doctorData} />
+                <ProfileHeader doctorData={profile} />
 
                 {/* Tabs Navigation */}
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-1.5 mb-6 inline-flex">
@@ -97,14 +97,14 @@ export default function DoctorProfilePage() {
                 >
                     {activeTab === "personal" && (
                         <PersonalInfo 
-                            doctorData={doctorData} 
+                            doctorData={profile} 
                             onUpdate={updateProfile}
                         />
                     )}
                     
                     {activeTab === "professional" && (
                         <ProfessionalInfo 
-                            doctorData={doctorData}
+                            doctorData={profile}
                             onUpdate={updateProfile}
                         />
                     )}

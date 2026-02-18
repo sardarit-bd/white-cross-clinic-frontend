@@ -42,23 +42,23 @@ const doctorMenu = [
         href: "/dashboard/doctor/appointments",
         icon: CalendarCheck
     },
-    {
-        title: "Inbox",
-        href: "/dashboard/doctor/chat",
-        icon: Inbox
-    },
+    // {
+    //     title: "Inbox",
+    //     href: "/dashboard/doctor/chat",
+    //     icon: Inbox
+    // },
 
-    {
-        title: "Write a Post",
-        href: "/dashboard/doctor/write-post",
-        icon: FileText
-    },
+    // {
+    //     title: "Write a Post",
+    //     href: "/dashboard/doctor/write-post",
+    //     icon: FileText
+    // },
 
-    {
-        title: "My Posts",
-        href: "/dashboard/doctor/posts",
-        icon: BookOpen
-    },
+    // {
+    //     title: "My Posts",
+    //     href: "/dashboard/doctor/posts",
+    //     icon: BookOpen
+    // },
 
     {
         title: "My Schedule",
@@ -96,7 +96,7 @@ const adminMenu = [
     { title: "Transactions", href: "/dashboard/admin/transactions", icon: ShoppingBag },
 
     // Live Chat Support
-    { title: "Live Chat Support", href: "/dashboard/admin/live-chat", icon: MessageSquare },
+    { title: "Live Chat Support", href: "/dashboard/doctor/chat", icon: MessageSquare },
     { title: "Manage Admins", href: "/dashboard/admin/admins", icon: Shield },
 
 ];
