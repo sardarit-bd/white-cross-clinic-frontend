@@ -24,7 +24,6 @@ import {
 
 const patientMenu = [
     { title: "Dashboard", href: "/dashboard", icon: Home },
-    { title: "Search Medical Info", href: "/dashboard/search", icon: Search },
     { title: "My Appointments", href: "/dashboard/patient/appointments", icon: CalendarCheck },
     { title: "Purchase History", href: "/dashboard/purchase-history", icon: ShoppingBag },
     { title: "Profile", href: "/dashboard/profile", icon: User },
@@ -39,33 +38,27 @@ const doctorMenu = [
     { title: "Dashboard", href: "/dashboard", icon: Home },
 
     {
-        title: "Patients",
-        href: "/dashboard/doctor/patients",
-        icon: Users,
-    },
-
-    {
         title: "Appointments",
         href: "/dashboard/doctor/appointments",
         icon: CalendarCheck
     },
-    {
-        title: "Inbox",
-        href: "/dashboard/doctor/chat",
-        icon: Inbox
-    },
+    // {
+    //     title: "Inbox",
+    //     href: "/dashboard/doctor/chat",
+    //     icon: Inbox
+    // },
 
-    {
-        title: "Write a Post",
-        href: "/dashboard/doctor/write-post",
-        icon: FileText
-    },
+    // {
+    //     title: "Write a Post",
+    //     href: "/dashboard/doctor/write-post",
+    //     icon: FileText
+    // },
 
-    {
-        title: "My Posts",
-        href: "/dashboard/doctor/posts",
-        icon: BookOpen
-    },
+    // {
+    //     title: "My Posts",
+    //     href: "/dashboard/doctor/posts",
+    //     icon: BookOpen
+    // },
 
     {
         title: "My Schedule",
@@ -89,29 +82,23 @@ const doctorMenu = [
 const adminMenu = [
     { title: "Dashboard", href: "/dashboard", icon: Home },
 
-    // User Management
-    { title: "Manage Patients", href: "/dashboard/admin/patients", icon: Users },
-    { title: "Manage Doctors", href: "/dashboard/admin/doctors", icon: UserCheck },
-    { title: "Manage Admins", href: "/dashboard/admin/admins", icon: Shield },
-
     // Unified Category + Department Page
-    { title: "Categories & Departments", href: "/dashboard/admin/categories", icon: FolderTree },
+    { title: "Categories", href: "/dashboard/admin/categories", icon: FolderTree },
+    // { title: "Departments", href: "/dashboard/admin/departments", icon: BriefcaseMedical },
 
     // Blog System
     { title: "All Blog Posts", href: "/dashboard/admin/blog/posts", icon: FileText },
 
     // System Features
-    { title: "Appointments", href: "/dashboard/admin/appointments", icon: CalendarCheck },
-    { title: "Search Settings", href: "/dashboard/admin/search-settings", icon: Search },
+    { title: "Doctor Appointments", href: "/dashboard/admin/appointments", icon: CalendarCheck },
+    { title: "Test Appointments", href: "/dashboard/admin/test-appointments", icon: CalendarCheck },
     { title: "Coupons", href: "/dashboard/admin/coupons", icon: Tag },
     { title: "Transactions", href: "/dashboard/admin/transactions", icon: ShoppingBag },
-    //   { title: "Reports & Analytics", href: "/dashboard/admin/reports", icon: BarChart3 },
 
     // Live Chat Support
-    { title: "Live Chat Support", href: "/dashboard/admin/live-chat", icon: MessageSquare },
+    { title: "Live Chat Support", href: "/dashboard/doctor/chat", icon: MessageSquare },
+    { title: "Manage Admins", href: "/dashboard/admin/admins", icon: Shield },
 
-    // Settings
-    //   { title: "Settings", href: "/dashboard/admin/settings", icon: CreditCard },
 ];
 
 
@@ -120,7 +107,8 @@ const adminMenu = [
 // ================================
 
 export function getDashboardSideMenu(role) {
-    if (role === "admin") return adminMenu;
+    console.log("Determining sidebar menu for role:", role);
+    if (role === "admin" || role === "super_admin") return adminMenu;
     if (role === "doctor") return doctorMenu;
     return patientMenu;
 }

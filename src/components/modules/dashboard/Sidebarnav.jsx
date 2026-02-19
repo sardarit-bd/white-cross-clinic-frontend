@@ -1,10 +1,23 @@
+import { useAuth } from "@/hooks/useAuth";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function SidebarNav({ items }) {
     const pathname = usePathname();
+    const { logout } = useAuth()
+    const router = useRouter()
 
+    const handleLogout = async () => {
+        const res = await logout();
+        if (res?.success) {
+            toast.success("Logout successful!");
+            router.push("/");
+        } else {
+            toast.error(res?.message || "Logout failed. Please try again.")
+        }
+    }
     return (
         <nav className="flex flex-col px-4 py-6 space-y-2 text-[var(--textDark)] w-full">
 
@@ -37,16 +50,16 @@ export default function SidebarNav({ items }) {
             })}
 
             {/* Logout Button */}
-            <Link
-                href="/"
-                className="mt-4 flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all 
+            <button
+                onClick={handleLogout}
+                className="mt-4 cursor-pointer flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all 
                     border border-[var(--borderLight)]
                     hover:bg-[var(--brandColorLight)] hover:text-[var(--brandColor)]
                 "
             >
                 <LogOut size={18} />
                 <span>Logout</span>
-            </Link>
+            </button>
         </nav>
     );
 }

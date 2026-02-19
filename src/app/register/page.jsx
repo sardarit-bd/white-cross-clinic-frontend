@@ -12,9 +12,14 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useAuth } from "@/hooks/useAuth";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
-    const [role, setRole] = useState("patient"); // patient / doctor
+    const { register } = useAuth()
+    const router = useRouter()
+    const [role, setRole] = useState("patient"); 
 
     // basic fields
     const [name, setName] = useState("");
@@ -22,29 +27,22 @@ export default function RegisterPage() {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
 
-    // doctor fields
-    const [department, setDepartment] = useState("");
-    const [subDepartment, setSubDepartment] = useState("");
 
-    const departments = {
-        Cardiology: ["Heart Failure", "Arrhythmia", "Research"],
-        Neurology: ["Stroke", "Epilepsy", "Parkinson's"],
-        Diabetology: ["Type I", "Type II", "Gestational Diabetes"],
-    };
-
-    const handleRegister = () => {
+    const handleRegister = async () => {
         const payload = {
             role,
             name,
             email,
             phone,
-            password,
-            department: role === "doctor" ? department : null,
-            subDepartment: role === "doctor" ? subDepartment : null,
+            password
         };
-
-        console.log("Register Payload:", payload);
-        // TODO: POST /auth/register
+        const res = await register(payload);
+        if(res?.success) {
+            toast.success("Registration successful! Please login.");
+            router.push("/login");
+        } else {
+            toast.error(res?.message || "Registration failed. Please try again.");
+        }
     };
 
     return (
@@ -155,62 +153,6 @@ export default function RegisterPage() {
                             />
                         </div>
                     </div>
-
-                    {/* DOCTOR-SPECIFIC FIELDS */}
-                    {role === "doctor" && (
-                        <>
-                            {/* DEPARTMENT */}
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                            >
-                                <label className="text-sm font-medium text-[var(--textDark)]">
-                                    Department
-                                </label>
-                                <div className="mt-1 flex items-center border border-[var(--borderLight)] rounded-lg px-3 py-2">
-                                    <Stethoscope size={18} className="text-[var(--textLight)]" />
-                                    <select
-                                        className="ml-2 w-full bg-transparent focus:outline-none"
-                                        value={department}
-                                        onChange={(e) => {
-                                            setDepartment(e.target.value);
-                                            setSubDepartment("");
-                                        }}
-                                    >
-                                        <option value="">Select Department</option>
-                                        {Object.keys(departments).map((d) => (
-                                            <option key={d}>{d}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </motion.div>
-
-                            {/* SUB DEPARTMENT */}
-                            {department && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                >
-                                    <label className="text-sm font-medium text-[var(--textDark)]">
-                                        Sub Department
-                                    </label>
-                                    <div className="mt-1 flex items-center border border-[var(--borderLight)] rounded-lg px-3 py-2">
-                                        <HeartPulse size={18} className="text-[var(--textLight)]" />
-                                        <select
-                                            className="ml-2 w-full bg-transparent focus:outline-none"
-                                            value={subDepartment}
-                                            onChange={(e) => setSubDepartment(e.target.value)}
-                                        >
-                                            <option value="">Select Sub Department</option>
-                                            {departments[department]?.map((s) => (
-                                                <option key={s}>{s}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </motion.div>
-                            )}
-                        </>
-                    )}
                 </div>
 
                 {/* REGISTER BUTTON */}

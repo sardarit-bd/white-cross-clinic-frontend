@@ -1,11 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { useParams } from "next/navigation";
 import AlphabetFilter from "@/components/shared/AlphabetFilter";
+import { useCategory } from "@/hooks/useCategory";
+import { useDoctorsBySubDept } from "@/hooks/useUser";
 
 /* ----------------------------------------------
    🔹 Mock Data (Replace with API Later)
@@ -254,15 +256,31 @@ const doctorsByCategory = {
 export default function DoctorsByCategoryPage() {
   const params = useParams();
   const category = params?.category || "cardiology";
-  const { subcategories = [] } = doctorsByCategory[category] || {};
+  const { subcategories } = useCategory();
+  const filteredSubCategory = subcategories.filter(sub => sub?.category?.slug === category)
+  const [filteredDoctors, setFilteredDoctors] = useState([])
+  const [activeLetter, setActiveLetter] = useState("all")
 
-  const [selectedSub, setSelectedSub] = useState(subcategories[0]?.name || "");
+
+  const [selectedSub, setSelectedSub] = useState(filteredSubCategory[0]?.name || "");
+
   const activeSubcategory =
-    subcategories.find((s) => s.name === selectedSub) || subcategories[0];
+    filteredSubCategory.find((s) => s.name === selectedSub) || subcategories[0];
+
+  const { data: doctors = [] } = useDoctorsBySubDept(activeSubcategory?._id)
 
   const categoryTitle =
     category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
 
+
+  useEffect(() => {
+    if (activeLetter?.toLowerCase() === 'all') {
+      setFilteredDoctors(doctors)
+    } else {
+      const filters = doctors?.filter(doc => doc?.user?.name?.charAt(0)?.toLowerCase() === activeLetter?.toLowerCase())
+      setFilteredDoctors(filters)
+    }
+  }, [activeLetter, activeSubcategory])
   return (
     <section className="py-20 pt-48 bg-[var(--bgLight)] min-h-screen">
       <div className="container mx-auto px-6 md:px-12">
@@ -301,15 +319,14 @@ export default function DoctorsByCategoryPage() {
               Sub-Specialties
             </h3>
             <ul className="space-y-2">
-              {subcategories.map((sub, i) => (
+              {filteredSubCategory.map((sub, i) => (
                 <li key={i}>
                   <button
                     onClick={() => setSelectedSub(sub.name)}
-                    className={`w-full text-left p-3 rounded-lg transition-all duration-200 ${
-                      selectedSub === sub.name
-                        ? "bg-[var(--brandColor)] text-white font-medium"
-                        : "hover:bg-[var(--brandColorLight)] text-[var(--textDark)]"
-                    }`}
+                    className={`w-full text-left p-3 rounded-lg transition-all duration-200 ${selectedSub === sub.name
+                      ? "bg-[var(--brandColor)] text-white font-medium"
+                      : "hover:bg-[var(--brandColorLight)] text-[var(--textDark)]"
+                      }`}
                   >
                     {sub.name}
                   </button>
@@ -329,9 +346,9 @@ export default function DoctorsByCategoryPage() {
             >
               {activeSubcategory?.name}
             </motion.h2>
-              <AlphabetFilter />
+            <AlphabetFilter active={activeLetter} onSelect={setActiveLetter} />
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {activeSubcategory?.doctors?.map((doc) => (
+              {filteredDoctors?.map((doc) => (
                 <motion.div
                   key={doc.id}
                   whileHover={{ y: -4 }}
@@ -340,27 +357,27 @@ export default function DoctorsByCategoryPage() {
                 >
                   <div className="relative h-60">
                     <Image
-                      src={doc.image}
-                      alt={doc.name}
+                      src={doc?.user?.avatar}
+                      alt={doc?.user?.name}
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="p-6 text-center">
                     <h3 className="text-lg font-semibold text-[var(--textDark)]">
-                      {doc.name}
+                      {doc?.user?.name}
                     </h3>
                     <p className="text-[var(--brandColor)] font-medium text-sm">
-                      {doc.title}
+                      {doc?.designation}
                     </p>
                     <p className="text-[var(--textLight)] text-sm mt-1">
-                      {doc.experience} experience
+                      {doc?.yearsOfExperience} experience
                     </p>
                     <p className="text-[var(--textLight)] text-sm mt-3 line-clamp-3">
-                      {doc.description}
+                      {doc?.intro}
                     </p>
                     <Link
-                      href={`/doctors/${category}/${doc.slug}`}
+                      href={`/doctors/${category}/${doc?.user?._id}`}
                       className="mt-5 inline-block px-6 py-2 rounded-full bg-[var(--brandColor)] text-white font-medium hover:bg-[var(--brandColorDark)] transition-all"
                     >
                       View Profile

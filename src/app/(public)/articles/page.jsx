@@ -1,8 +1,9 @@
 "use client";
 import ArticleSearchBar from "@/components/modules/articles/ArticleSearchBar";
+import { useCategory } from "@/hooks/useCategory";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const categories = [
   {
@@ -28,7 +29,22 @@ const categories = [
 ];
 
 export default function ArticlesPage() {
-  const [filtered, setFiltered] = useState(categories);
+  const [filtered, setFiltered] = useState(null);
+  const { categories: cats, catLoading } = useCategory()
+  const categories = cats.map(category => {
+    return {
+      slug: category.slug,
+      name: category.name,
+      description: category.description,
+      image: category.thumbnail
+    }
+  })
+
+useEffect(() => {
+  if(categories.length > 0 && !filtered){
+    setFiltered(categories)
+  }
+}, [categories])
 
   const handleSearch = (query) => {
     if (!query.trim()) return setFiltered(categories);
@@ -39,7 +55,9 @@ export default function ArticlesPage() {
     );
     setFiltered(results);
   };
-
+if(!filtered){
+  return <h2>Data is not found!</h2>
+}
   return (
     <section className="py-20 pt-48 bg-[var(--bgLight)]">
       <div className="container mx-auto px-6 md:px-12">

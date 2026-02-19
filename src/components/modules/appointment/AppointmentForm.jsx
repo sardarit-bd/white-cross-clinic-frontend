@@ -1,89 +1,89 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import dayjs from "dayjs";
 import { useParams, useSearchParams } from "next/navigation";
+import { useCategory } from "@/hooks/useCategory";
+import { useDoctorsByDept } from "@/hooks/useUser";
+import { Calendar, Moon, Sun } from "lucide-react";
+import { useDoctorAppointment } from "@/hooks/useDoctorAppointment";
+import toast from "react-hot-toast";
 
-// Mock backend data
-const mockData = {
-  Generale: {
-    doctors: []
-  },
-  Cardiology: {
-    doctors: ["Dr. Ahsan Rahman", "Dr. Maria Islam"],
-  },
-  Neurology: {
-    doctors: ["Dr. Sarah Noor", "Dr. James Lee"],
-  },
-  Pediatrics: {
-    doctors: ["Dr. Rafi Hassan", "Dr. Lina Miah"],
-  },
-};
-
-mockData.Generale.doctors = [...mockData.Cardiology.doctors, ...mockData.Neurology.doctors, ...mockData.Pediatrics.doctors]
-
-const generateSlots = () => {
-  // Create times between 9:00 and 6:00 every 30min
-  const slots = [];
-  let start = dayjs().hour(9).minute(0);
-  const end = dayjs().hour(18).minute(0);
-  while (start.isBefore(end)) {
-    slots.push(start.format("HH:mm"));
-    start = start.add(30, "minute");
-  }
-  return slots;
-};
 
 export default function AppointmentFormPro() {
   const params = useSearchParams()
   const paramsDepartment = params.get('department')
   const paramsDoctor = params.get('doctor')
-  const [department, setDepartment] = useState("");
-  const [doctor, setDoctor] = useState("");
-  const [selectedDate, setSelectedDate] = useState(dayjs());
-  const [selectedSlot, setSelectedSlot] = useState("");
-  const [bookedSlots, setBookedSlots] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(paramsDepartment)
+  const [selectedDoctor, setSelectedDoctor] = useState(paramsDoctor)
+  const [selectedSchedule, setSelectedSchedule] = useState(null)
+  const { createAppointment } = useDoctorAppointment()
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     note: "",
   });
+  const { categories } = useCategory()
+  const { data: doctors } = useDoctorsByDept(selectedCategory)
 
-  const slots = generateSlots();
+  const doctorInfo = doctors?.find(d => d?.user?._id === selectedDoctor)
+  const available = doctorInfo?.available
 
-  useEffect(() => {
-    if (doctor) {
-      // simulate fetching booked slots for this doctor
-      const random = slots.filter(() => Math.random() < 0.3);
-      setBookedSlots(random);
-    }
-  }, [doctor, selectedDate]);
+  const filteredSchedules = selectedDate
+    ? available?.filter(
+      (s) =>
+        s.day.toLowerCase() === dayjs(selectedDate).format("dddd").toLowerCase()
+    )
+    : available;
+
+
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedSlot) return alert("Please select a time slot!");
-    alert(
-      `Appointment booked!\n\nPatient: ${formData.name}\nDepartment: ${department}\nDoctor: ${doctor}\nDate: ${selectedDate.format(
-        "dddd, MMM D YYYY"
-      )}\nTime: ${selectedSlot}`
-    );
+
+    if (!selectedSchedule) {
+      toast.error("Please Select Schedule.")
+    }
+
+    if(!selectedDate){
+      toast.error("Please Select Date")
+    }
+    const schedule = available.find(a => a?._id === selectedSchedule)
+    const payload = {
+      ...formData,
+      doctor: selectedDoctor,
+      category: selectedCategory,
+      day: schedule?.day,
+      shift: schedule?.shift,
+      from: schedule?.from,
+      to: schedule?.to,
+      date: selectedDate
+    }
+    const res = await createAppointment.mutateAsync(payload)
+    if (res?.data?.success) {
+      toast.success("Appointment is Confirmed.")
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        note: "",
+      })
+    } else {
+      toast.success("Something is Wrong. Contact with admin")
+      console.log(res)
+    }
+
   };
 
   return (
     <section className="py-20 bg-[var(--bgLight)]">
       <div className="container mx-auto px-6 md:px-10">
-        {/* <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-3xl font-bold text-center text-[var(--textDark)] mb-10"
-        >
-          Book Your Appointment
-        </motion.h2> */}
 
         <form
           onSubmit={handleSubmit}
@@ -118,90 +118,97 @@ export default function AppointmentFormPro() {
           {/* Department and Doctor */}
           <div className="grid md:grid-cols-2 gap-6">
             <select
-              value={department}
+              value={selectedCategory}
               onChange={(e) => {
-                setDepartment(e.target.value);
-                setDoctor("");
+                setSelectedCategory(e.target.value);
               }}
-              required
-              className="border border-[var(--borderLight)] rounded-lg p-3 bg-white focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all"
             >
-              <option value="">Select Department</option>
-              {Object.keys(mockData).map((dep) => (
-                <option key={dep} value={dep}>
-                  {dep}
-                </option>
+              <option value="">Select Category</option>
+              {categories?.map((c) => (
+                <option key={c._id} value={c._id}>{c.name}</option>
               ))}
             </select>
 
-            {(
-              <select
-                value={doctor}
-                onChange={(e) => setDoctor(e.target.value)}
-                required
-                className="border border-[var(--borderLight)] rounded-lg p-3 bg-white focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
-              >
-                <option value="">Select Doctor</option>
-                {mockData[department]?.doctors.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
-            )}
+            <select
+              value={selectedDoctor}
+              onChange={(e) => setSelectedDoctor(e.target.value)}
+              required
+              className="border border-[var(--borderLight)] rounded-lg p-3 bg-white focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+            >
+              <option value=''>Select Doctor</option>
+              {doctors?.map((d) => (
+                <option key={d?.user?._id} value={d?.user?._id}>
+                  {d?.user?.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Date Picker */}
-          {doctor && (
-            <div className="flex flex-col md:flex-row items-center gap-4">
-              <label className="text-[var(--textDark)] font-semibold">
-                Select Date:
-              </label>
-              <input
-                type="date"
-                min={dayjs().format("YYYY-MM-DD")}
-                value={selectedDate.format("YYYY-MM-DD")}
-                onChange={(e) => setSelectedDate(dayjs(e.target.value))}
-                className="border border-[var(--borderLight)] rounded-lg p-3 bg-white focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
-              />
-              <span className="text-[var(--textLight)]">
-                {selectedDate.format("dddd, MMM D YYYY")}
-              </span>
-            </div>
-          )}
+          <div className="mb-6">
+            <input
+              type="date"
+              value={selectedDate || ""}
+              onChange={(e) => {
+                setSelectedDate(e.target.value);
+                setSelectedSchedule(null); // reset selected schedule when date changes
+              }}
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all"
+            />
+          </div>
 
-          {/* Modern Slot Picker */}
-          {doctor && (
-            <div>
-              <h3 className="text-lg font-semibold text-[var(--textDark)] mb-3">
-                Available Time Slots
-              </h3>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-                {slots.map((time) => {
-                  const isBooked = bookedSlots.includes(time);
-                  const isSelected = selectedSlot === time;
-                  return (
-                    <button
-                      key={time}
-                      type="button"
-                      disabled={isBooked}
-                      onClick={() => setSelectedSlot(time)}
-                      className={`rounded-lg p-2 text-sm font-medium border transition
-                        ${
-                          isBooked
-                            ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                            : isSelected
-                            ? "bg-[var(--brandColor)] text-white border-[var(--brandColor)]"
-                            : "border-[var(--borderLight)] hover:border-[var(--brandColor)] text-[var(--textDark)]"
-                        }`}
-                    >
-                      {time}
-                    </button>
-                  );
-                })}
-              </div>
+          {
+            filteredSchedules && <div className="grid grid-cols-3 gap-4">
+              <AnimatePresence>
+                {filteredSchedules?.map((s) => (
+                  <motion.div
+                    key={s._id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    onClick={() => setSelectedSchedule(s?._id)}
+                    className={`group relative bg-white border rounded-xl p-5 hover:shadow-lg transition-all duration-200 ${selectedSchedule === s?._id ? "border-[var(--brandColor)] border-4" : "border-gray-200"}`}
+                  >
+                    {/* Status Indicator */}
+                    <div className={`absolute top-0 left-0 w-1 h-full bg-[#0076BC] rounded-l-xl opacity-0  group-hover:opacity-0 transition-opacity`} />
+
+                    <div className="flex justify-between flex-col gap-4">
+                      {/* Left Side - Schedule Info */}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="p-2 bg-[#0076BC]/10 rounded-lg">
+                            <Calendar size={18} className="text-[#0076BC]" />
+                          </div>
+                          <h4 className="text-lg font-semibold text-gray-800">{s.day}</h4>
+                          <span className={`px-3 py-1 text-xs font-medium rounded-full flex items-center gap-1 ${s.shift === "morning"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-blue-100 text-blue-700"
+                            }`}>
+                            {s.shift === "morning" ? <Sun size={12} /> : <Moon size={12} />}
+                            {s.shift.charAt(0).toUpperCase() + s.shift.slice(1)}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-4 text-gray-600">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full" />
+                            <span className="text-sm font-medium">Start: {s.from}</span>
+                          </div>
+                          <div className="w-4 h-[1px] bg-gray-300" />
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-red-500 rounded-full" />
+                            <span className="text-sm font-medium">End: {s.from}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
-          )}
+          }
+
 
           {/* Notes */}
           <textarea
@@ -221,7 +228,7 @@ export default function AppointmentFormPro() {
             </button>
           </div>
         </form>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 }

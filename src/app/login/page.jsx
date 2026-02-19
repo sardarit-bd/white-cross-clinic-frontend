@@ -5,14 +5,24 @@ import { Mail, Lock } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
+    const router = useRouter()
+    const { login } = useAuth()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = () => {
-        console.log("Logging in:", { email, password });
-        // 🔥 TODO: call backend login API
+    const handleLogin = async () => {
+        const res = await login({ email, password });
+        if(res?.success) {
+            toast.success("Login successful! Redirecting to dashboard...");
+            router.push("/dashboard")
+        } else {
+            toast.error(res?.message || "Login failed. Please try again.");
+        }
     };
 
     return (

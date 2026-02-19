@@ -7,6 +7,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavButton from "./NavButton";
+import { useCategory } from "@/hooks/useCategory";
 
 /* -----------------------------
       GROUP SPECIALTIES (A–Z)
@@ -169,6 +170,13 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const [hoveredDropdown, setHoveredDropdown] = useState(null);
+  const {subcategories} = useCategory()
+  const doctorDepartments = subcategories?.map(cat => {
+    return {
+      name: cat.name, slug: cat?.category?.slug
+    }
+  })
+  const articleCategories = [...doctorDepartments]
 
   const [isMegaHovered, setIsMegaHovered] = useState(false);
   const [isDropdownHovered, setIsDropdownHovered] = useState(false);
@@ -320,14 +328,14 @@ export default function Navbar() {
                   <Link
                     key={i}
                     onClick={closeAllMenus}
-                    href={`/doctors/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    href={`/doctors/${dept?.slug}`}
                     className="
                       flex items-center gap-2 p-1 text-[var(--textDark)]
                       hover:text-[var(--brandColor)]
                       hover:underline underline-offset-2 transition text-md
                     "
                   >
-                    {dept}
+                    {dept?.name}
                   </Link>
                 ))}
 
@@ -365,14 +373,14 @@ export default function Navbar() {
                   <Link
                     key={i}
                     onClick={closeAllMenus}
-                    href={`/articles/${cat.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    href={`/articles/${cat?.slug}`}
                     className="
                       flex items-center gap-2 p-1 text-[var(--textDark)]
                       hover:text-[var(--brandColor)]
                       hover:underline underline-offset-2 transition text-md
                     "
                   >
-                    {cat}
+                    {cat?.name}
                   </Link>
                 ))}
 

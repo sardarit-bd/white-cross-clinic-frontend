@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, MoveLeftIcon, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import SidebarNav from "./Sidebarnav";
 import { getDashboardSideMenu } from "@/app/helpers/getDashboardSidebarMenu";
+import Link from "next/link";
 
 export function DashboardSidebar() {
-    const user = useAuth();
+    const { user } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
 
     const sidebarNavItems = getDashboardSideMenu(user?.role);
@@ -26,7 +27,7 @@ export function DashboardSidebar() {
                 <div className="flex items-center justify-center h-16 
                                 border-b border-[var(--borderLight)] 
                                 font-semibold text-lg text-[var(--brandColor)] tracking-wide">
-                    Dashboard
+                    <Link href="/" className="flex gap-2 items-center"> <MoveLeftIcon /> White Cross Clinic</Link>
                 </div>
 
                 <SidebarNav items={sidebarNavItems} />
