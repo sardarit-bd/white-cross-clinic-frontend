@@ -10,14 +10,14 @@ export default function HomeSearchSection() {
   const [normalQuery, setNormalQuery] = useState("");
   const [aiQuery, setAiQuery] = useState("");
 
-  // 🔍 Normal search redirect
+  // Normal search redirect
   const handleNormalKey = (e) => {
     if (e.key === "Enter" && normalQuery.trim()) {
       router.push(`/find?q=${encodeURIComponent(normalQuery)}`);
     }
   };
 
-  // 🤖 AI Search redirect
+  // AI Search redirect
   const handleAIKey = (e) => {
     if (e.key === "Enter" && aiQuery.trim()) {
       router.push(`/search?ai=${encodeURIComponent(aiQuery)}`);
