@@ -6,15 +6,19 @@ import { useParams, useSearchParams } from "next/navigation";
 import { useCategory } from "@/hooks/useCategory";
 import { useDoctorsByDept } from "@/hooks/useUser";
 import { Calendar, Moon, Sun } from "lucide-react";
+import { useDoctorAppointment } from "@/hooks/useDoctorAppointment";
+import toast from "react-hot-toast";
 
 
 export default function AppointmentFormPro() {
   const params = useSearchParams()
   const paramsDepartment = params.get('department')
   const paramsDoctor = params.get('doctor')
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(paramsDepartment)
   const [selectedDoctor, setSelectedDoctor] = useState(paramsDoctor)
   const [selectedSchedule, setSelectedSchedule] = useState(null)
+  const { createAppointment } = useDoctorAppointment()
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,13 +32,28 @@ export default function AppointmentFormPro() {
   const doctorInfo = doctors?.find(d => d?.user?._id === selectedDoctor)
   const available = doctorInfo?.available
 
+  const filteredSchedules = selectedDate
+    ? available?.filter(
+      (s) =>
+        s.day.toLowerCase() === dayjs(selectedDate).format("dddd").toLowerCase()
+    )
+    : available;
+
+
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!selectedSchedule) {
+      toast.error("Please Select Schedule.")
+    }
+
+    if(!selectedDate){
+      toast.error("Please Select Date")
+    }
     const schedule = available.find(a => a?._id === selectedSchedule)
     const payload = {
       ...formData,
@@ -43,9 +62,23 @@ export default function AppointmentFormPro() {
       day: schedule?.day,
       shift: schedule?.shift,
       from: schedule?.from,
-      to: schedule?.to
+      to: schedule?.to,
+      date: selectedDate
     }
-    console.log(payload)
+    const res = await createAppointment.mutateAsync(payload)
+    if (res?.data?.success) {
+      toast.success("Appointment is Confirmed.")
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        note: "",
+      })
+    } else {
+      toast.success("Something is Wrong. Contact with admin")
+      console.log(res)
+    }
+
   };
 
   return (
@@ -112,20 +145,33 @@ export default function AppointmentFormPro() {
             </select>
           </div>
 
+          {/* Date Picker */}
+          <div className="mb-6">
+            <input
+              type="date"
+              value={selectedDate || ""}
+              onChange={(e) => {
+                setSelectedDate(e.target.value);
+                setSelectedSchedule(null); // reset selected schedule when date changes
+              }}
+              className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all"
+            />
+          </div>
+
           {
-            available && <div className="grid grid-cols-3 gap-4">
+            filteredSchedules && <div className="grid grid-cols-3 gap-4">
               <AnimatePresence>
-                {available.map((s) => (
+                {filteredSchedules?.map((s) => (
                   <motion.div
                     key={s._id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     onClick={() => setSelectedSchedule(s?._id)}
-                    className="group relative bg-white border border-gray-200 rounded-xl p-5 hover:shadow-lg transition-all duration-200"
+                    className={`group relative bg-white border rounded-xl p-5 hover:shadow-lg transition-all duration-200 ${selectedSchedule === s?._id ? "border-[var(--brandColor)] border-4" : "border-gray-200"}`}
                   >
                     {/* Status Indicator */}
-                    <div className={`absolute top-0 left-0 w-1 h-full bg-[#0076BC] rounded-l-xl ${selectedSchedule === s?._id ? "opacity-100" : "opacity-0"} group-hover:opacity-100 transition-opacity`} />
+                    <div className={`absolute top-0 left-0 w-1 h-full bg-[#0076BC] rounded-l-xl opacity-0  group-hover:opacity-0 transition-opacity`} />
 
                     <div className="flex justify-between flex-col gap-4">
                       {/* Left Side - Schedule Info */}

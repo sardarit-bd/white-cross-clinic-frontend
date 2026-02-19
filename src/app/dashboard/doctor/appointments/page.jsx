@@ -1,193 +1,180 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Calendar, Clock, Phone, MapPin } from "lucide-react";
-import AppointmentStatusBadge from "@/components/modules/dashboard/doctor/AppointmentStatusBadge";
+import { useState } from "react";
+import { Calendar, Clock, MapPin, User, Search, Filter, Plus, Video, Phone, MoreVertical, Edit, Trash2, Download } from "lucide-react";
+import { useDoctorAppointmentByDoctor } from "@/hooks/useDoctorAppointment";
+import dayjs from "dayjs";
 
-export default function DoctorAppointmentsPage() {
-  const [appointments, setAppointments] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-
-  // Filters
-  const [search, setSearch] = useState("");
+export default function MyAppointments() {
+  const { data: appointment } = useDoctorAppointmentByDoctor()
   const [filterDate, setFilterDate] = useState("");
-  const [filterStatus, setFilterStatus] = useState("All");
 
-  // ⚡ Replace this with real API call later
-  useEffect(() => {
-    const demo = [
-      {
-        id: 1,
-        name: "John Doe",
-        date: "2025-01-22",
-        time: "10:00 AM",
-        phone: "+1 202-555-0189",
-        reason: "Chest Pain Checkup",
-        status: "Pending",
-        location: "Room 304",
-      },
-      {
-        id: 2,
-        name: "Sarah Ahmed",
-        date: "2025-01-22",
-        time: "12:30 PM",
-        phone: "+1 202-555-0275",
-        reason: "Follow-up Consultation",
-        status: "Approved",
-        location: "Room 102",
-      },
-      {
-        id: 3,
-        name: "Mark Wilson",
-        date: "2025-01-23",
-        time: "03:00 PM",
-        phone: "+1 202-555-4224",
-        reason: "ECG Review",
-        status: "Completed",
-        location: "Room 310",
-      },
-    ];
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setAppointments(demo);
-    setFiltered(demo);
-  }, []);
-
-  // 🔍 Filtering Logic
-  useEffect(() => {
-    let updated = [...appointments];
-
-    // search by name  
-    if (search.trim() !== "") {
-      updated = updated.filter((a) =>
-        a.name.toLowerCase().includes(search.toLowerCase())
-      );
+  const appointments = appointment?.map((app) => {
+    return {
+      id: app?._id,
+      patientName: app?.name,
+      specialty: app?.category?.name,
+      day: app?.day,
+      from: app?.from,
+      to: app?.to,
+      type: app?.type || "In Place",
+      status: "Pending",
+      location: "Meanwhile Garden Medical Centre Westbourne Park 5 Elkstone Rd, London",
+      notes: app?.note,
+      date: app?.date
     }
+  })
 
-    // filter by date
-    if (filterDate) {
-      updated = updated.filter((a) => a.date === filterDate);
+  // Filter appointments based on active tab and search
+  const filteredAppointments = filterDate
+    ? appointments?.filter(
+      (app) => app.date && new Date(app.date).toISOString().split("T")[0] === filterDate
+    )
+    : appointments;
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'confirmed': return 'bg-green-100 text-green-800 border-green-200';
+      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
+  };
 
-    // filter by status
-    if (filterStatus !== "All") {
-      updated = updated.filter((a) => a.status === filterStatus);
+  const getStatusText = (status) => {
+    switch (status) {
+      case 'confirmed': return 'Confirmed';
+      case 'pending': return 'Pending';
+      case 'completed': return 'Completed';
+      case 'cancelled': return 'Cancelled';
+      default: return status;
     }
+  };
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setFiltered(updated);
-  }, [search, filterDate, filterStatus, appointments]);
+  const getTypeIcon = (type) => {
+    switch (type) {
+      case 'Video Call': return <Video size={16} className="text-blue-600" />;
+      case 'Phone Call': return <Phone size={16} className="text-green-600" />;
+      default: return <MapPin size={16} className="text-[var(--brandColor)]" />;
+    }
+  };
+
+
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6">
 
-      {/* Header Section */}
-      <div className="flex flex-wrap justify-between items-center gap-4">
-        <h1 className="text-2xl font-bold text-[var(--textDark)]">Appointments</h1>
+      <div className="container mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-[var(--textDark)] mb-2">
+            My Appointments
+          </h1>
+          <p className="text-[var(--textLight)]">
+            Manage and track your medical appointments
+          </p>
+        </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3">
-
-          {/* Date Filter */}
+        {/* Date Filter */}
+        <div className="mb-4">
           <input
             type="date"
-            className="border border-[var(--borderLight)] rounded-lg px-3 py-2 text-sm"
             value={filterDate}
             onChange={(e) => setFilterDate(e.target.value)}
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all"
           />
+        </div>
 
-          {/* Status Filter */}
-          <select
-            className="border border-[var(--borderLight)] rounded-lg px-3 py-2 text-sm text-[var(--textDark)]"
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-          >
-            <option value="All">All Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Approved">Approved</option>
-            <option value="Cancelled">Cancelled</option>
-            <option value="Completed">Completed</option>
-          </select>
+        {/* Appointments List */}
+        <div className="space-y-4">
+          {filteredAppointments?.length === 0 ? (
+            <div className="bg-white rounded-xl shadow-[var(--shadowCard)] p-12 text-center">
+              <Calendar className="mx-auto text-[var(--textMuted)] mb-4" size={48} />
+              <h3 className="text-lg font-semibold text-[var(--textDark)] mb-2">
+                No appointments found
+              </h3>
+            </div>
+          ) : (
+            filteredAppointments?.map((appointment) => (
+              <div
+                key={appointment.id}
+                className="bg-white rounded-xl shadow-[var(--shadowCard)] p-6 hover:shadow-[var(--shadowHover)] transition-shadow"
+              >
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                  {/* Left Section - Doctor Info */}
+                  <div className="flex items-start gap-4 flex-1">
+                    <div className="w-12 h-12 bg-[var(--brandColorLight)] rounded-full flex items-center justify-center">
+                      <User className="text-[var(--brandColor)]" size={24} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-lg font-semibold text-[var(--textDark)]">
+                          {appointment.patientName}
+                        </h3>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(appointment.status)}`}>
+                          {getStatusText(appointment.status)}
+                        </span>
+                      </div>
+                      <p className="text-[var(--textLight)] mb-2">{appointment.specialty}</p>
+                      <div className="flex items-center gap-4 text-sm text-[var(--textLight)]">
+                        <div className="flex items-center gap-1">
+                          <Calendar size={14} />
+                          <span>{appointment.day} - {appointment?.date ? dayjs(appointment?.date).format("YYYY-MM-DD") : dayjs(new Date.now()).format("YYYY-MM-DD")}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock size={14} />
+                          <span>{appointment.from} - ({appointment.to})</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          {getTypeIcon(appointment.type)}
+                          <span>{appointment.type}</span>
+                        </div>
+                      </div>
+                      {appointment.location && (
+                        <div className="flex items-center gap-1 mt-2 text-sm text-[var(--textLight)]">
+                          <MapPin size={14} />
+                          <span>{appointment.location}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
 
-          {/* Search Filter */}
-          <input
-            type="text"
-            placeholder="Search patient..."
-            className="border border-[var(--borderLight)] rounded-lg px-3 py-2 text-sm"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+                  {/* Right Section - Actions */}
+                  <div className="flex items-center gap-3">
+
+                    {(appointment.status === 'confirmed' || appointment.status === 'pending') && (
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => cancelAppointment(appointment.id)}
+                          className="p-2 text-[var(--textLight)] hover:text-red-600 transition-colors"
+                          title="Cancel"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    )}
+
+                    {appointment.status === 'completed' && (
+                      <button className="flex items-center gap-2 bg-green-100 text-green-700 px-3 py-2 rounded-lg hover:bg-green-200 transition-colors">
+                        Confirmed
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Reason */}
+                <div className="mt-4 pt-4 border-t border-[var(--borderLight)]">
+                  <p className="text-sm text-[var(--textLight)]">
+                    <span className="font-medium text-[var(--textDark)]">Additional Notes:</span> {appointment.notes}
+                  </p>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
 
-      {/* Appointment List */}
-      {filtered.length === 0 ? (
-        <p className="text-center text-[var(--textLight)] pt-10">
-          No appointments found.
-        </p>
-      ) : (
-        <div className="space-y-4">
-          {filtered.map((appt) => (
-            <div
-              key={appt.id}
-              className="bg-white p-5 rounded-xl shadow-[var(--shadowCard)] hover:shadow-lg transition"
-            >
-              <div className="flex justify-between items-start flex-wrap">
-
-                {/* Left Section */}
-                <div className="flex flex-col gap-1">
-                  <h2 className="text-lg font-semibold text-[var(--textDark)]">
-                    {appt.name}
-                  </h2>
-
-                  <div className="flex items-center gap-2 text-sm text-[var(--textLight)]">
-                    <Calendar size={16} />
-                    {appt.date}
-                  </div>
-
-                  <div className="flex items-center gap-2 text-sm text-[var(--textLight)]">
-                    <Clock size={16} />
-                    {appt.time}
-                  </div>
-
-                  <div className="flex items-center gap-2 text-sm text-[var(--textLight)]">
-                    <Phone size={16} />
-                    {appt.phone}
-                  </div>
-                </div>
-
-                {/* Right Section */}
-                <div className="flex flex-col gap-2 items-end">
-
-                  <AppointmentStatusBadge status={appt.status} />
-
-                  <div className="text-sm text-[var(--textLight)] flex items-center gap-2">
-                    <MapPin size={16} />
-                    {appt.location}
-                  </div>
-
-                  {/* Dropdown for Updating Status */}
-                  <select
-                    className="mt-2 rounded-lg border border-[var(--borderLight)] px-3 py-1 text-sm text-[var(--textDark)]"
-                    defaultValue={appt.status}
-                    onChange={(e) => {
-                      // ⚡ API update call goes here
-                      console.log("Update", appt.id, e.target.value);
-                    }}
-                  >
-                    <option value="Pending">Pending</option>
-                    <option value="Approved">Approved</option>
-                    <option value="Cancelled">Cancelled</option>
-                    <option value="Completed">Completed</option>
-                  </select>
-
-                </div>
-
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
