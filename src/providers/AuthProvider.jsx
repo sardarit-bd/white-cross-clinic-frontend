@@ -68,6 +68,17 @@ export function AuthProvider({ children }) {
             setLoading(false);
         }
     };
+    const sendContactEmail = async (payload) => {
+        try {
+            const res = await axios.post(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/send-email`,
+                payload
+            );
+            return res.data;
+        } catch (err) {
+            setLoading(false);
+        }
+    };
     const resetPassword = async (payload) => {
         try {
             const res = await axios.post(
@@ -112,7 +123,7 @@ export function AuthProvider({ children }) {
 
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout, register, updateProfile, sendResetPassword, resetPassword, getProfile }}>
+        <AuthContext.Provider value={{ user, loading, login, logout, register, updateProfile, sendResetPassword, resetPassword, getProfile, sendContactEmail }}>
             {children}
         </AuthContext.Provider>
     );

@@ -1,8 +1,41 @@
 "use client";
+import { useAuth } from "@/hooks/useAuth";
 import { motion } from "framer-motion";
 import { PhoneCall, Mail, MapPin, Clock } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ContactSection() {
+  const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    msg: ""
+  })
+
+  const { sendContactEmail } = useAuth()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    try {
+      const res = await sendContactEmail(form)
+      if (res.success) {
+        toast.success("Message is Send Successfully.")
+        setForm({
+          name: "",
+          email: "",
+          phone: "",
+          msg: ""
+        })
+      }
+    } catch (error) {
+      toast.error("Something Wrong.")
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <section className="relative py-20  overflow-hidden">
 
@@ -96,10 +129,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             className="bg-white shadow-lg rounded-2xl p-8 border border-[var(--borderLight)] space-y-5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert("📩 Your message has been sent successfully!");
-            }}
+            onSubmit={handleSubmit}
           >
             <h3 className="text-xl font-semibold text-[var(--textDark)] mb-4">
               Send Us a Message
@@ -110,11 +140,15 @@ export default function ContactSection() {
                 type="text"
                 placeholder="Full Name"
                 required
+                value={form.name}
+                onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
                 className="w-full border border-[var(--borderLight)] rounded-lg p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
               />
               <input
                 type="email"
                 placeholder="Email Address"
+                value={form.email}
+                onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
                 required
                 className="w-full border border-[var(--borderLight)] rounded-lg p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
               />
@@ -123,12 +157,16 @@ export default function ContactSection() {
             <input
               type="tel"
               placeholder="Phone Number"
+              value={form.phone}
               required
+              onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
               className="w-full border border-[var(--borderLight)] rounded-lg p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
             />
 
             <textarea
               placeholder="Your Message"
+              value={form.msg}
+              onChange={(e) => setForm((prev) => ({ ...prev, msg: e.target.value }))}
               rows={4}
               required
               className="w-full border border-[var(--borderLight)] rounded-lg p-3 resize-none focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
@@ -136,9 +174,13 @@ export default function ContactSection() {
 
             <button
               type="submit"
-              className="bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white px-8 py-3 rounded-full font-semibold transition shadow-md"
+              disabled={loading}
+              className="bg-[var(--brandColor)] text-white px-8 py-3 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              Send Message
+              {loading && (
+                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              )}
+              {loading ? "Sending..." : "Send Message"}
             </button>
           </motion.form>
         </div>
