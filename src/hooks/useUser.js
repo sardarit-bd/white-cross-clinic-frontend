@@ -25,6 +25,12 @@ const fetchSingleUserById = async (id) => {
         { withCredentials: true, });
     return res.data.data;
 }
+
+const fetchDoctorAndArticles = async (ai, query) => {
+    const res = await axios.get(`${BASE}/api/search/ai?query=${query}&ai=${ai}`,
+        { withCredentials: true, });
+    return res.data.data;
+}
 export const useProfile = () => {
     const queryClient = useQueryClient();
 
@@ -71,5 +77,15 @@ export const useSingleUserById = (id) => {
         queryKey: ["profile", "subcategory", id],
         queryFn: () => fetchSingleUserById(id),
         enabled: !!id,
+    });
+};
+
+export const useAiSearchDoctorAndArticles = (ai = false, query) => {
+    return useQuery({
+        queryKey: [ai, query],
+        queryFn: () => fetchDoctorAndArticles(ai, query),
+        staleTime: 0,
+        cacheTime: 0,
+        refetchOnWindowFocus: true,
     });
 };
