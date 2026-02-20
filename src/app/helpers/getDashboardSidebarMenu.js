@@ -25,7 +25,7 @@ import {
 const patientMenu = [
     { title: "Dashboard", href: "/dashboard", icon: Home },
     { title: "My Appointments", href: "/dashboard/patient/appointments", icon: CalendarCheck },
-    { title: "Purchase History", href: "/dashboard/purchase-history", icon: ShoppingBag },
+    // { title: "Purchase History", href: "/dashboard/purchase-history", icon: ShoppingBag },
     { title: "Profile", href: "/dashboard/profile", icon: User },
 ];
 
@@ -91,13 +91,13 @@ const adminMenu = [
 
     // System Features
     { title: "Doctor Appointments", href: "/dashboard/admin/appointments", icon: CalendarCheck },
-    { title: "Test Appointments", href: "/dashboard/admin/test-appointments", icon: CalendarCheck },
-    { title: "Coupons", href: "/dashboard/admin/coupons", icon: Tag },
-    { title: "Transactions", href: "/dashboard/admin/transactions", icon: ShoppingBag },
+    // { title: "Test Appointments", href: "/dashboard/admin/test-appointments", icon: CalendarCheck },
+    // { title: "Coupons", href: "/dashboard/admin/coupons", icon: Tag },
+    // { title: "Transactions", href: "/dashboard/admin/transactions", icon: ShoppingBag },
 
     // Live Chat Support
     { title: "Live Chat Support", href: "/dashboard/doctor/chat", icon: MessageSquare },
-    { title: "Manage Admins", href: "/dashboard/admin/admins", icon: Shield },
+    // { title: "Manage Admins", href: "/dashboard/admin/admins", icon: Shield },
 
 ];
 

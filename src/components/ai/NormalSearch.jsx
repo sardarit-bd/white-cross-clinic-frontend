@@ -1,49 +1,19 @@
 "use client";
 
-import { useEffect, useEffectEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useAiSearchDoctorAndArticles } from "@/hooks/useUser";
 
 export default function NormalSearch() {
-    const params = useSearchParams().get('q')
+  const params = useSearchParams().get('q')
   const [query, setQuery] = useState(params || '');
-  const [loading, setLoading] = useState(false);
-  const [doctors, setDoctors] = useState([]);
-  const [articles, setArticles] = useState([]);
 
-  const handleSearch = async () => {
-    if (!query.trim()) return;
+  const { data: results, isLoading } = useAiSearchDoctorAndArticles(false, query)
 
-    setLoading(true);
-
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SEARCH_API}/search`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      });
-
-      const data = await res.json();
-
-      setDoctors(data.results.filter((i) => i.type === "doctor"));
-      setArticles(data.results.filter((i) => i.type === "article"));
-    } catch (err) {
-      console.error("Normal search error:", err);
-    }
-
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    if(params) handleSearch(params)
-  }, [params])
-
-  // Search on Enter
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
+  // ⭐ Merge local & AI results
+  const localDoctors = results?.localSearch?.doctors || [];
+  const localArticls = results?.localSearch?.articles || [];
 
   return (
     <div className="container mx-auto px-4 py-10">
@@ -56,22 +26,21 @@ export default function NormalSearch() {
           className="w-full font-bold outline-none text-[var(--textDark)]"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyPress={handleKeyPress}
         />
-        <button
+        {/* <button
           onClick={handleSearch}
           className="px-6 py-2 rounded-lg text-white"
           style={{ background: "var(--brandGradient)" }}
         >
           Search
-        </button>
+        </button> */}
       </div>
 
-      {loading && (
+      {isLoading && (
         <p className="text-center text-lg text-gray-500">Searching...</p>
       )}
 
-      {!loading && (doctors.length > 0 || articles.length > 0) && (
+      {!isLoading && (localDoctors.length > 0 || localArticls.length > 0) && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
 
           {/* LEFT SIDE — DOCTORS */}
@@ -81,34 +50,22 @@ export default function NormalSearch() {
             </h2>
 
             <div className="space-y-6 grid grid-cols-1 lg:grid-cols-2 gap-2">
-              {doctors.map((doc, i) => (
+              {localDoctors.map((doc, i) => (
                 <div
                   key={i}
                   className="bg-white rounded-2xl shadow-md overflow-hidden"
                 >
-                  <img
-                    src={doc.image || "https://cdn.pixabay.com/photo/2017/01/29/21/16/nurse-2019420_640.jpg"}
-                    className="w-full h-64 object-cover"
-                    alt={doc.name}
-                  />
 
                   <div className="p-6">
                     <h3 className="text-lg font-bold text-[var(--textDark)]">
-                      {doc.name}
+                      {doc?.doctorInfo?.name}
                     </h3>
                     <p className="text-[var(--brandColor)] text-sm">
-                      {doc.specialization}
-                    </p>
-                    <p className="text-sm text-gray-600 mt-2">
-                      {doc.experience}
-                    </p>
-
-                    <p className="text-gray-500 mt-3">
-                      {doc.focusAreas?.slice(0, 120)}...
+                      {doc.designation}
                     </p>
 
                     <Link
-                      href={`/doctor/${doc.id}`}
+                      href={`/doctors/missing/${doc?.doctorInfo?._id}`}
                       className="block w-fit mt-5 px-6 py-2 bg-[var(--brandColor)] text-white rounded-full"
                     >
                       View Profile
@@ -117,7 +74,7 @@ export default function NormalSearch() {
                 </div>
               ))}
 
-              {doctors.length === 0 && (
+              {localDoctors.length === 0 && (
                 <p className="text-gray-500">No doctor found.</p>
               )}
             </div>
@@ -130,16 +87,11 @@ export default function NormalSearch() {
             </h2>
 
             <div className="space-y-6 grid grid-cols-1 lg:grid-cols-2 gap-2">
-              {articles.map((art, i) => (
+              {localArticls.map((art, i) => (
                 <div
                   key={i}
                   className="bg-white rounded-2xl shadow-md overflow-hidden"
                 >
-                  <img
-                    src={art.image || "https://cdn.pixabay.com/photo/2025/05/29/08/25/doctor-9628974_640.jpg"}
-                    className="w-full h-64 object-cover"
-                    alt={art.title}
-                  />
 
                   <div className="p-6">
                     <h3 className="text-lg font-bold text-[var(--textDark)]">
@@ -147,16 +99,11 @@ export default function NormalSearch() {
                     </h3>
 
                     <p className="text-gray-600 mt-2">
-                      {art.excerpt?.slice(0, 120)}...
+                      {art.description?.slice(0, 120)}...
                     </p>
 
-                    <div className="mt-4 flex justify-between text-sm text-gray-500">
-                      <span>{art.author || "Unknown Author"}</span>
-                      <span>{art.readingTime || "5 min read"}</span>
-                    </div>
-
                     <Link
-                      href={`/article/${art.id}`}
+                      href={`/news?slug=${art?.slug}`}
                       className="block mt-4 text-[var(--brandColor)] font-medium"
                     >
                       Read More →
@@ -165,7 +112,7 @@ export default function NormalSearch() {
                 </div>
               ))}
 
-              {articles.length === 0 && (
+              {localArticls.length === 0 && (
                 <p className="text-gray-500">No article found.</p>
               )}
             </div>
