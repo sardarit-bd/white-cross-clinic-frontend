@@ -1,8 +1,8 @@
 import { useAuthContext } from "@/providers/AuthProvider";
 
 export const useAuth = () => {
-  const { user, loading, login, logout, register, sendResetPassword, resetPassword, getProfile } = useAuthContext();
+  const { user, loading, login, logout, register, sendResetPassword, resetPassword, getProfile, sendContactEmail } = useAuthContext();
   // Get instructor by ID
 
-  return { user, loading, login, logout, register, sendResetPassword, resetPassword, getProfile };
+  return { user, loading, login, logout, register, sendResetPassword, resetPassword, getProfile, sendContactEmail };
 };
