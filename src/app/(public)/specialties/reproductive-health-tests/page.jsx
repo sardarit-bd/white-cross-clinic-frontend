@@ -1,12 +1,14 @@
+import Link from "next/link";
+
 export default function ReproductiveHealthTests() {
   const items = [
-    { title: "Hormones", link: "#" },
-    { title: "Infection", link: "#" },
-    { title: "Lifestyle/Environment", link: "#" },
-    { title: "Chromosomes/Genetics", link: "#" },
+    { title: "Hormones", link: "/specialties/hormones" },
+    { title: "Infection", link: "/specialties/infection" },
+    { title: "Lifestyle/Environment", link: "/specialties/lifestyle-environment" },
+    { title: "Chromosomes/Genetics", link: "/specialties/chromosomes-genetics" },
     {
       title: "Unexplained Infertility/Implantation Failure/Recurrent Miscarriage",
-      link: "#",
+      link: "/specialties/unexplained-infertility-implantation-failure-recurrent-miscarriage",
     },
   ];
 
@@ -40,7 +42,7 @@ export default function ReproductiveHealthTests() {
                 {item.title}
               </h3>
 
-              <a
+              <Link
                 href={item.link}
                 className="
                   text-[var(--brandColor)]
@@ -52,7 +54,7 @@ export default function ReproductiveHealthTests() {
                 "
               >
                 Read More →
-              </a>
+              </Link>
             </div>
           ))}
         </div>

@@ -72,9 +72,8 @@ export default function SpecificExposurePage() {
           {/* LIST */}
           {filtered.length > 0 ? (
             filtered.map((item, idx) => (
-              <Link
+              <div
                 key={idx}
-                href={`/specific-exposure/${toSlug(item.name)}`}
                 className="
                   block px-4 py-3 border-b last:border-none 
                   hover:bg-[var(--brandColorLight)] transition 
@@ -82,7 +81,7 @@ export default function SpecificExposurePage() {
                 "
               >
                 {item.name}
-              </Link>
+              </div>
             ))
           ) : (
             <div className="px-4 py-4 text-gray-500 text-sm">

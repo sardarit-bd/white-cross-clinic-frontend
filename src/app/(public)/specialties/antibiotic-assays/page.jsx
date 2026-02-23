@@ -48,13 +48,12 @@ export default function AntibioticAssays() {
         {/* LIST */}
         <div className="divide-y">
           {assays.map((item, i) => (
-            <Link
+            <div
               key={i}
-              href={`/antibiotic-assays/${toSlug(item)}`}
               className="block px-4 py-3 hover:bg-[var(--brandColorLight)] text-[var(--textDark)] transition"
             >
               {item}
-            </Link>
+            </div>
           ))}
         </div>
 

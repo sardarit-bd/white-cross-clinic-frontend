@@ -98,8 +98,7 @@ export default function Page() {
                             {filtered.map((name, i) => (
                                 <tr key={i} className="border-b border-[var(--borderLight)]">
                                     <td className="p-3">
-                                        <a
-                                            href="#"
+                                        <span
                                             className="
                         text-[var(--textDark)]
                         hover:text-[var(--brandColor)]
@@ -108,7 +107,7 @@ export default function Page() {
                       "
                                         >
                                             {name}
-                                        </a>
+                                        </span>
                                     </td>
                                 </tr>
                             ))}

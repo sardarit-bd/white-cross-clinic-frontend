@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function TherapeuticDrugAssays() {
   return (
     <div className="w-full bg-[var(--bgLight)] py-12 px-4">
@@ -60,8 +62,8 @@ export default function TherapeuticDrugAssays() {
             Test codes, sample types, and turn-around times.
           </p>
 
-          <a
-            href="#"
+          <Link
+            href="/specialties/therapeutic-drug-assay-tests"
             className="
               text-[var(--brandColor)]
               hover:text-[var(--brandColorDark)]
@@ -71,7 +73,7 @@ export default function TherapeuticDrugAssays() {
             "
           >
             Read More →
-          </a>
+          </Link>
         </div>
 
       </div>

@@ -13,9 +13,9 @@ export default function MedicalMicrobiology() {
         </h1>
 
         <p className="text-[var(--textLight)] leading-relaxed mb-10 max-w-4xl">
-          WCC’s Microbiology service is a broad-ranging, clinically-led pathology service. 
-          In addition to routine microbiology diagnostics, the laboratory includes reference 
-          and developmental clinical services, with expertise in all areas of conventional 
+          WCC’s Microbiology service is a broad-ranging, clinically-led pathology service.
+          In addition to routine microbiology diagnostics, the laboratory includes reference
+          and developmental clinical services, with expertise in all areas of conventional
           and molecular microbiology.
         </p>
 
@@ -29,12 +29,12 @@ export default function MedicalMicrobiology() {
           </h2>
 
           <p className="text-[var(--textLight)] leading-relaxed mb-4">
-            All clinicians are advised that from 1st June 2021, the new Antimicrobial 
-            Susceptibility Result definitions recommended by EUCAST will apply to all results 
+            All clinicians are advised that from 1st June 2021, the new Antimicrobial
+            Susceptibility Result definitions recommended by EUCAST will apply to all results
             issued by WCC.
           </p>
 
-          <Link 
+          <Link
             href="/specialties/new-high-dose-antibiotic-susceptibility-category"
             className="text-[var(--brandColor)] font-medium hover:underline"
           >
@@ -46,34 +46,40 @@ export default function MedicalMicrobiology() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
           {/* CARD */}
-          <Card 
+          <Card
             title="Microbiology Tests"
             desc="Test codes, sample requirements, and turn-around times."
+            link='/specialties/microbiology-tests'
           />
 
-          <Card 
+          <Card
             title="Urine Culture Processing And Results"
             desc="Urine culture testing is performed using manual methods."
+            link="/specialties/urine-culture-processing-and-results"
           />
 
-          <Card 
+          <Card
             title="Stool Test Codes"
             desc="Real-time PCR is used for enteric pathogen testing."
+            link='/specialties/stool-test-codes'
           />
 
-          <Card 
+          <Card
             title="Fungal Detection"
             desc="PCR methods and test codes."
+            link='/specialties/fungal-detection'
           />
 
-          <Card 
+          <Card
             title="Mycobacterial Testing"
             desc="We offer a comprehensive Mycobacterial diagnostics service."
+            link='/specialties/mycobacterial-and-respiratory-investigation'
           />
 
-          <Card 
+          <Card
             title="Swabs"
             desc="Types and codes"
+            link='/specialties/swabs-types-and-codes'
           />
 
         </div>
@@ -84,7 +90,7 @@ export default function MedicalMicrobiology() {
 
 /* -------------------------- CARD COMPONENT -------------------------- */
 
-function Card({ title, desc }) {
+function Card({ title, desc, link }) {
   return (
     <div className="
       bg-white border border-[var(--borderLight)]
@@ -99,8 +105,8 @@ function Card({ title, desc }) {
         {desc}
       </p>
 
-      <Link 
-        href="#"
+      <Link
+        href={link}
         className="text-[var(--brandColor)] text-sm font-medium hover:underline"
       >
         Read More →
