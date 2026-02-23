@@ -1,6 +1,8 @@
 
 "use client";
 
+import Link from "next/link";
+
 export default function ReproductiveHealthPage() {
     return (
         <div className="w-full min-h-screen bg-[var(--bgLight)] pb-20">
@@ -36,7 +38,10 @@ export default function ReproductiveHealthPage() {
                     <button
                         className="text-[var(--brandColor)] hover:text-[var(--brandColorDark)] font-medium flex items-center gap-1 transition-all"
                     >
-                        Read More →
+                        <Link href='/specialties/reproductive-health-tests'>
+                            Read More →
+                        </Link>
+
                     </button>
                 </div>
             </div>

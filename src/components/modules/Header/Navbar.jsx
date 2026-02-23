@@ -355,7 +355,7 @@ export default function Navbar() {
                         <Link
                           key={i}
                           onClick={closeAllMenus}
-                          href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                          href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
                           className="
                             block p-1 text-[var(--textDark)]
                             hover:text-[var(--brandColor)]

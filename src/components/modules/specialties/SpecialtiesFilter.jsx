@@ -44,6 +44,7 @@ const sidebarItems = [
   {
     title: "Immunology",
     children: [
+      "Tropical and travel related immunology tests",
       "Coeliac Disease Update"
     ]
   },
@@ -64,6 +65,7 @@ const sidebarItems = [
   },
   {
     title: "Occupational Health",
+    disabled: true,
     children: [
       "Tests For Specific Exposure",
       "Trace Metals In Blood",
@@ -248,7 +250,7 @@ export default function SpecialitiesFilter() {
               `}
               onClick={() => item.children && setOpen(open === index ? null : index)}
             >
-              <Link href={parentSlug}>{item.title}</Link>
+              {item?.disabled ? <span>{item.title}</span> : <Link href={parentSlug}>{item.title}</Link>}
 
               {item.children && (
                 <ChevronDown

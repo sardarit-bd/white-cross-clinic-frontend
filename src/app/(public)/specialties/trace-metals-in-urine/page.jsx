@@ -60,15 +60,14 @@ export default function TraceMetalsInUrine() {
               {filtered.map((item, index) => (
                 <tr
                   key={index}
-                  className="border-b hover:bg-[var(--brandColorLight)] transition cursor-pointer"
+                  className="border-b hover:bg-[var(--brandColorLight)] transition"
                 >
                   <td className="px-4 py-3 text-[var(--textDark)]">
-                    <a
-                      href="#"
+                    <div
                       className="hover:text-[var(--brandColor)] underline underline-offset-2"
                     >
                       {item}
-                    </a>
+                    </div>
                   </td>
                 </tr>
               ))}

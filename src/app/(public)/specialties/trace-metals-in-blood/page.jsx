@@ -62,15 +62,14 @@ export default function TraceMetalsInBlood() {
             .replace(/^-+|-+$/g, "");
 
           return (
-            <Link
+            <div
               key={i}
-              href={`/trace-metals/${slug}`}
               className="block px-6 py-3 border-t border-[var(--borderLight)] 
                          hover:bg-[var(--brandColorLight)] hover:text-[var(--brandColor)] 
                          transition-all duration-200"
             >
               {item}
-            </Link>
+            </div>
           );
         })}
 

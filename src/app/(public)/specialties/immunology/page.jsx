@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function ImmunologyPage() {
   return (
     <div className="min-h-screen bg-[var(--bgLight)] pt-32 pb-20">
@@ -60,12 +62,12 @@ export default function ImmunologyPage() {
               Full A–Z listings.
             </p>
 
-            <a
-              href="#"
+            <Link
+              href="/specialties/tropical-and-travel-related-immunology-tests"
               className="text-[var(--brandColor)] font-medium hover:underline"
             >
               Read More →
-            </a>
+            </Link>
           </div>
 
           {/* CARD 2 */}
@@ -78,12 +80,12 @@ export default function ImmunologyPage() {
               Tests and profiles.
             </p>
 
-            <a
-              href="#"
+            <Link
+              href="/specialties/coeliac-disease-update"
               className="text-[var(--brandColor)] font-medium hover:underline"
             >
               Read More →
-            </a>
+            </Link>
           </div>
 
         </div>

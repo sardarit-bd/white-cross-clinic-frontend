@@ -120,13 +120,12 @@ export default function PollenCalendar() {
         {/* Rows */}
         <div className="divide-y">
           {filtered.map((item, i) => (
-            <Link
+            <div
               key={i}
-              href={`/pollen/${toSlug(item)}`}
               className="block px-4 py-3 hover:bg-[var(--brandColorLight)] text-[var(--textDark)] transition"
             >
               {item}
-            </Link>
+            </div>
           ))}
 
           {filtered.length === 0 && (
