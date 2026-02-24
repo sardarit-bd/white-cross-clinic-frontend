@@ -87,8 +87,7 @@ export default function VitaminTests() {
                 {filtered.map((test, i) => (
                   <tr key={i} className="border-b border-[var(--borderLight)]">
                     <td className="p-3 whitespace-nowrap">
-                      <a
-                        href="#"
+                      <span
                         className="
                           text-[var(--textDark)]
                           hover:text-[var(--brandColor)]
@@ -98,7 +97,7 @@ export default function VitaminTests() {
                         "
                       >
                         {test}
-                      </a>
+                      </span>
                     </td>
                   </tr>
                 ))}

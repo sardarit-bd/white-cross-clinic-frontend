@@ -92,21 +92,9 @@ export const specialInstructions = [
 ];
 
 export default function SpecialInstructionsPage() {
-  const [open, setOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(null);
-
-  const openModal = (item) => {
-    setActiveItem(item);
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-    setActiveItem(null);
-  };
 
   return (
-    <div className="container mx-auto pt-48 py-12 px-4 md:px-10 bg-[var(--bgLight)]">
+    <div className="container mx-auto pt-48 py-12 px-4 md:px-10">
       <h1 className="text-3xl font-bold text-[var(--textDark)] mb-6">
         Special Instructions
       </h1>
@@ -131,8 +119,7 @@ export default function SpecialInstructionsPage() {
             {specialInstructions.map((item) => (
               <tr
                 key={item.code}
-                className="border-b hover:bg-[var(--brandColorLight)] cursor-pointer transition"
-                onClick={() => openModal(item)}
+                className="border-b hover:bg-[var(--brandColorLight)] transition"
               >
                 <td className="py-3 px-4 font-medium text-[var(--textDark)] w-20">
                   {item.code}
@@ -148,35 +135,6 @@ export default function SpecialInstructionsPage() {
           </tbody>
         </table>
       </div>
-
-      {/* MODAL */}
-      {open && activeItem && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white max-w-lg w-full rounded-xl shadow-xl p-6 relative">
-            <h2 className="text-xl font-semibold text-[var(--textDark)] mb-4">
-              Instruction #{activeItem.code}
-            </h2>
-
-            <p className="text-[var(--textDark)] leading-relaxed mb-6">
-              {activeItem.instruction}
-            </p>
-
-            <button
-              className="px-5 py-2 rounded-lg bg-[var(--brandColor)] text-white hover:bg-[var(--brandColorDark)] transition"
-              onClick={closeModal}
-            >
-              Close
-            </button>
-
-            <button
-              className="absolute top-3 right-3 text-[var(--textDark)] hover:text-[var(--brandColor)]"
-              onClick={closeModal}
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

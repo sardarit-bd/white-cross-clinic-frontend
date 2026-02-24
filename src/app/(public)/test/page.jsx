@@ -30,6 +30,11 @@ export default function TestPage() {
       link: "/test/request-forms",
     },
     {
+      title: "Profiles A–Z",
+      desc: "Details of the tests covered by each profile, plus codes, sample requirements and turnaround times.",
+      link: "/test/profiles",
+    },
+    {
       title: "Discontinued tests",
       desc: "Tests may be discontinued at short notice for various reasons.",
       link: "/test/discontinued-tests",

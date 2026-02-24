@@ -35,8 +35,7 @@ export default function SampleCollectionCategories() {
     <div className="w-full py-10 pt-48">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item, index) => (
-          <Link
-            href={item.href}
+          <div
             key={index}
             className="p-6 rounded-md shadow-sm hover:shadow-md transition bg-[var(--brandColorLight)]"
           >
@@ -50,7 +49,7 @@ export default function SampleCollectionCategories() {
             <div className="flex items-center text-[var(--brandColor)] hover:translate-x-1 transition">
               <ArrowRight size={20} strokeWidth={1.8} />
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

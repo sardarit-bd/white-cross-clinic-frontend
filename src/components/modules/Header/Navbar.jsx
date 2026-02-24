@@ -138,9 +138,11 @@ const orderKitsDropdown = [
 ];
 
 const testMegaMenu = [
-  "Discounted Tests",
+  "Discontinued Tests",
   "Helpful Information",
+  "Profiles",
   "Sample Requirements",
+  "Request Forms",
   "Specimens",
   "Special Instructions",
   "Test A–Z",
