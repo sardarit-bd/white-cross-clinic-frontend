@@ -126,10 +126,15 @@ export default function DiscontinuedTests() {
         </h1>
 
         <p className="text-[var(--textLight)] mb-6 leading-relaxed">
-          Tests may be discontinued at short notice for various reasons such as
-          reagent changes, analyser developments, supply chain issues, or regulatory
-          review. Where possible, samples received by WCC will be referred to a
-          similar service.
+          Tests may be discontinued at short notice for various reasons: the majority of discontinuations relate to change with reagent manufacturers or analyser development, supply chain, suspension or regulatory review, etc.
+        </p>
+
+        <p className="text-[var(--textLight)] mb-6 leading-relaxed">
+          Whilst every effort will be made to look for a replacement referral laboratory, an alternative service may not be available, and it may be difficult to replace these infrequently requested tests for the short or long term. Where possible, samples that have been received by WCC will be referred for a similar service.
+        </p>
+
+        <p className="text-[var(--textLight)] mb-6 leading-relaxed">
+          The turnaround times, normal values and methodology are, however, likely to be different. If a substitute service cannot be found, you will be notified as it may not always be possible to store samples for the long term. In these instances, it will be necessary to discard or return the sample to the referring service.
         </p>
 
         {/* TABLE */}
@@ -147,9 +152,8 @@ export default function DiscontinuedTests() {
               {discontinuedTests.map((item, i) => (
                 <tr
                   key={i}
-                  className={`border-b border-[var(--borderLight)] ${
-                    i % 2 === 0 ? "bg-white" : "bg-[var(--brandColorLight)]"
-                  }`}
+                  className={`border-b border-[var(--borderLight)] ${i % 2 === 0 ? "bg-white" : "bg-[var(--brandColorLight)]"
+                    }`}
                 >
                   <td className="p-3 text-[var(--textDark)]">{item.test}</td>
                   <td className="p-3 font-medium text-[var(--brandColor)]">

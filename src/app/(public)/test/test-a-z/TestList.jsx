@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 
 const alphabets = [
-  "A","B","C","D","E","F","G","H","I","J","K","L",
+  "All","A","B","C","D","E","F","G","H","I","J","K","L",
   "M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
 ];
 
@@ -19,12 +19,12 @@ export default function TestList({ allTests , setTest, selectedTest}) {
           <div className="flex flex-wrap gap-3 text-base font-medium">
 
             {alphabets.map((letter, index) => {
-              const active = selectedTest === (index);
+              const active = selectedTest === letter;
 
               return (
                 <button
                   key={letter}
-                  onClick={() => setTest(index)}
+                  onClick={() => setTest(letter)}
                   className={`
                     px-4 py-2 rounded-lg transition-all duration-200
                     ${
@@ -39,18 +39,18 @@ export default function TestList({ allTests , setTest, selectedTest}) {
               );
             })}
 
-            <button
-              onClick={() => setActiveLetter("Profiles")}
+            <Link
+              href="/test/profiles"
               className="px-4 py-2 rounded-lg bg-white border border-[var(--borderLight)] text-[var(--brandColorDark)] hover:bg-[var(--brandColorLight)] transition"
             >
               Profiles
-            </button>
+            </Link>
           </div>
         </div>
 
         {/* Heading */}
         <h1 className="text-3xl font-bold text-[var(--textDark)] mt-8 mb-3">
-          Tests Starting with “{alphabets[selectedTest]}”
+          Tests Starting with “{selectedTest}”
         </h1>
 
         <p className="text-[var(--textLight)] mb-6 text-sm">
