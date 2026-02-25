@@ -1,6 +1,7 @@
 "use client";
 
 import { Facebook, Instagram, Twitter, Music2, Share2 } from "lucide-react";
+import Link from "next/link";
 import { FaTiktok, FaPinterest } from "react-icons/fa";
 
 export default function ConnectSection() {
@@ -32,34 +33,34 @@ export default function ConnectSection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     {/* Facebook */}
-                    <button className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
+                    <Link target="_blank" href='https://www.facebook.com/people/White-Cross-Clinic/61568186106139/' className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
                         <Facebook size={18} />
                         Facebook
-                    </button>
+                    </Link>
 
                     {/* Instagram */}
-                    <button className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
+                    <Link target="_blank" href="https://www.instagram.com/whitecross_clinics/" className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
                         <Instagram size={18} />
                         Instagram
-                    </button>
+                    </Link>
 
                     {/* TikTok */}
-                    <button className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
+                    <Link target="_blank" href="https://www.tiktok.com/@white.cross.clini" className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
                         <FaTiktok size={18} />
                         Tiktok
-                    </button>
+                    </Link>
 
                     {/* Twitter */}
-                    <button className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
+                    <Link target="_blank" href="https://x.com/cross_whit12088" className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition">
                         <Twitter size={18} />
                         Twitter
-                    </button>
+                    </Link>
 
                     {/* Pinterest */}
-                    <button className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition md:col-span-2">
+                    <Link target="_blank" href="https://x.com/cross_whit12088" className="flex items-center justify-center gap-3 bg-[#0f1b37] hover:bg-[#15254d] text-white py-3 rounded-lg font-medium transition md:col-span-2">
                         <FaPinterest size={18} />
                         Pinterest
-                    </button>
+                    </Link>
 
                 </div>
             </div>

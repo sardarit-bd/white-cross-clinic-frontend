@@ -51,9 +51,8 @@ export default function ContactSection() {
           >
             Get In Touch With Us
           </motion.h2>
-          <p className="text-[var(--textLight)] mt-4 max-w-2xl mx-auto">
-            Need help with appointments, have a question, or want to share feedback?
-            Reach out — we’re here to help.
+          <p className="text-[var(--textLight)] mt-4 max-w-5xl mx-auto text-justify lg:text-center">
+            At White Cross Clinic, we’re dedicated to providing exceptional healthcare services that prioritize your physical, emotional, and mental well-being. With a team of experienced and compassionate healthcare professionals, state-of-the-art facilities, and a commitment to personalized care, we’re here to support you every step of the way. Whether you’re seeking general practice services or specialist care, or simply need advice and guidance, we’re here to help. Contact us today to book an appointment and experience the White Cross Clinic difference.
           </p>
         </div>
 

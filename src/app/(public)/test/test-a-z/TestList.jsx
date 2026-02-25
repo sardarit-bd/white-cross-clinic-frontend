@@ -10,6 +10,7 @@ const alphabets = [
 
 export default function TestList({ allTests , setTest, selectedTest}) {
 
+
   return (
     <div className="w-full py-10">
       <div className="container mx-auto px-4">
@@ -66,18 +67,15 @@ export default function TestList({ allTests , setTest, selectedTest}) {
         <div className="border border-[var(--borderLight)] rounded-b-lg divide-y divide-[var(--borderLight)] bg-white shadow-sm">
           {allTests?.length > 0 ? (
             allTests.map((item, index) => {
-              const slug = item
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^\w-]+/g, "");
+              const slug = item?.slug
 
               return (
                 <Link
                   key={index}
-                  href={`/tests/${slug}`}
+                  href={`/test/test-a-z/${slug}`}
                   className="block px-4 py-3 hover:bg-[var(--brandColorLight)] hover:text-[var(--brandColorDark)] transition-all"
                 >
-                  {item}
+                  {item?.title}
                 </Link>
               );
             })

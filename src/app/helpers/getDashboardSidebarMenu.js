@@ -16,6 +16,7 @@ import {
     FolderTree,
     BriefcaseMedical,
     Inbox,
+    TestTube,
 } from "lucide-react";
 
 // ================================
@@ -88,9 +89,10 @@ const adminMenu = [
 
     // Blog System
     { title: "All Blog Posts", href: "/dashboard/admin/blog/posts", icon: FileText },
+    { title: "All Tests", href: "/dashboard/admin/tests", icon: TestTube },
 
     // System Features
-    { title: "Doctor Appointments", href: "/dashboard/admin/appointments", icon: CalendarCheck },
+    // { title: "Doctor Appointments", href: "/dashboard/admin/appointments", icon: CalendarCheck },
     // { title: "Test Appointments", href: "/dashboard/admin/test-appointments", icon: CalendarCheck },
     // { title: "Coupons", href: "/dashboard/admin/coupons", icon: Tag },
     // { title: "Transactions", href: "/dashboard/admin/transactions", icon: ShoppingBag },

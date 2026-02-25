@@ -40,7 +40,7 @@ export default function PatientsBanner() {
             <p className="text-gray-700 mb-5">
               Our Patient Reception provides a sample collection service for our customers’ patients.
             </p>
-            <Link href="/patients/patient-reception" className="text-blue-600 font-semibold flex items-center hover:underline">
+            <Link href="#" className="text-blue-600 font-semibold flex items-center hover:underline">
               Read more <span className="ml-1">›</span>
             </Link>
           </div>
@@ -53,7 +53,7 @@ export default function PatientsBanner() {
             <p className="text-gray-700 mb-5">
               A reference for clinicians and patients who are preparing to collect samples requiring special instructions.
             </p>
-            <Link href="/patients/sample-collection-guide" className="text-blue-600 font-semibold flex items-center hover:underline">
+            <Link href="#" className="text-blue-600 font-semibold flex items-center hover:underline">
               Read more <span className="ml-1">›</span>
             </Link>
           </div>
@@ -64,7 +64,7 @@ export default function PatientsBanner() {
             <p className="text-gray-700 mb-5">
               Sample taking for most tests can be undertaken on Home Visits.
             </p>
-            <Link href="/patients/home-visits" className="text-blue-600 font-semibold flex items-center hover:underline">
+            <Link href="#" className="text-blue-600 font-semibold flex items-center hover:underline">
               Read more <span className="ml-1">›</span>
             </Link>
           </div>
@@ -75,7 +75,7 @@ export default function PatientsBanner() {
             <p className="text-gray-700 mb-5">
               Your doctor may refer you to WCC Andrology if you are seeking treatment for male infertility.
             </p>
-            <Link href="/patients/andrology-services" className="text-blue-600 font-semibold flex items-center hover:underline">
+            <Link href="#" className="text-blue-600 font-semibold flex items-center hover:underline">
               Read more <span className="ml-1">›</span>
             </Link>
           </div>
