@@ -16,22 +16,22 @@ export default function SampleCollection() {
     {
       title: "Order kits",
       desc: "How to order kits for your practice.",
-      href: "#",
+      href: "/order-kits",
     },
     {
       title: "Range of Self-Collect",
       desc: "WCPC TinyTM capillary blood and WCPC Self-Collect sample kits.",
-      href: "#",
+      href: "/order-kits",
     },
     {
       title: "Kit-certified",
       desc: "Tests with available UKCA-marked kits.",
-      href: "#",
+      href: "/contact-us",
     },
     {
       title: "About our kits",
       desc: "Quality, distribution and sustainability.",
-      href: "#",
+      href: "/about",
     },
   ];
 

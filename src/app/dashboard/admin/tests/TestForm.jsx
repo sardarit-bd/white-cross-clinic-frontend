@@ -65,6 +65,7 @@ export default function TestForm({ onSubmit, initialData }) {
             selfCollectKit: "",
             sampleGuide: [{ code: "", value: "" }],
             profileDetails: [""],
+            note: ""
         });
         toast.success("Test saved successfully");
     };

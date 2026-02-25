@@ -323,7 +323,7 @@ export default function Navbar() {
               py-10 shadow-lg max-h-[80vh] overflow-y-auto
             "
           >
-            <div className="container mx-auto px-12 grid grid-cols-2  md:grid-cols-5 lg:grid-cols-5 gap-6 gap-y-1">
+            <div className="container mx-auto px-12 columns-2 md:columns-5 lg:columns-5 gap-4">
 
               {hoveredMenu === "doctors" &&
                 doctorDepartments.map((dept, i) => (
