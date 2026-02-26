@@ -92,7 +92,7 @@ const adminMenu = [
     { title: "All Tests", href: "/dashboard/admin/tests", icon: TestTube },
 
     // System Features
-    // { title: "Doctor Appointments", href: "/dashboard/admin/appointments", icon: CalendarCheck },
+    { title: "Doctor Appointments", href: "/dashboard/admin/appointments", icon: CalendarCheck },
     // { title: "Test Appointments", href: "/dashboard/admin/test-appointments", icon: CalendarCheck },
     // { title: "Coupons", href: "/dashboard/admin/coupons", icon: Tag },
     // { title: "Transactions", href: "/dashboard/admin/transactions", icon: ShoppingBag },

@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 export default function TestForm({ onSubmit, initialData }) {
     const { user } = useAuth()
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         title: initialData?.title || "",
         code: initialData?.code || "",
@@ -44,7 +45,7 @@ export default function TestForm({ onSubmit, initialData }) {
             toast.error("Title and Code are required");
             return;
         }
-
+        setLoading(true)
         const payload = {
             title: form.title,
             code: form.code,
@@ -71,6 +72,7 @@ export default function TestForm({ onSubmit, initialData }) {
             note: ""
         });
         toast.success("Test saved successfully");
+        setLoading(false)
     };
 
     return (
@@ -265,9 +267,9 @@ export default function TestForm({ onSubmit, initialData }) {
             {/* Submit */}
             <button
                 onClick={handleSubmit}
-                className="bg-[var(--brandColor)] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition"
+                className={`bg-[var(--brandColor)] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-auto ${loading && 'opacity-50 cursor-not-allowed'}`}
             >
-                {initialData ? "Update Test" : "Create Test"}
+               {loading ? "Saving..." : initialData ? "Update Test" : "Create Test"} 
             </button>
         </motion.div>
     );
