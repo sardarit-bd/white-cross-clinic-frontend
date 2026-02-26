@@ -17,20 +17,25 @@ const fetchDoctorAppointments = async () => {
 };
 
 const fetchDoctorAppointmentByPatient = async () => {
-  const res = await axios.get(`${BASE}/api/doctor-appointment/patient`, {
-    withCredentials: true,
-  });
-  return res.data.data;
+    const res = await axios.get(`${BASE}/api/doctor-appointment/patient`, {
+        withCredentials: true,
+    });
+    return res.data.data;
 };
 
 const fetchDoctorAppointmentsByDoctor = async () => {
-  const res = await axios.get(`${BASE}/api/doctor-appointment/doctor`, {
-    withCredentials: true,
-  });
-  return res.data.data;
+    const res = await axios.get(`${BASE}/api/doctor-appointment/doctor`, {
+        withCredentials: true,
+    });
+    return res.data.data;
 };
 
-
+const fetchAllDoctorAppointments = async () => {
+    const res = await axios.get(`${BASE}/api/doctor-appointment`, {
+        withCredentials: true,
+    });
+    return res.data.data;
+};
 export const useDoctorAppointment = () => {
     const queryClient = useQueryClient();
 
@@ -39,10 +44,14 @@ export const useDoctorAppointment = () => {
         queryFn: fetchDoctorAppointments,
     });
 
-    const {data: doctorAppointmentByPatient } = useQuery({
-    queryKey: ["doctor-appointment"],
-    queryFn: fetchDoctorAppointmentByPatient
-  });
+    const { data: doctorAppointmentByPatient } = useQuery({
+        queryKey: ["doctor-appointment"],
+        queryFn: fetchDoctorAppointmentByPatient
+    });
+     const { data: allDoctorAppointment } = useQuery({
+        queryKey: ["doctor-appointment"],
+        queryFn: fetchAllDoctorAppointments
+    });
     const createAppointment = useMutation({
         mutationFn: (payload) =>
             axios.post(`${BASE}/api/doctor-appointment`, payload, {
@@ -77,6 +86,7 @@ export const useDoctorAppointment = () => {
     return {
         appointments,
         doctorAppointmentByPatient,
+        allDoctorAppointment,
         createAppointment,
         updateAppointment,
         deleteAppointment
@@ -84,10 +94,10 @@ export const useDoctorAppointment = () => {
 };
 
 export const useDoctorAppointmentByDoctor = () => {
-  return useQuery({
-    queryKey: ["doctor-appointment"],
-    queryFn: fetchDoctorAppointmentsByDoctor
-  });
+    return useQuery({
+        queryKey: ["doctor-appointment"],
+        queryFn: fetchDoctorAppointmentsByDoctor
+    });
 };
 
 // export const useDoctorAppointmentByPatient = () => {
