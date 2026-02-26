@@ -27,7 +27,7 @@ const patientMenu = [
     { title: "Dashboard", href: "/dashboard", icon: Home },
     { title: "My Appointments", href: "/dashboard/patient/appointments", icon: CalendarCheck },
     // { title: "Purchase History", href: "/dashboard/purchase-history", icon: ShoppingBag },
-    { title: "Profile", href: "/dashboard/profile", icon: User },
+    // { title: "Profile", href: "/dashboard/profile", icon: User },
 ];
 
 
