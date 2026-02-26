@@ -2,15 +2,19 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import dayjs from "dayjs";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useCategory } from "@/hooks/useCategory";
 import { useDoctorsByDept } from "@/hooks/useUser";
 import { Calendar, Moon, Sun } from "lucide-react";
 import { useDoctorAppointment } from "@/hooks/useDoctorAppointment";
 import toast from "react-hot-toast";
-
+import { useAuth } from "@/hooks/useAuth";
+import axios from "axios";
+const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function AppointmentFormPro() {
+  const router = useRouter()
+  const { user } = useAuth()
   const params = useSearchParams()
   const paramsDepartment = params.get('department')
   const paramsDoctor = params.get('doctor')
@@ -51,7 +55,7 @@ export default function AppointmentFormPro() {
       toast.error("Please Select Schedule.")
     }
 
-    if(!selectedDate){
+    if (!selectedDate) {
       toast.error("Please Select Date")
     }
     const schedule = available.find(a => a?._id === selectedSchedule)
@@ -67,6 +71,14 @@ export default function AppointmentFormPro() {
     }
     const res = await createAppointment.mutateAsync(payload)
     if (res?.data?.success) {
+      const appointmentId = res?.data?.data?._id
+      const paymentRes = await axios.post(`${BASE}/api/payments/create-checkout`, { appointmentId: appointmentId }, {
+        withCredentials: true,
+      })
+      const paymentUrl = paymentRes?.data?.data?.url
+      if(paymentUrl){
+        router.push(paymentUrl)
+      }
       toast.success("Appointment is Confirmed.")
       setFormData({
         name: "",
@@ -219,12 +231,14 @@ export default function AppointmentFormPro() {
           />
 
           {/* Submit */}
+
           <div className="text-center">
             <button
               type="submit"
-              className="bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white px-10 py-3 rounded-full font-semibold shadow-md transition"
+              disabled={!user}
+              className={`bg-[var(--brandColor)] ${!user ? "opacity-50" : ''} hover:bg-[var(--brandColorDark)] text-white px-10 py-3 rounded-full font-semibold shadow-md transition`}
             >
-              Confirm Appointment
+              {user ? "Confirm Appointment" : "Need to Login"}
             </button>
           </div>
         </form>

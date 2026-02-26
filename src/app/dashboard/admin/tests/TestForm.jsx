@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ClipboardList } from "lucide-react";
 import toast from "react-hot-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function TestForm({ onSubmit, initialData }) {
+    const { user } = useAuth()
     const [form, setForm] = useState({
         title: initialData?.title || "",
         code: initialData?.code || "",
@@ -37,7 +39,7 @@ export default function TestForm({ onSubmit, initialData }) {
             });
         }
     }, [initialData]);
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         if (!form.title || !form.code) {
             toast.error("Title and Code are required");
             return;
@@ -55,7 +57,8 @@ export default function TestForm({ onSubmit, initialData }) {
             note: form.note
         };
 
-        onSubmit?.(payload);
+        const res = await onSubmit?.(payload);
+        console.log(res)
         setForm({
             title: "",
             code: "",

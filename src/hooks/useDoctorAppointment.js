@@ -39,6 +39,10 @@ export const useDoctorAppointment = () => {
         queryFn: fetchDoctorAppointments,
     });
 
+    const {data: doctorAppointmentByPatient } = useQuery({
+    queryKey: ["doctor-appointment"],
+    queryFn: fetchDoctorAppointmentByPatient
+  });
     const createAppointment = useMutation({
         mutationFn: (payload) =>
             axios.post(`${BASE}/api/doctor-appointment`, payload, {
@@ -72,6 +76,7 @@ export const useDoctorAppointment = () => {
 
     return {
         appointments,
+        doctorAppointmentByPatient,
         createAppointment,
         updateAppointment,
         deleteAppointment
@@ -85,9 +90,9 @@ export const useDoctorAppointmentByDoctor = () => {
   });
 };
 
-export const useDoctorAppointmentByPatient = () => {
-  return useQuery({
-    queryKey: ["doctor-appointment"],
-    queryFn: fetchDoctorAppointmentByPatient
-  });
-};
+// export const useDoctorAppointmentByPatient = () => {
+//   return useQuery({
+//     queryKey: ["doctor-appointment"],
+//     queryFn: fetchDoctorAppointmentByPatient
+//   });
+// };

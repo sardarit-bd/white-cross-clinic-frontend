@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { Calendar, Clock, MapPin, User, Search, Filter, Plus, Video, Phone, MoreVertical, Edit, Trash2, Download } from "lucide-react";
-import { useDoctorAppointmentByDoctor } from "@/hooks/useDoctorAppointment";
+import { useDoctorAppointment, useDoctorAppointmentByPatient } from "@/hooks/useDoctorAppointment";
 import dayjs from "dayjs";
 
 export default function MyAppointments() {
-  const { data: appointment } = useDoctorAppointmentByDoctor()
+  // const { data: appointment } = useDoctorAppointmentByPatient()
+  const { deleteAppointment, doctorAppointmentByPatient: appointment } = useDoctorAppointment()
   const [filterDate, setFilterDate] = useState("");
 
   const appointments = appointment?.map((app) => {
@@ -21,7 +22,8 @@ export default function MyAppointments() {
       status: "Pending",
       location: "Meanwhile Garden Medical Centre Westbourne Park 5 Elkstone Rd, London",
       notes: app?.note,
-      date: app?.date
+      date: app?.date,
+      confirmed: app?.confirmed
     }
   })
 
@@ -42,15 +44,7 @@ export default function MyAppointments() {
     }
   };
 
-  const getStatusText = (status) => {
-    switch (status) {
-      case 'confirmed': return 'Confirmed';
-      case 'pending': return 'Pending';
-      case 'completed': return 'Completed';
-      case 'cancelled': return 'Cancelled';
-      default: return status;
-    }
-  };
+
 
   const getTypeIcon = (type) => {
     switch (type) {
@@ -61,7 +55,10 @@ export default function MyAppointments() {
   };
 
 
-
+const cancelAppointment = async (id) => {
+  const res = await deleteAppointment.mutateAsync(id)
+  console.log(res)
+}
   return (
     <div className="p-6">
 
@@ -112,8 +109,9 @@ export default function MyAppointments() {
                         <h3 className="text-lg font-semibold text-[var(--textDark)]">
                           {appointment.patientName}
                         </h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(appointment.status)}`}>
-                          {getStatusText(appointment.status)}
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium border`}>
+                          {console.log(appointment.confirmed)}
+                          {appointment.confirmed ? "Confirmed" : "Pending"}
                         </span>
                       </div>
                       <p className="text-[var(--textLight)] mb-2">{appointment.specialty}</p>
@@ -142,20 +140,17 @@ export default function MyAppointments() {
 
                   {/* Right Section - Actions */}
                   <div className="flex items-center gap-3">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => cancelAppointment(appointment.id)}
+                        className="p-2 text-[var(--textLight)] hover:text-red-600 transition-colors"
+                        title="Cancel"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
 
-                    {(appointment.status === 'confirmed' || appointment.status === 'pending') && (
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => cancelAppointment(appointment.id)}
-                          className="p-2 text-[var(--textLight)] hover:text-red-600 transition-colors"
-                          title="Cancel"
-                        >
-                          <Trash2 size={18} />
-                        </button>
-                      </div>
-                    )}
-
-                    {appointment.status === 'completed' && (
+                    {appointment.confirmed && (
                       <button className="flex items-center gap-2 bg-green-100 text-green-700 px-3 py-2 rounded-lg hover:bg-green-200 transition-colors">
                         Confirmed
                       </button>
