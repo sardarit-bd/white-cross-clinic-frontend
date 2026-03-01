@@ -41,38 +41,44 @@ export default function TestForm({ onSubmit, initialData }) {
         }
     }, [initialData]);
     const handleSubmit = async () => {
-        if (!form.title || !form.code) {
-            toast.error("Title and Code are required");
-            return;
-        }
-        setLoading(true)
-        const payload = {
-            title: form.title,
-            code: form.code,
-            sampleReqs: form.sampleReqs,
-            turnaround: form.turnaround,
-            specialInstructions: form.specialInstructions,
-            selfCollectKit: form.selfCollectKit,
-            sampleGuide: form.sampleGuide,
-            profileDetails: form.profileDetails,
-            note: form.note
-        };
+        try {
+            if (!form.title || !form.code) {
+                toast.error("Title and Code are required");
+                return;
+            }
+            setLoading(true)
+            const payload = {
+                title: form.title,
+                code: form.code,
+                sampleReqs: form.sampleReqs,
+                turnaround: form.turnaround,
+                specialInstructions: form.specialInstructions,
+                selfCollectKit: form.selfCollectKit,
+                sampleGuide: form.sampleGuide,
+                profileDetails: form.profileDetails,
+                note: form.note
+            };
 
-        const res = await onSubmit?.(payload);
-        console.log(res)
-        setForm({
-            title: "",
-            code: "",
-            sampleReqs: "",
-            turnaround: "",
-            specialInstructions: "",
-            selfCollectKit: "",
-            sampleGuide: [{ code: "", value: "" }],
-            profileDetails: [""],
-            note: ""
-        });
-        toast.success("Test saved successfully");
-        setLoading(false)
+            const res = await onSubmit?.(payload);
+            console.log(res)
+            setForm({
+                title: "",
+                code: "",
+                sampleReqs: "",
+                turnaround: "",
+                specialInstructions: "",
+                selfCollectKit: "",
+                sampleGuide: [{ code: "", value: "" }],
+                profileDetails: [""],
+                note: ""
+            });
+            toast.success("Test saved successfully");
+            setLoading(false)
+        } catch (err) {
+            console.log(err)
+            toast.error("Something Wrong")
+            setLoading(false)
+        }
     };
 
     return (
@@ -269,7 +275,7 @@ export default function TestForm({ onSubmit, initialData }) {
                 onClick={handleSubmit}
                 className={`bg-[var(--brandColor)] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-auto ${loading && 'opacity-50 cursor-not-allowed'}`}
             >
-               {loading ? "Saving..." : initialData ? "Update Test" : "Create Test"} 
+                {loading ? "Saving..." : initialData ? "Update Test" : "Create Test"}
             </button>
         </motion.div>
     );

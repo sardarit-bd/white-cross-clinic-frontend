@@ -10,6 +10,7 @@ import { useDoctorAppointment } from "@/hooks/useDoctorAppointment";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
 import axios from "axios";
+import { fetchSingleCoupon } from "@/hooks/useCoupon";
 const BASE = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function AppointmentFormPro() {
@@ -24,13 +25,18 @@ export default function AppointmentFormPro() {
   const [selectedSchedule, setSelectedSchedule] = useState(null)
   const { createAppointment } = useDoctorAppointment()
 
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     note: "",
+    coupon: ''
   });
   const { categories } = useCategory()
+  const [price, setPrice] = useState(29)
+  const [finalPrice, setFinalPrice] = useState(29)
+  const [couponText, setCouponTest] = useState("Add Coupon to get Discount.")
   const { data: doctors } = useDoctorsByDept(selectedCategory)
 
   const doctorInfo = doctors?.find(d => d?.user?._id === selectedDoctor)
@@ -47,6 +53,28 @@ export default function AppointmentFormPro() {
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const applyCoupn = async () => {
+    const coupon = formData.coupon
+    if (!coupon) {
+      toast.error("Add Coupon.")
+      return
+    }
+
+    const res = await fetchSingleCoupon(coupon)
+    if (res?.data) {
+      const percentage = res?.data?.percentage
+      let discount = (price * percentage) / 100
+      if (res?.data?.amount) {
+        discount = Math.min(discount, res?.data?.amount)
+      }
+      setCouponTest(`${percentage}% discount is added.`)
+      setFinalPrice(price - discount)
+    }else{
+      setCouponTest("Coupon is Expired. Use Valid Coupon.")
+    }
+
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +104,7 @@ export default function AppointmentFormPro() {
         withCredentials: true,
       })
       const paymentUrl = paymentRes?.data?.data?.url
-      if(paymentUrl){
+      if (paymentUrl) {
         router.push(paymentUrl)
       }
       toast.success("Appointment is Confirmed.")
@@ -230,15 +258,35 @@ export default function AppointmentFormPro() {
             className="border border-[var(--borderLight)] rounded-lg p-3 w-full h-28 resize-none focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
           />
 
+          <div className="flex items-center justify-between bg-gray-50 border py-5 rounded-lg px-4">
+            <span className="font-semibold text-gray-700">Fee: </span>
+            <span className="text-xl font-bold text-[var(--brandColor)]">
+              $29 USD
+            </span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <input
+              name="coupon"
+              placeholder="Coupon Code (Optional)"
+              onChange={handleChange}
+              className="border border-[var(--borderLight)] rounded-lg p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+            />
+            <button
+              onClick={applyCoupn}
+              className={`bg-[var(--brandColor)] ${!user ? "opacity-50" : ''} hover:bg-[var(--brandColorDark)] text-white px-10 py-3 rounded-full font-semibold shadow-md transition`}
+            >
+              Apply Coupon
+            </button>
+          </div>
           {/* Submit */}
-
+          <p className="">{couponText}</p>
           <div className="text-center">
             <button
               type="submit"
               disabled={!user}
               className={`bg-[var(--brandColor)] ${!user ? "opacity-50" : ''} hover:bg-[var(--brandColorDark)] text-white px-10 py-3 rounded-full font-semibold shadow-md transition`}
             >
-              {user ? "Confirm Appointment" : "Need to Login"}
+              {user ? `Pay ${finalPrice} USD` : "Need to Login"}
             </button>
           </div>
         </form>
