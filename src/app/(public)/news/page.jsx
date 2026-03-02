@@ -12,8 +12,6 @@ export default function SingleArticlePage() {
   const slug = params.get('slug')
   const {data: article} = useSingleNewsBySlug(slug)
   const {data: relatedArticles = []} = useNewsBySubCategory(article?.subcategory?._id)
-  console.log(relatedArticles)
-  console.log(article)
 
 
   const formattedCategory =
