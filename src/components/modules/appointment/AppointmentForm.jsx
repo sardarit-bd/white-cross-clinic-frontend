@@ -273,7 +273,8 @@ export default function AppointmentFormPro() {
             />
             <button
               onClick={applyCoupn}
-              className={`bg-[var(--brandColor)] ${!user ? "opacity-50" : ''} hover:bg-[var(--brandColorDark)] text-white px-10 py-3 rounded-full font-semibold shadow-md transition`}
+              disabled={!formData?.coupon}
+              className={`bg-[var(--brandColor)]  ${!formData?.coupon ? "opacity-50 cursor-not-allowed " : 'cursor-pointer'} hover:bg-[var(--brandColorDark)] text-white px-10 py-3 rounded-full font-semibold shadow-md transition`}
             >
               Apply Coupon
             </button>

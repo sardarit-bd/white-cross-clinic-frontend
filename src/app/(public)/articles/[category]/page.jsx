@@ -18,7 +18,7 @@ export default function CategoryArticlesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
   const [filteredNews, setFilteredNews] = useState([])
-  const [activeLetter, setActiveLetter] = useState('A')
+  const [activeLetter, setActiveLetter] = useState('All')
 
   const category = params?.category || "cardiology";
 
@@ -51,9 +51,13 @@ export default function CategoryArticlesPage() {
     category.slice(1).toLowerCase();
 
   useEffect(() => {
-    const filtrNews = news?.filter(n => n?.title?.charAt(0)?.toLowerCase() == activeLetter.toLowerCase())
-    setFilteredNews(filtrNews)
-  }, [activeLetter, activeSubcategory])
+    if (activeLetter?.toLowerCase() === 'all') {
+      setFilteredNews(news)
+    } else {
+      const filtrNews = news?.filter(n => n?.title?.charAt(0)?.toLowerCase() == activeLetter.toLowerCase())
+      setFilteredNews(filtrNews)
+    }
+  }, [activeLetter, activeSubcategory, news])
 
   if (filteredSubs?.length === 0) {
     return (
