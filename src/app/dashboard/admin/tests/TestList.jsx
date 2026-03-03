@@ -7,23 +7,47 @@ import {
   Trash2,
   Calendar,
   Tag,
-  FolderOpen,
-  Image as ImageIcon
 } from "lucide-react";
 
 export default function TestList({
   tests,
   onEdit,
-  deleteTest, // expects React Query mutation object
+  deleteTest,
+  searchText,
+  setSearchTest
 }) {
   if (!tests?.length) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-2xl shadow-xl p-12 text-center"
+        className="bg-white rounded-2xl shadow-xl text-center"
       >
-        <div className="w-24 h-24 bg-[var(--brandColor)] rounded-full flex items-center justify-center mx-auto mb-6">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-gray-50 to-gray-100/50 px-6 py-4 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
+              <TestTube size={20} className="text-[var(--brandColor)]" />
+              Tests
+            </h2>
+
+            <span className="bg-[var(--brandColor)]/10 text-[var(--brandColor)] px-3 py-1 rounded-full text-sm font-medium">
+              {tests?.length} {tests?.length === 1 ? "Test" : "Tests"}
+            </span>
+          </div>
+        </div>
+        <div className="m-5">
+          <label className="block text-sm text-left font-medium text-gray-700 mb-2">
+            Search by Test Title
+          </label>
+          <input
+            value={searchText}
+            onChange={(e) => setSearchTest(e.target.value)}
+            className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+          />
+        </div>
+        <div className="p-12">
+          <div className="w-24 h-24 bg-[var(--brandColor)] rounded-full flex items-center justify-center mx-auto mb-6">
           <TestTube size={40} className="text-white" />
         </div>
 
@@ -34,6 +58,7 @@ export default function TestList({
         <p className="text-gray-500">
           Create your first test to get started
         </p>
+        </div>
       </motion.div>
     );
   }
@@ -57,7 +82,16 @@ export default function TestList({
           </span>
         </div>
       </div>
-
+      <div className="m-5">
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Search by Test Title
+        </label>
+        <input
+          value={searchText}
+          onChange={(e) => setSearchTest(e.target.value)}
+          className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+        />
+      </div>
       {/* Grid */}
       <div className="p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -70,29 +104,29 @@ export default function TestList({
               className="group bg-white border border-gray-200 rounded-xl relative overflow-hidden hover:border-[var(--brandColor)] hover:shadow-lg transition-all duration-300"
             >
 
-                {/* Action Buttons */}
-                <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button
-                    onClick={() => onEdit(item)}
-                    className="p-2 bg-white rounded-lg hover:bg-[var(--brandColor)] hover:text-white transition-colors shadow-lg"
-                    title="Edit Test"
-                  >
-                    <Edit2 size={16} />
-                  </button>
+              {/* Action Buttons */}
+              <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button
+                  onClick={() => onEdit(item)}
+                  className="p-2 bg-white rounded-lg hover:bg-[var(--brandColor)] hover:text-white transition-colors shadow-lg"
+                  title="Edit Test"
+                >
+                  <Edit2 size={16} />
+                </button>
 
-                  <button
-                    onClick={() => {
-                      if (window.confirm("Are you sure you want to delete this test?")) {
-                        deleteTest.mutate(item._id); // call React Query mutation
-                      }
-                    }}
-                    className="p-2 bg-white rounded-lg hover:bg-red-500 hover:text-white transition-colors shadow-lg"
-                    title="Delete Test"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-            
+                <button
+                  onClick={() => {
+                    if (window.confirm("Are you sure you want to delete this test?")) {
+                      deleteTest.mutate(item._id); // call React Query mutation
+                    }
+                  }}
+                  className="p-2 bg-white rounded-lg hover:bg-red-500 hover:text-white transition-colors shadow-lg"
+                  title="Delete Test"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
+
 
               {/* Content */}
               <div className="p-4 space-y-2">
