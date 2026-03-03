@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { TestTube } from "lucide-react";
 import TestForm from "./TestForm";
@@ -19,14 +19,23 @@ export default function TestManagerPage() {
     deleteTest
   } = useTest();
 
+
+  const [filteredTest, setFilteredTest] = useState([...tests])
+  const [searchText, setSearchTest] = useState("")
+
+  useEffect(() => {
+    const filtered = tests?.filter(test => test?.title?.includes(searchText))
+    setFilteredTest([...filtered])
+  }, [searchText, tests])
+
   const handleSubmit = async (payload) => {
-    if(editingTest){
-        payload.id = editingTest._id
-        const res = await updateTest.mutateAsync(payload)
-        console.log(res)
-    }else{
-       const res = await createTest.mutateAsync(payload)
-       console.log(res)
+    if (editingTest) {
+      payload.id = editingTest._id
+      const res = await updateTest.mutateAsync(payload)
+      console.log(res)
+    } else {
+      const res = await createTest.mutateAsync(payload)
+      console.log(res)
     }
     setEditingTest(null)
   }
@@ -56,11 +65,12 @@ export default function TestManagerPage() {
           initialData={editingTest}
         />
 
-        {/* Test List */}
         <TestList
-          tests={tests}
+          tests={filteredTest}
           onEdit={setEditingTest}
           deleteTest={deleteTest}
+          searchText={searchText}
+          setSearchTest={setSearchTest}
         />
 
       </div>
