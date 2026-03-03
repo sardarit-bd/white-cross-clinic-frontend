@@ -129,7 +129,7 @@ export default function CategoryArticlesPage() {
         {/* Main Layout */}
         <div className="mt-10 grid lg:grid-cols-[280px_1fr] gap-10">
           {/* === LEFT: Subcategory Sidebar === */}
-          <aside className="hidden lg:block sticky top-36 h-fit bg-white border border-[var(--borderLight)] rounded-2xl shadow-sm p-4">
+          <aside className="sticky top-36 h-fit bg-white border border-[var(--borderLight)] rounded-2xl z-10 shadow-sm p-4">
             <h3 className="text-lg font-semibold text-[var(--textDark)] mb-4">
               Subcategories
             </h3>

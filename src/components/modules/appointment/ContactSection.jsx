@@ -76,7 +76,7 @@ export default function ContactSection() {
                   href="tel:+8801700000000"
                   className="text-[var(--brandColor)] font-semibold text-xl hover:underline"
                 >
-                  +880 1700 000 000
+                  07784732485
                 </a>
               </div>
             </motion.div>
@@ -97,7 +97,7 @@ export default function ContactSection() {
                   href="mailto:info@whitecrossclinic.com"
                   className="text-[var(--brandColor)] font-semibold hover:underline"
                 >
-                  info@whitecrossclinic.com
+                  info@whitecrossclinics.com
                 </a>
               </div>
             </motion.div>
@@ -111,9 +111,9 @@ export default function ContactSection() {
                 <h3 className="font-semibold text-lg text-[var(--textDark)]">
                   Visit Our Clinic
                 </h3>
-                <p className="text-[var(--textLight)] text-sm mb-2">
-                  123 Health Avenue, Dhaka, Bangladesh
-                </p>
+                <address className="text-[var(--textLight)] text-sm mb-2">
+                  Meanwhile Garden Medical Centre <br /> Westbourne Park 5 Elkstone Rd, London W105NT <br /> Trains and Buses Hammersmith & City line (buses 23, 28,31,7)
+                </address>
                 <div className="flex items-center justify-center sm:justify-start gap-2 text-[var(--textLight)] text-sm">
                   <Clock size={14} />
                   <span>Mon–Sat, 8:00 AM – 8:00 PM</span>

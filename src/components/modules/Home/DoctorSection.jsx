@@ -87,12 +87,12 @@ export default function DoctorsSection() {
 
               {/* Doctor Info */}
               <div className="p-6 text-left">
-                <Link
+                <p
                   href={`/images/${doc.id}`}
                   className="text-lg font-semibold text-[var(--textDark)] hover:text-[var(--brandColor)] transition-all"
                 >
                   {doc.name}
-                </Link>
+                </p>
                 <p className="text-[var(--textLight)] text-sm mt-1">
                   {doc.title}
                 </p>
