@@ -82,24 +82,24 @@ export default function ArticlesPreviewSection() {
               </div>
 
               <div className="p-6">
-                <Link
+                <p
                   href={`/articles/${article.id}`}
                   className="text-lg font-semibold text-[var(--textDark)] hover:text-[var(--brandColor)] transition-colors"
                 >
                   {article.title}
-                </Link>
+                </p>
                 <p className="text-[var(--textLight)] text-sm mt-3 line-clamp-3">
                   {article.excerpt}
                 </p>
 
                 <div className="mt-5 flex items-center justify-between text-sm text-[var(--textMuted)]">
                   <span>{article.date}</span>
-                  <Link
+                  <p
                     href={`/articles/${article.category.toLowerCase()}/${article.id}`}
                     className="font-medium text-[var(--brandColor)] hover:underline"
                   >
                     Read More →
-                  </Link>
+                  </p>
                 </div>
               </div>
             </motion.div>

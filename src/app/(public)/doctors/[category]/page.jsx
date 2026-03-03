@@ -74,7 +74,7 @@ export default function DoctorsByCategoryPage() {
         {/* Main Layout */}
         <div className="mt-10 grid lg:grid-cols-[280px_1fr] gap-10">
           {/* LEFT SIDEBAR */}
-          <aside className="hidden lg:block sticky top-28 h-fit bg-white border border-[var(--borderLight)] rounded-2xl shadow-sm p-4">
+          <aside className="sticky top-28 h-fit bg-white border border-[var(--borderLight)] rounded-2xl shadow-sm p-4 z-10">
             <h3 className="text-lg font-semibold text-[var(--textDark)] mb-4">
               Sub-Specialties
             </h3>
