@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Calendar, Clock, MapPin, User, Search, Filter, Plus, Video, Phone, MoreVertical, Edit, Trash2, Download } from "lucide-react";
 import { useDoctorAppointment, useDoctorAppointmentByPatient } from "@/hooks/useDoctorAppointment";
 import dayjs from "dayjs";
+import toast from "react-hot-toast";
 
 export default function MyAppointments() {
   // const { data: appointment } = useDoctorAppointmentByPatient()
@@ -57,7 +58,12 @@ export default function MyAppointments() {
 
 const cancelAppointment = async (id) => {
   const res = await deleteAppointment.mutateAsync(id)
-  console.log(res)
+  if(res?.data?.success){
+    toast.success("Appintment is Deleted.")
+  }else{
+    toast.error("Something Wrong.Contact to Admin.")
+    console.log(res)
+  }
 }
   return (
     <div className="p-6">
