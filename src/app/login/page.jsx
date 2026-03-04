@@ -16,10 +16,11 @@ export default function LoginPage() {
     const { login } = useAuth()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false)
 
     const handleLogin = async () => {
-        "server action"
         try {
+            setLoading(true)
             const res = await login({ email, password });
             // const res = await axios.post(
             //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
@@ -35,8 +36,10 @@ export default function LoginPage() {
             } else {
                 toast.error(userData?.message || "Login failed. Please try again.");
             }
+            setLoading(false)
         } catch (err) {
             toast.error("Incorrect Password");
+            setLoading(false)
         }
     };
 
@@ -114,7 +117,8 @@ export default function LoginPage() {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={handleLogin}
-                    className="w-full py-3 rounded-lg text-white font-medium shadow-md"
+                    disabled={loading}
+                    className={`w-full py-3 rounded-lg text-white font-medium shadow-md ${loading ? "opacity-50" : ""}`}
                     style={{
                         background: "linear-gradient(90deg, var(--brandColor), var(--brandAccent))",
                     }}

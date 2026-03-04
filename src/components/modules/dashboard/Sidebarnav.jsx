@@ -1,3 +1,4 @@
+import { clearAuthCookie } from "@/app/login/authActions";
 import { useAuth } from "@/hooks/useAuth";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
@@ -10,12 +11,18 @@ export default function SidebarNav({ items }) {
     const router = useRouter()
 
     const handleLogout = async () => {
-        const res = await logout();
-        if (res?.success) {
-            toast.success("Logout successful!");
-            router.push("/");
-        } else {
-            toast.error(res?.message || "Logout failed. Please try again.")
+        try {
+            const res = await logout();
+            if (res?.success) {
+                await clearAuthCookie()
+                toast.success("Logout successful!");
+                router.push("/");
+            } else {
+                toast.error(res?.message || "Logout failed. Please try again.")
+            }
+        } catch (err) {
+            console.log(err)
+            toast.error("Something is Wrong.")
         }
     }
     return (
