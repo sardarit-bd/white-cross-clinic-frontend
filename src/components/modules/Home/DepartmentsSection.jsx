@@ -4,6 +4,7 @@ import { useCategory } from "@/hooks/useCategory";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import DepartmentsNotFoundMinimal from "./DepartmentsNotFound";
 
 const departments = [
   {
@@ -89,7 +90,7 @@ export default function DepartmentsSection() {
   };
 
   if(!activeDept){
-    return <h2>Data Is Not Found</h2>
+    return <DepartmentsNotFoundMinimal />
   }
   return (
     <section className="py-20">

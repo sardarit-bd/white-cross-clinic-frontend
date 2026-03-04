@@ -10,7 +10,6 @@ const alphabets = [
 
 export default function TestList({ allTests , setTest, selectedTest}) {
 
-
   return (
     <div className="w-full py-10">
       <div className="container mx-auto px-4">

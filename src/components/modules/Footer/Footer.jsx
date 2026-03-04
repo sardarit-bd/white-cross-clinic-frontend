@@ -11,6 +11,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { FaTiktok, FaPaypal } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -36,20 +37,21 @@ export default function Footer() {
           {/* Social Icons */}
           <div className="flex items-center gap-3 mt-6">
             {[
-              { icon: <Facebook size={18} /> },
-              { icon: <Twitter size={18} /> },
-              { icon: <Instagram size={18} /> },
-              { icon: <FaTiktok size={18} /> },
-              { icon: <Linkedin size={18} /> },
-              { icon: <FaPaypal size={20} /> },
+              { icon: <Facebook size={18} />, link: "https://www.facebook.com/people/White-Cross-Clinic/61568186106139" },
+              { icon: <Twitter size={18} /> , link: "https://x.com/cross_whit12088"},
+              { icon: <Instagram size={18} />, link: "https://www.instagram.com/whitecross_clinics" },
+              { icon: <FaTiktok size={18} /> , link: "https://www.tiktok.com/@white.cross.clini"},
+              { icon: <Linkedin size={18} /> , link: ""},
+              { icon: <FaPaypal size={20} /> , link: ""},
             ].map((item, i) => (
-              <div
+              <Link
                 key={i}
+                href={item?.link}
                 className="w-10 h-10 rounded bg-[#1e1e1e] flex items-center justify-center 
                 hover:bg-[#2e2e2e] transition cursor-pointer"
               >
                 {item.icon}
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -58,11 +60,11 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-3 text-gray-300 text-sm">
-            <li className="hover:text-white transition cursor-pointer">Home</li>
-            <li className="hover:text-white transition cursor-pointer">Self Collect Kits</li>
-            <li className="hover:text-white transition cursor-pointer">About Us</li>
-            <li className="hover:text-white transition cursor-pointer">Specialties</li>
-            <li className="hover:text-white transition cursor-pointer">Contact</li>
+            <li className="hover:text-white transition cursor-pointer"><Link href='/'>Home</Link></li>
+            <li className="hover:text-white transition cursor-pointer"><Link href="/order-kits/self-collect-kits">Self Collect Kits</Link></li>
+            <li className="hover:text-white transition cursor-pointer"><Link href="/about">About Us</Link></li>
+            <li className="hover:text-white transition cursor-pointer"><Link href="/specialties">Specialties</Link></li>
+            <li className="hover:text-white transition cursor-pointer"><Link href="/contact-us">Contact</Link></li>
           </ul>
         </div>
 
