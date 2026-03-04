@@ -6,7 +6,7 @@ export async function proxy(req) {
   console.log("Middleware called")
 
   const cks = await cookies()
-  const token = cks.get("accessToken")?.value
+  const token = cks.get("jwtToken")?.value
   console.log("Token:", token)
 
   if (!token) {
