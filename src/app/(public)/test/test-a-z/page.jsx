@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import TestsList from "./TestList";
 import { useTest } from "@/hooks/useTest";
+import TestListLoading from "./TestListLoading";
 
 
 export default function PageA() {
@@ -471,7 +472,7 @@ export default function PageA() {
     //     "Hereditary Neuropathy with Liability to Pressure Palsy – PMP22 deletion analysis"
     // ];
 
-    const {tests} = useTest()
+    const {tests, testsLoading} = useTest()
 
     const [selectedTest, setTest] = useState('All')
     const [filteredTest, setFilteredTest] = useState([...tests])
@@ -484,6 +485,10 @@ export default function PageA() {
             setFilteredTest([...filtered])
         }
     }, [selectedTest, tests])
+
+    if(testsLoading){
+        return <TestListLoading />
+    }
     return <main className="container mx-auto py-10 pt-48">
         <TestsList allTests={filteredTest} setTest={setTest} selectedTest={selectedTest} />
     </main>;

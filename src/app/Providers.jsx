@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/providers/AuthProvider";
+import SiteInitialLoader from "@/components/shared/SiteInitialLoader";
 
 export default function Providers({ children }) {
   const [client] = useState(
@@ -22,7 +23,7 @@ export default function Providers({ children }) {
   return (
     <QueryClientProvider client={client}>
       <AuthProvider>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<SiteInitialLoader />}>
           {children}
         </Suspense>
         <Toaster />
