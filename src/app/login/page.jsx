@@ -8,6 +8,8 @@ import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { setAuthCookie } from "./authActions";
 
 export default function LoginPage() {
     const router = useRouter()
@@ -16,12 +18,25 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
 
     const handleLogin = async () => {
-        const res = await login({ email, password });
-        if(res?.success) {
-            toast.success("Login successful! Redirecting to dashboard...");
-            router.push("/dashboard")
-        } else {
-            toast.error(res?.message || "Login failed. Please try again.");
+        "server action"
+        try {
+            const res = await login({ email, password });
+            // const res = await axios.post(
+            //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
+            //     { email, password },
+            //     { withCredentials: true }
+            // );
+            const userData = res;  
+            if (userData?.success) {
+                const accessToken = userData?.data?.accessToken
+                await setAuthCookie(accessToken)
+                toast.success("Login successful! Redirecting to dashboard...");
+                router.push("/dashboard")
+            } else {
+                toast.error(userData?.message || "Login failed. Please try again.");
+            }
+        } catch (err) {
+            toast.error("Incorrect Password");
         }
     };
 
