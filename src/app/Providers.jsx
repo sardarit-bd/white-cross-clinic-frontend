@@ -3,8 +3,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "@/providers/AuthProvider";
 import SiteInitialLoader from "@/components/shared/SiteInitialLoader";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 export default function Providers({ children }) {
   const [client] = useState(

@@ -4,7 +4,8 @@ import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
 import React from 'react'
 import CardsGrid from './CardsGrid'
 
-export default function About() {
+export default async function About() {
+ 
   return (
     <>
         <AboutHero />
