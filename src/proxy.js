@@ -17,9 +17,10 @@ export async function proxy(req) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
     console.log(decoded)
-    // if (req.nextUrl.pathname.startsWith("/admin") && decoded.role !== "admin") {
-    //   return NextResponse.redirect(new URL("/unauthorized", req.url))
-    // }
+    console.log(req.nextUrl.pathname)
+    if (req.nextUrl.pathname.startsWith("/admin") && decoded.role !== "admin") {
+      return NextResponse.redirect(new URL("/unauthorized", req.url))
+    }
 
     return NextResponse.next()
   } catch (err) {

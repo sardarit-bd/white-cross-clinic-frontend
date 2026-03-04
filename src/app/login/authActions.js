@@ -11,3 +11,9 @@ export async function setAuthCookie(accessToken) {
         path: "/",
     });
 }
+
+
+export async function clearAuthCookie() {
+    const cks = await cookies()
+    cks.delete("jwtToken")
+}
