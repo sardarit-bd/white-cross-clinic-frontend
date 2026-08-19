@@ -1,9 +1,9 @@
-import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
-import VaccinePricingTable from '@/components/modules/services/VacineTable'
-import ClinicAdvantages from '@/components/modules/singleService/Advantages'
-import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
+import ContactSection from '@/components/modules/appointment/ContactSection';
+import EmergencyCTA from '@/components/modules/Home/EmergencyCTA';
+import ServicesCTA from '@/components/modules/services/ServicesCTA';
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
+import ClinicAdvantages from '@/components/modules/singleService/Advantages';
+import MobileClinicIntro from '@/components/modules/singleService/Banner';
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
@@ -46,12 +46,12 @@ export const advantages = [
 export default function page() {
     return (
         <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Travel Health</h2>
-            </section>
+            <TopServicesItemBanner>
+                Travel Health
+            </TopServicesItemBanner>
             <MobileClinicIntro mobileClinicData={mobileClinicData} />
             <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
+            <ServicesCTA title={"Travel Health"} />
             <ContactSection />
         </div>
     )

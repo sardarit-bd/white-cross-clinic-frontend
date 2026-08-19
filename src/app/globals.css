@@ -4,11 +4,16 @@
   /* -----------------------------------
      BRAND COLORS
   ----------------------------------- */
-  --brandColor: #0076BC;           /* Primary blue (from hands) */
-  --brandColorDark: #005F99;       /* Darker blue for hover/contrast */
-  --brandColorLight: #E6F4F1;      /* Soft aqua background */
-  --brandAccent: #00994D;          /* Supporting green (leaves) */
-  --brandRed: #E0262C;             /* Heart red for alerts or accents */
+  --brandColor: #0076BC;
+  /* Primary blue (from hands) */
+  --brandColorDark: #005F99;
+  /* Darker blue for hover/contrast */
+  --brandColorLight: #E6F4F1;
+  /* Soft aqua background */
+  --brandAccent: #00994D;
+  /* Supporting green (leaves) */
+  --brandRed: #E0262C;
+  /* Heart red for alerts or accents */
 
   /* Gradient for hero/buttons */
   --brandGradient: linear-gradient(90deg, var(--brandColor), var(--brandAccent));
@@ -17,20 +22,29 @@
   /* -----------------------------------
      TEXT COLORS
   ----------------------------------- */
-  --textDark: #05314A;             /* Strong heading color */
-  --textMedium: #333333;           /* Standard readable text */
-  --textLight: #6f6f6f;            /* Light gray paragraph text */
-  --textMuted: #9ca3af;            /* Subtle muted text */
-  --textWhite: #ffffff;            /* On dark backgrounds */
+  --textDark: #05314A;
+  /* Strong heading color */
+  --textMedium: #333333;
+  /* Standard readable text */
+  --textLight: #6f6f6f;
+  /* Light gray paragraph text */
+  --textMuted: #9ca3af;
+  /* Subtle muted text */
+  --textWhite: #ffffff;
+  /* On dark backgrounds */
 
   /* -----------------------------------
      BACKGROUND COLORS
   ----------------------------------- */
   --bgWhite: #ffffff;
-  --bgLight: #f7fbfc;              /* Light background sections */
-  --bgSection: #f2fdfb;            /* Slight green/blue tint section */
-  --bgGray: #f3f4f6;               /* Neutral light gray area */
-  --bgSoft: #e8fafa;               /* Soft tone for cards or highlights */
+  --bgLight: #f7fbfc;
+  /* Light background sections */
+  --bgSection: #f2fdfb;
+  /* Slight green/blue tint section */
+  --bgGray: #f3f4f6;
+  /* Neutral light gray area */
+  --bgSoft: #e8fafa;
+  /* Soft tone for cards or highlights */
 
   /* -----------------------------------
      BORDER / DIVIDER
@@ -110,10 +124,18 @@ body {
   transition: background var(--transitionMedium), color var(--transitionMedium);
 }
 
+.container {
+  width: 100%;
+  max-width: 1440px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
 @keyframes slideLeft {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0%);
   }
@@ -124,8 +146,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-fadeIn {
@@ -133,8 +160,15 @@ body {
 }
 
 @keyframes slideUp {
-  from { transform: translateY(25px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .animate-slideUp {
@@ -147,6 +181,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -158,9 +193,12 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-5px);
   }

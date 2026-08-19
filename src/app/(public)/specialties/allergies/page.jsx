@@ -37,10 +37,10 @@ const allergyCards = [
 
 export default function AllergyOverview() {
   return (
-    <div className="container mx-auto px-6 md:px-10 py-10">
-      
+    <div className="container mx-auto">
+
       {/* Header Card */}
-      <div className="bg-white border border-gray-200 shadow-sm rounded-md p-6 md:p-10 mb-10">
+      <div className="bg-white border border-gray-100 p-4 md:p-6 mb-6">
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-4">
           Allergy
         </h1>
@@ -57,7 +57,7 @@ export default function AllergyOverview() {
         {allergyCards.map((item, index) => (
           <div
             key={index}
-            className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col"
+            className="bg-white border border-gray-100 p-6 flex flex-col"
           >
             <h2 className="text-xl font-bold text-[var(--textDark)] mb-3">
               {item.title}

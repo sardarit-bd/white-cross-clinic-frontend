@@ -1,16 +1,16 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
-    tag: "Services",
-    title: "Psychiatrist Services",
-    description: `At White Cross Clinic, we offer compassionate care from Psychiatrists who specialize in the diagnosis, treatment, and management of mental health conditions. Our Psychiatrists provide comprehensive evaluations, evidence-based treatments, and ongoing support to help individuals achieve mental wellness and improve their quality of life.`,
-    image: "/images/psychiatrist.webp",
-    imageAlt: "Psychiatrist Services",
+  tag: "Services",
+  title: "Psychiatrist Services",
+  description: `At White Cross Clinic, we offer compassionate care from Psychiatrists who specialize in the diagnosis, treatment, and management of mental health conditions. Our Psychiatrists provide comprehensive evaluations, evidence-based treatments, and ongoing support to help individuals achieve mental wellness and improve their quality of life.`,
+  image: "/images/psychiatrist.webp",
+  imageAlt: "Psychiatrist Services",
 };
 const title = "Advantages Of Psychiatrist Services"
 export const advantages = [
@@ -44,16 +44,16 @@ export const advantages = [
 
 
 export default function page() {
-    return (
-        <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Psychiatrist Services</h2>
-            </section>
-            <MobileClinicIntro mobileClinicData={mobileClinicData} />
-            
-            <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
-            <ContactSection />
-        </div>
-    )
+  return (
+    <div className='mt-20'>
+      <TopServicesItemBanner>
+        Psychiatrist Services
+      </TopServicesItemBanner>
+      <MobileClinicIntro mobileClinicData={mobileClinicData} />
+
+      <ClinicAdvantages advantages={advantages} title={title} />
+      <ServicesCTA title={"Psychiatrist Services"} />
+      <ContactSection />
+    </div>
+  )
 }

@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const images = [
   "/images/slider1.jpg",
@@ -23,7 +23,7 @@ export default function GallerySection() {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export default function GallerySection() {
           {images.map((src, i) => (
             <SwiperSlide key={i}>
               <motion.div
-                className="cursor-pointer rounded-lg overflow-hidden border-4 border-transparent hover:border-[var(--brandAccent)] transition-all duration-300"
+                className="cursor-pointer overflow-hidden border-4 border-transparent hover:border-[var(--brandAccent)] transition-all duration-300"
                 onClick={() => setSelectedImage(src)}
               >
                 <Image

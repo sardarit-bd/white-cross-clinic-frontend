@@ -4,8 +4,8 @@ import Link from "next/link";
 
 export default function ImmunologyPage() {
   return (
-    <div className="min-h-screen bg-[var(--bgLight)] pt-32 pb-20">
-      <div className="container mx-auto px-4 lg:px-8">
+    <div className="min-h-screen bg-white border border-gray-100 p-6">
+      <div className="container mx-auto">
 
         {/* PAGE TITLE */}
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-4">
@@ -53,7 +53,7 @@ export default function ImmunologyPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
 
           {/* CARD 1 */}
-          <div className="bg-white rounded-xl shadow-[var(--shadowCard)] p-6 border border-[var(--borderLight)]">
+          <div className="bg-white p-4 border border-[var(--borderLight)]">
             <h2 className="text-xl font-semibold text-[var(--textDark)] mb-2">
               Tropical And Travel Related Immunology Tests
             </h2>
@@ -71,7 +71,7 @@ export default function ImmunologyPage() {
           </div>
 
           {/* CARD 2 */}
-          <div className="bg-white rounded-xl shadow-[var(--shadowCard)] p-6 border border-[var(--borderLight)]">
+          <div className="bg-white p-4 border border-[var(--borderLight)]">
             <h2 className="text-xl font-semibold text-[var(--textDark)] mb-2">
               Coeliac Disease Update
             </h2>

@@ -34,7 +34,7 @@ export default function NavButton() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="px-5 py-2 rounded-md font-medium border border-[var(--brandColor)] text-[var(--brandColor)] bg-white shadow-sm hover:bg-[var(--brandColorLight)] transition"
+          className="px-5 py-2 rounded-md font-medium border border-[var(--brandColor)] text-[var(--brandColor)] bg-white shadow-sm hover:bg-[var(--brandColorLight)] transition hidden"
         >
           <Link href="/login">Login</Link>
         </motion.button>

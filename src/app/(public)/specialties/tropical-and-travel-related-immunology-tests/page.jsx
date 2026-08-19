@@ -41,8 +41,8 @@ export default function page() {
     );
 
     return (
-        <section className="w-full bg-white py-12 px-6 md:px-12">
-            <div className="max-w-5xl mx-auto">
+        <section className="w-full bg-white p-6 border border-gray-100">
+            <div className="">
 
                 {/* Title */}
                 <h1 className="text-3xl font-bold text-[var(--textDark)]">
@@ -60,10 +60,8 @@ export default function page() {
                         placeholder="Search..."
                         className="
               w-full md:w-96 
-              px-4 py-2 
-              rounded-lg 
+              px-4 py-2
               border border-[var(--borderLight)] 
-              bg-[var(--bgLight)] 
               focus:outline-none 
               focus:ring-2 focus:ring-[var(--brandColor)]
             "
@@ -73,7 +71,7 @@ export default function page() {
                 </div>
 
                 {/* Table */}
-                <div className="mt-8 border rounded-lg overflow-hidden shadow-sm">
+                <div className="mt-8 border border-gray-100 overflow-hidden">
                     {/* Table Header */}
                     <div className="bg-[var(--brandColor)] text-white px-4 py-3 font-semibold flex justify-between">
                         <span>Test Name</span>

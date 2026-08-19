@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Search, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function HomeSearchSection() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function HomeSearchSection() {
   };
 
   return (
-    <section className="w-full bg-[var(--bgLight)] py-12 px-6 md:px-12">
+    <section className="w-full bg-[var(--bgLight)] py-12 px-6 hidden">
       <div className="container mx-auto">
 
         {/* Title */}
@@ -55,7 +55,7 @@ export default function HomeSearchSection() {
                 <Sparkles size={20} className="text-[var(--brandColor)]" />
               </div>
               <input
-              autoFocus
+                autoFocus
                 type="text"
                 placeholder="Ask AI  anything about your health..."
                 className="w-full font-bold bg-transparent focus:outline-none text-[var(--textDark)] placeholder-[var(--textLight)]"

@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 
 const data = [
   { name: "Out of hours services", perDose: "£0", doses: "0 per dose", price: "£0" },
@@ -18,16 +17,16 @@ const data = [
   { name: "Ear, nose and throat infections", perDose: "£0", doses: "0 per dose", price: "£0" },
 ];
 
-export default function VaccinePricingTable({data}) {
+export default function VaccinePricingTable({ data }) {
   return (
     <section className="py-12 bg-[var(--bgLight)]">
-      <div className="max-w-7xl mx-auto px-4">
-        
+      <div className="container mx-auto px-6">
+
         <h2 className="text-2xl md:text-3xl font-bold text-[var(--textDark)] mb-8">
           Treatment & Service Charges
         </h2>
 
-        <div className="overflow-x-auto rounded-lg shadow-sm border border-[var(--borderLight)]">
+        <div className="overflow-x-auto border border-[var(--borderLight)]">
           <table className="w-full border-collapse">
 
             {/* TABLE HEADER */}
@@ -45,9 +44,8 @@ export default function VaccinePricingTable({data}) {
               {data.map((row, index) => (
                 <tr
                   key={index}
-                  className={`border-b border-[var(--borderLight)] ${
-                    index % 2 === 0 ? "bg-[var(--bgWhite)]" : "bg-[var(--bgSoft)]"
-                  }`}
+                  className={`border-b border-[var(--borderLight)] ${index % 2 === 0 ? "bg-[var(--bgWhite)]" : "bg-[var(--bgSoft)]"
+                    }`}
                 >
                   <td className="py-4 px-6">{row.name}</td>
                   <td className="py-4 px-6 font-medium">{row.perDose}</td>

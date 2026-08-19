@@ -13,11 +13,11 @@ export default function ProfileList({ allTests, activeLetter, setActiveLetter })
         setActiveLetter(letter)
     }
     return (
-        <div className="w-full py-10">
+        <div className="w-full py-5">
             <div className="container mx-auto px-4">
 
                 {/* Sticky Alphabet Filter */}
-                <div className="z-20 bg-[var(--bgLight)] py-3 px-3 shadow-sm">
+                <div className="z-20 bg-[var(--bgLight)] py-3 px-3 border border-gray-100">
                     <div className="flex flex-wrap gap-3 text-base font-medium">
 
                         {alphabets.map((letter, index) => {
@@ -26,7 +26,7 @@ export default function ProfileList({ allTests, activeLetter, setActiveLetter })
                                     key={letter}
                                     onClick={() => selectTest(letter)}
                                     className={`
-                    px-4 py-2 rounded-lg transition-all duration-200 ${activeLetter === letter ? "bg-[var(--brandColor)] text-white" : "bg-white text-[var(--textDark)]"}  border border-[var(--borderLight)] hover:bg-[var(--brandColorLight)]"
+                    px-4 py-2 transition-all duration-200 ${activeLetter === letter ? "bg-[var(--brandColor)] text-white" : "bg-white text-[var(--textDark)]"}  border border-[var(--borderLight)] hover:bg-[var(--brandColorLight)]"
                                         }
                   `}
                                 >
@@ -36,7 +36,7 @@ export default function ProfileList({ allTests, activeLetter, setActiveLetter })
                         })}
 
                         {/* <button
-                            className="px-4 py-2 rounded-lg bg-white border border-[var(--borderLight)] text-[var(--brandColorDark)] hover:bg-[var(--brandColorLight)] transition"
+                            className="px-4 py-2 bg-white border border-[var(--borderLight)] text-[var(--brandColorDark)] hover:bg-[var(--brandColorLight)] transition"
                         >
                             Profiles
                         </button> */}
@@ -59,12 +59,12 @@ export default function ProfileList({ allTests, activeLetter, setActiveLetter })
                 </p>
 
                 {/* Table Header */}
-                <div className="bg-[var(--brandColorDark)] text-white font-semibold px-4 py-3 rounded-t-lg shadow">
+                <div className="bg-[var(--brandColorDark)] text-white font-semibold px-4 py-3 ">
                     Test Name
                 </div>
 
                 {/* Filtered Results */}
-                <div className="border border-[var(--borderLight)] rounded-b-lg divide-y divide-[var(--borderLight)] bg-white shadow-sm">
+                <div className="border border-[var(--borderLight)] divide-y divide-[var(--borderLight)] bg-white shadow-sm">
                     {allTests?.length > 0 ? (
                         allTests.map((item, index) => {
                             const slug = item

@@ -1,17 +1,16 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
-import VaccinePricingTable from '@/components/modules/services/VacineTable'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
-    tag: "Services",
-    title: "Gynaecologists-Gastroenterologists",
-    description: `At White Cross Clinic, we offer specialized care from Gynaecologists and Gastroenterologists to address a range of women’s health and digestive system concerns. Our expert physicians provide comprehensive evaluations, diagnostics, and treatments tailored to each patient’s unique needs, ensuring optimal health and well-being.`,
-    image: "/images/gynaecologists.webp",
-    imageAlt: "Gynaecologists-Gastroenterologists",
+  tag: "Services",
+  title: "Gynaecologists-Gastroenterologists",
+  description: `At White Cross Clinic, we offer specialized care from Gynaecologists and Gastroenterologists to address a range of women’s health and digestive system concerns. Our expert physicians provide comprehensive evaluations, diagnostics, and treatments tailored to each patient’s unique needs, ensuring optimal health and well-being.`,
+  image: "/images/gynaecologists.webp",
+  imageAlt: "Gynaecologists-Gastroenterologists",
 };
 const title = "Advantages Of Gynaecologists-Gastroenterologists"
 export const advantages = [
@@ -46,15 +45,15 @@ export const advantages = [
 
 
 export default function page() {
-    return (
-        <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Gynaecologists-Gastroenterologists</h2>
-            </section>
-            <MobileClinicIntro mobileClinicData={mobileClinicData} />
-            <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
-            <ContactSection />
-        </div>
-    )
+  return (
+    <div className='mt-20'>
+      <TopServicesItemBanner>
+        Gynecologists-Gastroenterologists
+      </TopServicesItemBanner>
+      <MobileClinicIntro mobileClinicData={mobileClinicData} />
+      <ClinicAdvantages advantages={advantages} title={title} />
+      <ServicesCTA title="Gynecologists-Gastroenterologists" />
+      <ContactSection />
+    </div>
+  )
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useMemo, useState } from "react";
 
 
 const sidebarItems = [
@@ -187,13 +187,13 @@ export default function SpecialitiesFilter() {
   }, [query, searchList]);
 
   return (
-    <aside className="md:w-[500px] w-full bg-white border border-[var(--borderLight)] rounded-xl shadow-[var(--shadowCard)] p-4 h-max sticky md:top-32 top-22">
+    <aside className="md:w-[500px] w-full bg-white border border-gray-100 p-4 h-max sticky top-24">
 
       <h2 className="font-bold text-xl text-[var(--textDark)] mb-4">Specialties</h2>
 
       {/* 🔍 Search Bar */}
       <div className="relative mb-4">
-        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-[var(--borderLight)]">
+        <div className="flex items-center gap-2 bg-white px-3 py-2 border border-[var(--borderLight)]">
           <Search size={18} className="text-[var(--textLight)]" />
           <input
             type="text"
@@ -210,7 +210,7 @@ export default function SpecialitiesFilter() {
 
         {/* 🔽 Auto-suggestions */}
         {showSuggestions && filteredSuggestions.length > 0 && (
-          <div className="absolute z-20 bg-white w-full shadow-lg rounded-lg border border-[var(--borderLight)] mt-1 max-h-60 overflow-y-auto">
+          <div className="absolute z-20 bg-white w-full shadow-xl border border-[var(--borderLight)] mt-1 max-h-60 overflow-y-auto">
             {filteredSuggestions.map((item, i) => (
               <Link
                 key={i}
@@ -243,7 +243,7 @@ export default function SpecialitiesFilter() {
         return (
           <div key={index} className="mb-2">
             <button
-              className={`flex justify-between items-center w-full font-medium p-3 rounded-lg transition
+              className={`flex justify-between items-center w-full font-medium p-3 transition
                 ${isParentActive
                   ? "bg-[var(--brandColor)] text-white"
                   : "bg-[var(--brandColorLight)] text-[var(--textDark)] hover:bg-[var(--brandColor)] hover:text-white"}
@@ -270,7 +270,7 @@ export default function SpecialitiesFilter() {
                     <Link
                       key={i}
                       href={childSlug}
-                      className={`block text-sm px-2 py-1 rounded-md transition
+                      className={`block text-sm px-2 py-1 transition
                         ${isChildActive
                           ? "bg-[var(--brandColorLight)] text-[var(--brandColor)] font-semibold"
                           : "text-[var(--textLight)] hover:text-[var(--brandColor)]"}

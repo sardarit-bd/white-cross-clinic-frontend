@@ -1,25 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-    User,
-    Mail,
-    Lock,
-    Phone,
-    Stethoscope,
-    HeartPulse,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function RegisterPage() {
     const { register } = useAuth()
     const router = useRouter()
-    const [role, setRole] = useState("patient"); 
+    const [role, setRole] = useState("patient");
 
     // basic fields
     const [name, setName] = useState("");
@@ -37,7 +26,7 @@ export default function RegisterPage() {
             password
         };
         const res = await register(payload);
-        if(res?.success) {
+        if (res?.success) {
             toast.success("Registration successful! Please login.");
             router.push("/login");
         } else {
@@ -46,137 +35,70 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[var(--bgLight)] px-4 py-10">
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="w-full max-w-4xl bg-white rounded-2xl shadow-[var(--shadowCard)] p-10"
-            >
-                {/* Logo */}
-                <div className="flex justify-center mb-6">
-                    <Link href="/">
-                        <Image
-                            src="/logos/navLogo.png" // change to your logo
-                            width={100}
-                            height={100}
-                            alt="White Cross Clinic"
-                            className="rounded-lg shadow-md"
-                        />
-                    </Link>
+        <section className="bg-[#101827] py-24">
+            <div className="max-w-6xl mx-auto px-6">
+
+                {/* Heading */}
+                <div className="text-center">
+                    <h2 className="text-5xl font-bold text-white">
+                        Registered & Regulated
+                    </h2>
+
+                    <p className="mt-5 text-lg text-slate-400 max-w-3xl mx-auto leading-8">
+                        Every member of our medical team is fully registered and our clinic is
+                        regulated in the UK, so you can feel confident in the care you receive.
+                    </p>
                 </div>
 
-                <h2 className="text-center text-3xl font-bold text-[var(--textDark)] mb-2">
-                    Create Your Account
-                </h2>
+                {/* Logos */}
+                <div className="mt-16 flex flex-wrap justify-center items-center gap-8">
 
-                <p className="text-center text-[var(--textLight)] mb-8">
-                    Register as a Patient or Doctor to continue
-                </p>
+                    <div className="bg-white rounded-2xl shadow-xl w-[140px] h-[95px] flex items-center justify-center">
+                        {/* GMC Logo */}
+                        <img className="bg-white h-[120px] w-[300px] object-contain px-3" src={'https://www.walkinclinic.london/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fda1zmp1ib%2Fimage%2Fupload%2Fv1766706846%2Fgeneral-medical-council-logo-health-screening-clinic-london_e2uein.png&w=256&q=75&dpl=dpl_8ti64ZShRvj8XjQy5jniNCpuDmEg'} />
+                    </div>
 
-                {/* ROLE SELECTOR */}
-                <div className="grid grid-cols-2 gap-3 mb-10">
-                    {["patient", "doctor"].map((r) => (
-                        <button
-                            key={r}
-                            onClick={() => setRole(r)}
-                            className={`py-3 rounded-lg font-medium transition-all border 
-              ${role === r
-                                    ? "bg-[var(--brandColor)] text-white border-[var(--brandColor)]"
-                                    : "bg-white text-[var(--textDark)] border-[var(--borderLight)] hover:bg-[var(--brandColorLight)]"
-                                }`}
-                        >
-                            {r === "patient" ? "Patient" : "Doctor"}
-                        </button>
-                    ))}
+                    <div className="bg-white rounded-2xl shadow-xl w-[140px] h-[95px] flex items-center justify-center">
+                        {/* NMC Logo */}
+                        <img className="bg-white h-[120px] w-[300px] object-contain px-3" src={'https://www.walkinclinic.london/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fda1zmp1ib%2Fimage%2Fupload%2Fv1766443734%2FNursing_and_Midwifery_Council__logo_-Private-STI-CLinic_london_utssua.jpg&w=256&q=75&dpl=dpl_8ti64ZShRvj8XjQy5jniNCpuDmEg'} />
+                    </div>
+
+                    <div className="bg-white rounded-2xl shadow-xl w-[250px] h-[95px] flex items-center justify-center">
+                        {/* CQC Logo */}
+                        <img className="bg-white h-[120px] w-[300px] object-contain px-3" src={'https://www.walkinclinic.london/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fda1zmp1ib%2Fimage%2Fupload%2Fv1767456059%2Fcqc-new-logo_huchj8_gcxnud.webp&w=256&q=75&dpl=dpl_8ti64ZShRvj8XjQy5jniNCpuDmEg'} />
+                    </div>
+
                 </div>
 
-                {/* FORM (2 columns layout for desktop) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Divider */}
+                <div className="border-t border-slate-700 my-16"></div>
 
-                    {/* NAME */}
-                    <div>
-                        <label className="text-sm font-medium text-[var(--textDark)]">Full Name</label>
-                        <div className="mt-1 flex items-center border border-[var(--borderLight)] rounded-lg px-3 py-2">
-                            <User size={18} className="text-[var(--textLight)]" />
-                            <input
-                                type="text"
-                                placeholder="Enter your name"
-                                className="ml-2 w-full focus:outline-none"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
+                {/* Title */}
+                <h4 className="text-center text-white uppercase tracking-[3px] font-semibold mb-8">
+                    Regulated by CQC
+                </h4>
+
+                {/* Outer Card */}
+                <div className="rounded-3xl border border-slate-600 bg-[#182233] md:p-6">
+
+                    {/* White Certificate */}
+                    <div className="bg-white p-1 md:p-6">
+
+                        <div className="rounded-lg lg:min-h-[260px] flex items-center justify-center">
+
+                            {/* Replace with Certificate Image */}
+
+                            <a target="_blank" className="w-full" href="https://www.cqc.org.uk/location/1-21602295059?referer=widget4">
+                                <img className="w-full" src={"https://res.cloudinary.com/dg83pvgls/image/upload/v1786100515/Screenshot_2026-08-07_170103_xuibmb.png"} />
+                            </a>
+
                         </div>
+
                     </div>
 
-                    {/* EMAIL */}
-                    <div>
-                        <label className="text-sm font-medium text-[var(--textDark)]">Email</label>
-                        <div className="mt-1 flex items-center border border-[var(--borderLight)] rounded-lg px-3 py-2">
-                            <Mail size={18} className="text-[var(--textLight)]" />
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="ml-2 w-full focus:outline-none"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    {/* PHONE */}
-                    <div>
-                        <label className="text-sm font-medium text-[var(--textDark)]">Phone</label>
-                        <div className="mt-1 flex items-center border border-[var(--borderLight)] rounded-lg px-3 py-2">
-                            <Phone size={18} className="text-[var(--textLight)]" />
-                            <input
-                                type="text"
-                                placeholder="Phone number"
-                                className="ml-2 w-full focus:outline-none"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
-                    {/* PASSWORD */}
-                    <div>
-                        <label className="text-sm font-medium text-[var(--textDark)]">Password</label>
-                        <div className="mt-1 flex items-center border border-[var(--borderLight)] rounded-lg px-3 py-2">
-                            <Lock size={18} className="text-[var(--textLight)]" />
-                            <input
-                                type="password"
-                                placeholder="Create a password"
-                                className="ml-2 w-full focus:outline-none"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                    </div>
                 </div>
 
-                {/* REGISTER BUTTON */}
-                <motion.button
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={handleRegister}
-                    className="w-full mt-10 py-3 rounded-lg text-white font-semibold shadow-md"
-                    style={{
-                        background: "linear-gradient(90deg, var(--brandColor), var(--brandAccent))",
-                    }}
-                >
-                    Create Account
-                </motion.button>
-
-                {/* LOGIN LINK */}
-                <p className="text-center mt-6 text-sm text-[var(--textLight)]">
-                    Already registered?{" "}
-                    <Link href="/login" className="text-[var(--brandColor)] font-medium hover:underline">
-                        Login
-                    </Link>
-                </p>
-
-            </motion.div>
-        </div>
+            </div>
+        </section>
     );
 }

@@ -1,3 +1,4 @@
+import BackBtn from "@/components/shared/BackBtn";
 import axios from "axios";
 import Link from "next/link";
 
@@ -11,16 +12,19 @@ export default async function page({ params }) {
   const data = res.data.data;
 
   return (
-    <div className="w-full py-10 pt-48">
+    <div className="w-full py-10">
       <div className="container mx-auto">
-        <div className="bg-white shadow-sm rounded-lg p-8 md:p-10 border border-[var(--borderLight)] space-y-8">
-          {/* Title */}
-          <h1
-            className="text-3xl font-bold"
-            style={{ color: "var(--brandColor)" }}
-          >
-            {data?.title}
-          </h1>
+        <div className="bg-white p-8 md:p-10 border border-[var(--borderLight)] space-y-8">
+          <div className="flex items-center gap-5">
+            <BackBtn />
+            {/* Title */}
+            <h1
+              className="text-3xl font-bold"
+              style={{ color: "var(--brandColor)" }}
+            >
+              {data?.title}
+            </h1>
+          </div>
 
           <hr className="border-[var(--borderLight)]" />
 

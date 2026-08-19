@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 // Convert item name into URL slug
 const toSlug = (str) =>
@@ -42,7 +41,7 @@ export default function AllergyProfilesPage() {
   );
 
   return (
-    <div className="container mx-auto p-6 md:p-10">
+    <div className="container mx-auto p-6 border border-gray-100 bg-white">
       {/* Page Title */}
       <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)]">
         Allergy Profiles
@@ -66,19 +65,19 @@ export default function AllergyProfilesPage() {
           placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+          className="w-full border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
         />
       </div>
 
       {/* Table */}
-      <div className="mt-6 border rounded-md overflow-hidden">
+      <div className="mt-6 border border-gray-200 overflow-hidden">
         {/* Table Header */}
         <div className="bg-[var(--brandColor)] text-white px-4 py-3 font-semibold">
           Test Name
         </div>
 
         {/* Rows */}
-        <div className="divide-y">
+        <div className="divide-y divide-gray-200">
           {filtered.map((item, i) => (
             <div
               key={i}

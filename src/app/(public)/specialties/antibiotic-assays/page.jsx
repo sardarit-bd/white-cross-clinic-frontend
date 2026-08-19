@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 
 const assays = [
   "Amikacin Level (State dose)",
@@ -20,11 +19,11 @@ const toSlug = (str) =>
 
 export default function AntibioticAssays() {
   return (
-    <div className="container mx-auto px-6 md:px-10 py-10">
+    <div className="bg-white border border-gray-100 p-6 container mx-auto">
 
       {/* TOP CARD */}
-      <div className="bg-white border border-gray-200 shadow-sm rounded-md p-6 md:p-10 mb-10">
-        
+      <div className="mb-10">
+
         {/* TITLE */}
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-3">
           Antibiotic Assays
@@ -32,13 +31,13 @@ export default function AntibioticAssays() {
 
         {/* DESCRIPTION */}
         <p className="text-[var(--textDark)] font-medium text-lg leading-relaxed">
-          Our antibiotic assay tests enable the serum concentrations of certain antibiotics to be monitored. 
+          Our antibiotic assay tests enable the serum concentrations of certain antibiotics to be monitored.
           This helps to ensure adequate dosing for efficacy, and to avoid risks associated with potentially toxic levels.
         </p>
       </div>
 
       {/* TABLE */}
-      <div className="border border-gray-200 rounded-md overflow-hidden">
+      <div className="border border-gray-200 overflow-hidden">
 
         {/* HEADER */}
         <div className="bg-[var(--brandColor)] text-white px-4 py-3 font-semibold">
@@ -46,7 +45,7 @@ export default function AntibioticAssays() {
         </div>
 
         {/* LIST */}
-        <div className="divide-y">
+        <div className="divide-y divide-gray-200">
           {assays.map((item, i) => (
             <div
               key={i}

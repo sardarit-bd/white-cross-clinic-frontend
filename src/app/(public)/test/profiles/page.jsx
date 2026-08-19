@@ -109,7 +109,7 @@ export default function PageA() {
 
     const [filteredTests, setFilteredTests] = useState([...tests])
     useEffect(() => {
-        if(activeLetter === 'All'){
+        if (activeLetter === 'All') {
             setFilteredTests([...tests])
         }
         if (activeLetter !== 'All') {
@@ -117,7 +117,7 @@ export default function PageA() {
             setFilteredTests(filteredTest)
         }
     }, [activeLetter])
-    return <main className="container mx-auto py-10 pt-48">
+    return <main className="container mx-auto py-10">
         <ProfileList allTests={filteredTests} activeLetter={activeLetter} setActiveLetter={setActiveLetter} />
     </main>;
 }

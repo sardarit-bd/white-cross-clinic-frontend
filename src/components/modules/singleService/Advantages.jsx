@@ -2,18 +2,18 @@
 import { motion } from "framer-motion";
 
 
-export default function ClinicAdvantages({advantages, title}) {
+export default function ClinicAdvantages({ advantages, title }) {
   return (
-    <section className="container mx-auto px-4 py-20">
+    <section className="container mx-auto px-6 py-20">
 
       {/* Subtitle */}
-      <p className="text-center text-sm text-[var(--textMuted)] uppercase tracking-wide">
+      <p className="text-center text-lg text-[var(--textMuted)] uppercase tracking-wide">
         What You Will Get
       </p>
 
       {/* Title */}
-      <h2 className="text-center text-2xl md:text-3xl font-bold text-[var(--textDark)] mt-2 mb-12">
-       {title}
+      <h2 className="text-center text-2xl md:text-4xl font-bold text-[var(--textDark)] mt-2 mb-12">
+        {title}
       </h2>
 
       {/* GRID */}
@@ -25,12 +25,12 @@ export default function ClinicAdvantages({advantages, title}) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="bg-[var(--brandColor)] text-[var(--textWhite)] p-6 rounded-xl shadow-[var(--shadowCard)] hover:shadow-[var(--shadowHover)] transition-shadow"
+            className="bg-[var(--brandColor)] text-[var(--textWhite)] p-6 transition-shadow"
           >
-            <h3 className="text-lg font-semibold mb-2">
+            <h3 className="text-xl font-semibold mb-2">
               {item.title}
             </h3>
-            <p className="text-sm leading-relaxed text-white/90">
+            <p className="text-md pt-6 leading-relaxed text-white/90">
               {item.desc}
             </p>
           </motion.div>

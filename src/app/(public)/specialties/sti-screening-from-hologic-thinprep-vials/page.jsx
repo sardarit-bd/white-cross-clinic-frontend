@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function STIScreeningPage() {
   const [search, setSearch] = useState("");
@@ -21,11 +21,11 @@ export default function STIScreeningPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[var(--bgLight)] py-10">
-      <div className="container mx-auto px-6 lg:px-10">
+    <div className="min-h-screen bg-white border border-gray-100 p-6">
+      <div className="container mx-auto">
 
         {/* PAGE HEADER */}
-        <div className="bg-white p-8 rounded-lg shadow-md mb-10 border-l-4 border-[var(--brandColor)]">
+        <div className="bg-white mb-10">
           <h1 className="text-3xl font-bold text-[var(--textDark)] mb-3">
             STI Screening From Hologic ThinPrep Vials
           </h1>
@@ -44,21 +44,17 @@ export default function STIScreeningPage() {
 
         {/* SEARCH BOX */}
         <div className="mb-6">
-          <p className="text-[var(--textDark)] font-medium mb-2">
-            Please use the search box below to filter this list
-          </p>
-
           <input
             type="text"
             placeholder="Search..."
-            className="w-full max-w-xs p-2 border border-[var(--borderLight)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--brandColor)]"
+            className="w-full max-w-xs p-2 border border-[var(--borderLight)] focus:outline-none focus:ring-2 focus:ring-[var(--brandColor)]"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
         {/* TABLE */}
-        <div className="bg-white rounded-lg shadow-md border border-[var(--borderLight)] overflow-hidden">
+        <div className="bg-white border border-[var(--borderLight)] overflow-hidden">
 
           {/* TABLE HEADER */}
           <div className="bg-[var(--brandColor)] text-white p-3 font-semibold flex justify-between items-center">

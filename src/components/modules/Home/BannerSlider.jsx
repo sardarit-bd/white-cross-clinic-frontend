@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const slides = [
   {
@@ -47,7 +47,7 @@ export default function BannerSlider() {
   }, [current]);
 
   return (
-    <section className="relative w-full h-[75vh] md:h-[80vh] overflow-hidden">
+    <section className="relative w-full h-[65vh] overflow-hidden">
       <AnimatePresence>
         {slides.map(
           (slide, index) =>
@@ -65,27 +65,27 @@ export default function BannerSlider() {
                   src={slide.image}
                   alt={slide.title}
                   fill
-                  className="object-cover object-center brightness-[0.55]"
+                  className="object-cover object-center"
                   priority
                 />
 
                 {/* Content Card */}
-                <div className="absolute inset-0 flex items-center justify-center px-6 md:px-16">
+                <div className="absolute inset-0 flex items-center justify-center px-3 md:px-16 bg-gradient-to-r from-black/75 to-transparent">
                   <motion.div
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="bg-white/85 backdrop-blur-lg shadow-xl rounded-xl p-8 md:p-12 max-w-2xl text-left"
+                    className="max-w-2xl text-left container mx-auto"
                   >
-                    <h1 className="text-3xl md:text-5xl font-bold text-[var(--textDark)] mb-4 leading-tight">
+                    <h1 className="text-3xl md:text-5xl font-bold text-white/90 mb-4 leading-tight">
                       {slide.title}
                     </h1>
 
-                    <h3 className="text-lg md:text-xl font-semibold text-[var(--brandColor)] mb-4">
+                    <h3 className="text-lg md:text-xl font-semibold text-white/80 mb-4">
                       {slide.subtitle}
                     </h3>
 
-                    <div className="space-y-2 text-[var(--textDark)] text-base md:text-lg font-medium leading-relaxed">
+                    <div className="space-y-2 text-white/70 text-base md:text-lg font-medium leading-relaxed">
                       {slide.description.map((line, i) => (
                         <p key={i}>{line}</p>
                       ))}
@@ -95,21 +95,13 @@ export default function BannerSlider() {
                     <div className="flex gap-4 mt-8">
                       <Link
                         href="/about"
-                        className="px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 transition"
-                        style={{
-                          background:
-                            "linear-gradient(90deg, var(--brandColor), var(--brandAccent))",
-                        }}
+                        className="px-6 py-3 font-semibold text-white shadow-md hover:scale-105 transition bg-[var(--brandColor)]"
                       >
                         Read More
                       </Link>
                       <Link
                         href="/appointment"
-                        className="px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 transition"
-                        style={{
-                          background:
-                            "linear-gradient(90deg, var(--brandAccent), var(--brandColor))",
-                        }}
+                        className="px-6 py-3 font-semibold text-white shadow-md hover:scale-105 transition bg-green-600"
                       >
                         Book Now
                       </Link>
@@ -124,13 +116,13 @@ export default function BannerSlider() {
       {/* Navigation Arrows */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/70 text-[var(--brandColor)] p-3 rounded-full transition shadow-md"
+        className="absolute right-18 top-12/13 -translate-y-1/2 text-white bg-[var(--brandColor)] p-1 transition cursor-pointer"
       >
         <ArrowLeft size={26} />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/70 text-[var(--brandColor)] p-3 rounded-full transition shadow-md"
+        className="absolute right-6 top-12/13 -translate-y-1/2 text-white bg-[var(--brandColor)] p-1 transition cursor-pointer"
       >
         <ArrowRight size={26} />
       </button>
@@ -141,11 +133,10 @@ export default function BannerSlider() {
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              i === current
-                ? "bg-[var(--brandAccent)] scale-125"
-                : "bg-white/60 hover:bg-white"
-            }`}
+            className={`w-3 h-3 rounded-full transition-all ${i === current
+              ? "bg-[var(--brandColor)] scale-125"
+              : "bg-white/60 hover:bg-white"
+              }`}
           ></button>
         ))}
       </div>

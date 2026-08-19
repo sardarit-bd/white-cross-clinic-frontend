@@ -1,7 +1,7 @@
 "use client"
+import { useTest } from "@/hooks/useTest";
 import { useEffect, useState } from "react";
 import TestsList from "./TestList";
-import { useTest } from "@/hooks/useTest";
 import TestListLoading from "./TestListLoading";
 
 
@@ -472,7 +472,7 @@ export default function PageA() {
     //     "Hereditary Neuropathy with Liability to Pressure Palsy – PMP22 deletion analysis"
     // ];
 
-    const {tests, testsLoading} = useTest()
+    const { tests, testsLoading } = useTest()
 
     const [selectedTest, setTest] = useState('All')
     const [filteredTest, setFilteredTest] = useState([...tests])
@@ -486,10 +486,10 @@ export default function PageA() {
         }
     }, [selectedTest, tests])
 
-    if(testsLoading){
+    if (testsLoading) {
         return <TestListLoading />
     }
-    return <main className="container mx-auto py-10 pt-48">
+    return <main className="container mx-auto py-10">
         <TestsList allTests={filteredTest} setTest={setTest} selectedTest={selectedTest} />
     </main>;
 }

@@ -1,8 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 const services = [
   {
@@ -107,9 +107,7 @@ const services = [
 export default function ServicesGrid() {
   return (
     <section
-      className="relative py-20 bg-cover bg-center"
-      style={{ backgroundImage: "url('/images/serviceGridBanner.webp')" }}
-    >
+      className="relative py-20 bg-cover bg-center">
       <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
 
       <div className="relative container mx-auto px-4">
@@ -127,7 +125,7 @@ export default function ServicesGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
                 viewport={{ once: true }}
-                className="bg-[#0C2A5A] text-white p-6 rounded-xl shadow-lg hover:shadow-xl transition flex flex-col"
+                className="bg-[#0C2A5A] text-white p-6 transition flex flex-col"
               >
                 {/* ICON */}
                 <div className="flex justify-center mb-4">
@@ -155,7 +153,7 @@ export default function ServicesGrid() {
                   {/* SEE DETAILS */}
                   <Link
                     href={`/topservices/${slug}`}
-                    className="text-sm px-4 py-2 rounded-lg border border-[var(--brandColorLight)] bg-white/10 hover:bg-white/20 transition"
+                    className="text-sm px-4 py-2 cursor-pointer border border-[var(--brandColorLight)] bg-white/10 hover:bg-white/20 transition"
                   >
                     See Details
                   </Link>
@@ -163,7 +161,7 @@ export default function ServicesGrid() {
                   {/* BOOK NOW */}
                   <Link
                     href={`/get-book?service=${slug}`}
-                    className="text-sm px-4 py-2 rounded-lg bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white transition"
+                    className="text-sm px-4 py-2 cursor-pointer bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white transition"
                   >
                     Book Now
                   </Link>

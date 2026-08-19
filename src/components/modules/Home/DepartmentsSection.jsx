@@ -1,7 +1,7 @@
 "use client";
 
 import { useCategory } from "@/hooks/useCategory";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import DepartmentsNotFoundMinimal from "./DepartmentsNotFound";
@@ -89,12 +89,12 @@ export default function DepartmentsSection() {
     setTimeout(() => setIsPaused(false), 10000); // Resume auto after 10s
   };
 
-  if(!activeDept){
+  if (!activeDept) {
     return <DepartmentsNotFoundMinimal />
   }
   return (
     <section className="py-20">
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-3">
@@ -116,8 +116,8 @@ export default function DepartmentsSection() {
                 key={dept.id}
                 onClick={() => handleClick(dept)}
                 className={`text-left font-semibold transition-all duration-300 ${activeDept.id === dept.id
-                    ? "text-[var(--brandColor)] border-l-4 border-[var(--brandColor)] pl-3"
-                    : "text-[var(--textDark)] hover:text-[var(--brandColor)] pl-3"
+                  ? "text-[var(--brandColor)] border-l-4 border-[var(--brandColor)] pl-3"
+                  : "text-[var(--textDark)] hover:text-[var(--brandColor)] pl-3"
                   }`}
               >
                 {dept.name}

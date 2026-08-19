@@ -2,9 +2,9 @@
 
 export default function ArrayCGHTestingPage() {
   return (
-    <div className="min-h-screen bg-[var(--bgLight)] py-12">
-      <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-        
+    <div className="min-h-screen bg-white p-6 border border-gray-100">
+      <div className="container mx-auto">
+
         {/* TITLE */}
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--brandColor)] mb-6">
           Array CGH Testing
@@ -12,8 +12,8 @@ export default function ArrayCGHTestingPage() {
 
         {/* INTRO PARAGRAPH */}
         <p className="font-semibold text-[var(--textDark)] mb-4">
-          Array CGH testing is now considered to be the front line test for patients presenting with 
-          developmental delay (motor or growth), autism spectrum disorder, moderate to severe learning 
+          Array CGH testing is now considered to be the front line test for patients presenting with
+          developmental delay (motor or growth), autism spectrum disorder, moderate to severe learning
           difficulties, dysmorphic features, with or without congenital abnormalities.
         </p>
 
@@ -25,24 +25,24 @@ export default function ArrayCGHTestingPage() {
         {/* SECTION */}
         <Section>
           Array CGH can detect smaller genetic changes than is possible by conventional karyotyping,
-          and can provide accurate information on the size and possible consequences of the 
-          gains (duplications) or losses (deletions) identified. Multiple studies have shown that 
-          Array CGH, when applied to appropriate patients, will detect up to three times more 
+          and can provide accurate information on the size and possible consequences of the
+          gains (duplications) or losses (deletions) identified. Multiple studies have shown that
+          Array CGH, when applied to appropriate patients, will detect up to three times more
           pathogenic chromosome imbalances than karyotyping due to its greater precision and sensitivity.
         </Section>
 
         <Section>
-          Array CGH testing is now considered to be the front line test for patients presenting with 
-          developmental delay (motor or growth), autism spectrum disorder, moderate to severe learning 
-          difficulties, dysmorphic features, with or without congenital abnormalities. Consortia in the 
+          Array CGH testing is now considered to be the front line test for patients presenting with
+          developmental delay (motor or growth), autism spectrum disorder, moderate to severe learning
+          difficulties, dysmorphic features, with or without congenital abnormalities. Consortia in the
           USA and many EU countries have adopted Array CGH as the front line test in this patient cohort.
         </Section>
 
         <Section>
-          Array CGH is now more frequently used for prenatal studies as an adjunct or replacement 
-          for conventional cytogenetic studies, particularly where structural fetal abnormalities are 
-          seen at ultrasound scan but also at a patient’s or doctor’s request. The technique may also 
-          be utilised as a follow up test to characterise anomalies detected by a previous study 
+          Array CGH is now more frequently used for prenatal studies as an adjunct or replacement
+          for conventional cytogenetic studies, particularly where structural fetal abnormalities are
+          seen at ultrasound scan but also at a patient’s or doctor’s request. The technique may also
+          be utilised as a follow up test to characterise anomalies detected by a previous study
           (e.g., an apparently balanced de novo rearrangement or marker chromosome).
         </Section>
 
@@ -74,7 +74,7 @@ export default function ArrayCGHTestingPage() {
         />
 
         <Section>
-          Approximately 10–20% of results identify extra or missing DNA which may or may not be 
+          Approximately 10–20% of results identify extra or missing DNA which may or may not be
           relevant to the clinical phenotype, and will require further family studies to assist with interpretation.
         </Section>
 

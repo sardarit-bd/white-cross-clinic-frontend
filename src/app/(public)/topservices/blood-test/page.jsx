@@ -1,9 +1,9 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
@@ -48,24 +48,24 @@ export const advantages = [
 ];
 
 const data = [
-  { name: "Home tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Womens tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Mens tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Vitamin d tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Iron blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Sports performance tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Cholesterol tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Ovulation progesterone blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Cortisol blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Vitamin b12 tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "PSA blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Hepatitis B immunity blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
-  {
-    name: "Over 300+ blood tests, can be done at home or taken at surgery",
-    perDose: "£0",
-    doses: "0 per dose",
-    price: "£0",
-  },
+    { name: "Home tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Womens tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Mens tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Vitamin d tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Iron blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Sports performance tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Cholesterol tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Ovulation progesterone blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Cortisol blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Vitamin b12 tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "PSA blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Hepatitis B immunity blood tests", perDose: "£0", doses: "0 per dose", price: "£0" },
+    {
+        name: "Over 300+ blood tests, can be done at home or taken at surgery",
+        perDose: "£0",
+        doses: "0 per dose",
+        price: "£0",
+    },
 ];
 
 
@@ -74,14 +74,16 @@ const data = [
 export default function page() {
     return (
         <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Blood Test</h2>
-            </section>
+            <TopServicesItemBanner>
+                Blood Test
+            </TopServicesItemBanner>
             <VaccinePricingTable data={data} />
             <MobileClinicIntro mobileClinicData={mobileClinicData} />
             <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
-            <ContactSection />
+            <ServicesCTA title="Blood Test" />
+            <div className='container mx-auto px-6'>
+                <ContactSection />
+            </div>
         </div>
     )
 }

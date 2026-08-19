@@ -1,13 +1,12 @@
 "use client";
-import React from "react";
 
 export default function HPVTestsPage() {
   return (
-    <div className="min-h-screen bg-[var(--bgLight)] py-10">
-      <div className="container mx-auto px-6 lg:px-10">
+    <div className="min-h-screen bg-white p-6 border border-gray-100">
+      <div className="container mx-auto">
 
         {/* PAGE TITLE */}
-        <div className="bg-white p-8 rounded-lg shadow-md mb-10 border-l-4 border-[var(--brandColor)]">
+        <div className="bg-white mb-8">
           <h1 className="text-3xl font-bold text-[var(--textDark)] mb-3">
             HPV Tests
           </h1>
@@ -162,8 +161,8 @@ export default function HPVTestsPage() {
 
 function SectionCard({ title, children }) {
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md mb-10 border border-[var(--borderLight)]">
-      <h2 className="text-2xl font-semibold text-[var(--textDark)] mb-4 border-l-4 pl-3 border-[var(--brandColor)]">
+    <div className="bg-white p-6 mb-10 border border-[var(--borderLight)]">
+      <h2 className="text-2xl font-semibold text-[var(--textDark)] mb-4">
         {title}
       </h2>
       <div className="text-[var(--textLight)] leading-relaxed space-y-3 text-[15px]">

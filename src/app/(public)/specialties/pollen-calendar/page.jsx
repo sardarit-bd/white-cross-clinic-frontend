@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 const pollenTypes = [
   "Acacia, black",
@@ -81,10 +80,10 @@ export default function PollenCalendar() {
   );
 
   return (
-    <div className="container mx-auto px-6 md:px-10 py-10">
-      
+    <div className="container mx-auto p-6 border border-gray-100 rounded-md bg-white">
+
       {/* Header */}
-      <div className="bg-white border border-gray-200 shadow-sm rounded-md p-6 md:p-10 mb-8">
+      <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)]">
           Pollen Calendar
         </h1>
@@ -104,21 +103,21 @@ export default function PollenCalendar() {
             placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+            className="w-full border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
           />
         </div>
       </div>
 
       {/* Table */}
-      <div className="border rounded-md overflow-hidden">
-        
+      <div className="border border-gray-200 overflow-hidden">
+
         {/* Table Header */}
         <div className="bg-[var(--brandColor)] text-white px-4 py-3 font-semibold">
           Type
         </div>
 
         {/* Rows */}
-        <div className="divide-y">
+        <div className="divide-y divide-gray-200">
           {filtered.map((item, i) => (
             <div
               key={i}

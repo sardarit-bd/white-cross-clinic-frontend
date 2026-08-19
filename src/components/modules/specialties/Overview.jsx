@@ -1,6 +1,4 @@
-import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
-import React from 'react'
+import { ArrowRight } from 'lucide-react';
 const specialties = [
     "Anaesthetics",
     "Cardiology",
@@ -17,7 +15,7 @@ const specialties = [
 ];
 export default function Overview() {
     return (
-        <main className="flex-1">
+        <main className="flex-1 bg-white p-6 border border-gray-100">
             <h1 className="text-4xl font-extrabold text-[var(--textDark)] mb-6">
                 Specialties
             </h1>
@@ -26,7 +24,7 @@ export default function Overview() {
                 At White Cross Clinic, we offer a range of specialist services to address specific health concerns and needs. Our team of experienced healthcare professionals has expertise in various areas.
             </p>
             <p className="text-[var(--textLight)] leading-relaxed max-w-3xl mb-10">
-               Our specialist services are designed to provide comprehensive care for your specific needs, ensuring that you receive the best possible treatment and support. Whether you’re managing a chronic condition, seeking advice on men’s or women’s health, or need travel vaccinations, our team is here to help.
+                Our specialist services are designed to provide comprehensive care for your specific needs, ensuring that you receive the best possible treatment and support. Whether you’re managing a chronic condition, seeking advice on men’s or women’s health, or need travel vaccinations, our team is here to help.
             </p>
 
 
@@ -36,7 +34,7 @@ export default function Overview() {
                     <div
                         key={i}
                         href={`/specialties/${s.toLowerCase().replace(/ /g, "-")}`}
-                        className="bg-white border border-[var(--borderLight)] rounded-xl p-6 shadow-[var(--shadowCard)] hover:shadow-lg transition group flex justify-between items-center"
+                        className="bg-gray-100 border border-[var(--borderLight)] p-6 transition group flex justify-between items-center"
                     >
                         <span className="font-semibold text-[var(--textDark)] text-lg group-hover:text-[var(--brandColor)]">
                             {s}

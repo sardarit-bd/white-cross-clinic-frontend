@@ -1,0 +1,12 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll.eslint": "explicit",
+        "source.fixAll.tslint": "explicit"
+    },
+    "javascript.validate.enable": false,
+    "typescript.validate.enable": false,
+    "editor.wordWrap": "on",
+    "liveServer.settings.port": 5501
+}

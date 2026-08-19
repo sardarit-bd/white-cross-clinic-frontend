@@ -1,18 +1,17 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
-import BrandTable from '../immunisation/BrandTable'
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
-    tag: "Services",
-    title: "Minor Injuries",
-    description: `White Cross Clinic offers expert care for Minor Injuries, providing prompt and efficient treatment for a variety of common injuries. From cuts and bruises to sprains and minor fractures, our experienced healthcare professionals are here to provide comprehensive care to help you recover quickly and get back to your daily activities.`,
-    image: "/images/minoreInjuries.webp",
-    imageAlt: "Minor Injuries",
+  tag: "Services",
+  title: "Minor Injuries",
+  description: `White Cross Clinic offers expert care for Minor Injuries, providing prompt and efficient treatment for a variety of common injuries. From cuts and bruises to sprains and minor fractures, our experienced healthcare professionals are here to provide comprehensive care to help you recover quickly and get back to your daily activities.`,
+  image: "/images/minoreInjuries.webp",
+  imageAlt: "Minor Injuries",
 };
 const title = "Advantages Of Minor Injuries"
 export const advantages = [
@@ -56,16 +55,16 @@ const data = [
 ];
 
 export default function page() {
-    return (
-        <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Minor Injuries</h2>
-            </section>
-            <VaccinePricingTable data={data} />
-            <MobileClinicIntro mobileClinicData={mobileClinicData} />
-            <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
-            <ContactSection />
-        </div>
-    )
+  return (
+    <div className='mt-20'>
+      <TopServicesItemBanner>
+        Minor Injuries
+      </TopServicesItemBanner>
+      <VaccinePricingTable data={data} />
+      <MobileClinicIntro mobileClinicData={mobileClinicData} />
+      <ClinicAdvantages advantages={advantages} title={title} />
+      <ServicesCTA title="Minor Injuries" />
+      <ContactSection />
+    </div>
+  )
 }

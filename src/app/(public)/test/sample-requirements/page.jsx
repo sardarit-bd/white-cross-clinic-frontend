@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
 
 export default function SampleRequirements() {
   return (
-    <div className="container pt-48 mx-auto px-4 py-10">
+    <div className="container mx-auto px-4 py-12">
       {/* PAGE TITLE */}
-      <h1 className="text-3xl font-bold text-[var(--brandColor)] mb-6">
+      <h1 className="text-4xl font-bold text-[var(--brandColor)] mb-6">
         Sample Requirements
       </h1>
 
@@ -15,7 +14,7 @@ export default function SampleRequirements() {
 
       <h2 className="text-2xl font-semibold mb-3">Vacutainer</h2>
 
-      <div className="overflow-x-auto shadow-md rounded-lg border border-[var(--borderLight)]">
+      <div className="overflow-x-auto border border-[var(--borderLight)]">
         <table className="w-full text-left">
           <thead className="bg-[var(--brandColor)] text-white">
             <tr>
@@ -59,7 +58,7 @@ export default function SampleRequirements() {
 
       <h2 className="text-2xl font-semibold mt-10 mb-4">Other Sample Types</h2>
 
-      <div className="overflow-x-auto shadow-md rounded-lg border border-[var(--borderLight)]">
+      <div className="overflow-x-auto border border-[var(--borderLight)]">
         <table className="w-full text-left">
           <thead className="bg-[var(--brandColor)] text-white">
             <tr>

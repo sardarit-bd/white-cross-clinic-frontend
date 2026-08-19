@@ -1,11 +1,11 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Autoplay, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const testimonials = [
   {
@@ -53,7 +53,7 @@ const testimonials = [
 export default function TestimonialsSection() {
   return (
     <section className="py-20 bg-[var(--bgLight)] overflow-hidden relative">
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -96,7 +96,7 @@ export default function TestimonialsSection() {
               <motion.div
                 // whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white rounded-xl shadow-md transition-all duration-300 p-6 text-left flex flex-col justify-between h-full mb-10"
+                className="bg-white border border-gray-100 transition-all duration-300 p-6 text-left flex flex-col justify-between h-full mb-10"
               >
                 <p className="text-[var(--textDark)] text-sm md:text-base italic mb-6 leading-relaxed relative pl-8">
                   <span className="absolute left-0 top-0 text-[var(--brandColor)] text-3xl font-serif">“</span>

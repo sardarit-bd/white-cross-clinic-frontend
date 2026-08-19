@@ -1,9 +1,9 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
@@ -62,13 +62,13 @@ const data = [
 export default function page() {
   return (
     <div className='mt-20'>
-      <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-        <h2 className='text-5xl text-center'>Out Of Hours Services</h2>
-      </section>
+      <TopServicesItemBanner>
+        Out Of Hours Services
+      </TopServicesItemBanner>
       <VaccinePricingTable data={data} />
       <MobileClinicIntro mobileClinicData={mobileClinicData} />
       <ClinicAdvantages advantages={advantages} title={title} />
-      <EmergencyCTA />
+      <ServicesCTA title={"Out Of Hours Services"} />
       <ContactSection />
     </div>
   )

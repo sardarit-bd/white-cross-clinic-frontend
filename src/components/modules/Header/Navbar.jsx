@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { useCategory } from "@/hooks/useCategory";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import NavButton from "./NavButton";
-import { useCategory } from "@/hooks/useCategory";
+import { useRef, useState } from "react";
 
 /* -----------------------------
       GROUP SPECIALTIES (A–Z)
@@ -24,6 +22,7 @@ function groupByAlphabet(items) {
 
   return groups;
 }
+
 // =============================================
 //        DATA ARRAYS
 // =============================================
@@ -93,96 +92,378 @@ const testItems = [
   "WCC Self-Collection HPV Test"
 ];
 const groupedTestItems = groupByAlphabet(testItems);
-const doctorDepartments = [
-  "Cardiology",
-  "Dental",
-  "Dermatology",
-  "ENT",
-  "Gastroenterology",
-  "Gynecology",
-  "Nephrology",
-  "Neurology",
-  "Oncology",
-  "Orthopedics",
-  "Pediatrics",
-  "Physiotherapy",
-  "Psychiatry",
-  "Radiology",
-  "Urology"
-];
-
-const articleCategories = [
-  "Cardiology",
-  "Children Health",
-  "Fitness",
-  "General Wellness",
-  "Heart",
-  "Men Health",
-  "Mental Health",
-  "Neurology",
-  "Nutrition",
-  "Skin",
-  "Women Health"
-];
 
 const patientMenuItems = [
-  "Home Visits",
-  "Patient Reception",
-  "Sample Collection Guide"
+  {
+    label: "Home Visits",
+    href: "/patients/homevisit"
+  },
+  {
+    label: "Patient Reception",
+    href: "/patients/patientreception"
+  },
+  {
+    label: "Sample Collection Guide",
+    href: "/patients/samplecollectionguide"
+  }
 ];
 
-// ⭐ NEW DROPDOWN ITEMS
 const orderKitsDropdown = [
+  "Self Collect Kits",
+  "Self Collect Kits",
+  "Self Collect Kits",
   "Self Collect Kits"
-  // { label: "Registration For Online Order", href: "/order-kits/registration" },
 ];
 
 const testMegaMenu = [
-  "Discontinued Tests",
-  "Helpful Information",
-  "Profiles",
-  "Sample Requirements",
-  "Request Forms",
-  "Specimens",
-  "Special Instructions",
-  "Test A–Z",
-  "WCC News"
+  { label: "Profiles", href: "/test/profiles" },
+  { label: "Sample Requirements", href: "/test/sample-requirements" },
+  { label: "Specimens", href: "/test/specimens" },
+  { label: "Test A–Z", href: "/test/test-a-z" },
 ];
 
-// ⭐ ADDED dropdown: "orderkits"
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Specialties", href: "/specialties", mega: "specialties" },
-  { label: "Social Media", href: "/social" },
-  { label: "Order Kits", href: "/order-kits", dropdown: "orderkits" }, // ⭐ NEW
+  { label: "Online Shop", href: "/onlineshop", mega: "onlineshop" },
   { label: "Top Services", href: "/topservices" },
+  { label: "Health Hub", href: "/healthhub", mega: "healthhub" },
   { label: "Test", href: "/test", mega: "test" },
   { label: "Doctors", href: "/doctors", mega: "doctors" },
   { label: "Patients", href: "/patients", mega: "patients" },
   { label: "Contact Us", href: "/contact-us" },
-  { label: "News", href: "/articles", mega: "articles" },
-  // { label: "Dashboard", href: "/dashboard" },
+];
+
+
+const healthHubItem = [
+  "Annual Health Report",
+  "Biomarkers",
+  "Blood testing",
+  "Fertility",
+  "General Health",
+  "Hormone Health",
+  "Longevity",
+  "Menopause",
+  "Men's Health",
+  "Mental Health",
+  "Nutrition",
+  "PCOS",
+  "Skin Health",
+  "Sports Perfomance",
+  "Testosterone",
+  "Thyroid",
+  "Vitamin D",
+  "Vitamin Index",
+  "Weight Loss",
+  "Womens' Health",
+  "All Health Articles"
+
+]
+
+
+
+const onlineShopMenuItems = [
+  {
+    label: "Blood Testing",
+    other: [
+      {
+        label: "Clinical Landing",
+        other: [
+          {
+            label: "Private Blood Tests",
+            href: "/onlineshop/bloodtesting",
+          },
+          {
+            label: "Compare Blood Packages",
+            href: "/onlineshop/bloodtesting/compare",
+          },
+        ]
+      },
+      {
+        label: "Top Profiles",
+        other: [
+          {
+            label: "Diabetes Testing",
+            href: "/onlineshop/bloodtesting/diabetes",
+          },
+          {
+            label: "Kidney Function",
+            href: "/onlineshop/bloodtesting/kidney",
+          },
+          {
+            label: "Liver Function",
+            href: "/onlineshop/bloodtesting/liver",
+          },
+          {
+            label: "Cholesterol Test",
+            href: "/onlineshop/bloodtesting/cholesterol",
+          },
+        ]
+      },
+      {
+        label: "Wellness & Vitamins",
+        other: [
+          {
+            label: "Vitamin D",
+            href: "/onlineshop/bloodtesting/vitamind",
+          },
+          {
+            label: "Vitamin B12",
+            href: "/onlineshop/bloodtesting/vitaminb12",
+          },
+          {
+            label: "Thyroid Function",
+            href: "/onlineshop/bloodtesting/thyroidfunction",
+          },
+          {
+            label: "Allergies Test",
+            href: "/onlineshop/bloodtesting/allergy",
+          },
+        ]
+      }
+    ]
+  },
+  {
+    label: "Health Screening",
+    other: [
+      {
+        label: "Complete Health Screening",
+        other: [
+          {
+            label: "Full Body Health Screening",
+            href: "/onlineshop/healthscreening/fullbody",
+          },
+          {
+            label: "Compare MOT Packages",
+            href: "/onlineshop/healthscreening/compare",
+          },
+          {
+            label: "Well Woman Screen",
+            href: "/onlineshop/healthscreening/wellwoman",
+          },
+          {
+            label: "Well Man Screen",
+            href: "/onlineshop/healthscreening/wellman",
+          },
+          {
+            label: "Comprehensive Elite",
+            href: "/onlineshop/healthscreening/elite",
+          },
+        ]
+      },
+      {
+        label: "Compare MOT Packages",
+        other: [
+          {
+            label: "Cardiac Screening",
+            href: "/onlineshop/healthscreening/cardiac",
+          },
+          {
+            label: "Metabolic Profile",
+            href: "/onlineshop/healthscreening/metabolic",
+          },
+          {
+            label: "Hormonal Analysis",
+            href: "/onlineshop/healthscreening/hormonal",
+          },
+          {
+            label: "Digestive Gut Health",
+            href: "/onlineshop/healthscreening/digestive",
+          },
+        ]
+      }
+    ]
+  },
+  {
+    label: "Sexual Health",
+    other: [
+      {
+        label: "Most Popular Tests",
+        other: [
+          {
+            label: "Sexual Health",
+            href: "/onlineshop/sexualhealth/sexualhealth",
+          },
+          {
+            label: "Compare STI Packages",
+            href: "/onlineshop/tsexualhealth/comparestipackage",
+          },
+          {
+            label: "HIV 1&2 p24",
+            href: "/onlineshop/sexualhealth/hiv12p24",
+          },
+          {
+            label: "Chlamydia & Gonorrhoea",
+            href: "/onlineshop/sexualhealth/chlamydia_gonorrhoea",
+          },
+          {
+            label: "Genital Herpes",
+            href: "/onlineshop/sexualhealth/genitalherpes",
+          },
+        ]
+      },
+      {
+        label: "Additional Screening",
+        other: [
+          {
+            label: "Hepatitis B/C",
+            href: "/onlineshop/sexualhealth/hepatitisb_c",
+          },
+          {
+            label: "HPV Genotyping",
+            href: "/onlineshop/sexualhealth/hpvgenotyping",
+          },
+          {
+            label: "Trichomoniasis",
+            href: "/onlineshop/sexualhealth/trichomoniasis",
+          }
+        ]
+      }
+    ]
+  },
+  {
+    label: "Drips and Boosters",
+    other: [
+      {
+        label: "IV Drips",
+        other: [
+          {
+            label: "Myers Cocktail",
+            href: "/onlineshop/dripandboosters/ivdrips/myerscocktail",
+          },
+          {
+            label: "Anti-Ageing Drip",
+            href: "/onlineshop/dripandboosters/ivdrips/antiageingdrip",
+          },
+          {
+            label: "Immunity Drip",
+            href: "/onlineshop/dripandboosters/ivdrips/immunitydrip",
+          },
+          {
+            label: "Vitamic C",
+            href: "/onlineshop/dripandboosters/ivdrips/vitamicc",
+          },
+          {
+            label: "Menopause",
+            href: "/onlineshop/dripandboosters/ivdrips/menopause",
+          },
+          {
+            label: "Iron Infusion",
+            href: "/onlineshop/dripandboosters/ivdrips/ironinfusion",
+          },
+          {
+            label: "Antioxiant",
+            href: "/onlineshop/dripandboosters/ivdrips/antioxiant",
+          },
+          {
+            label: "Multivitamin/Wellness",
+            href: "/onlineshop/dripandboosters/ivdrips/multivitamin",
+          },
+          {
+            label: "Hangover",
+            href: "/onlineshop/dripandboosters/ivdrips/hangover",
+          },
+          {
+            label: "Fitness Drip",
+            href: "/onlineshop/dripandboosters/ivdrips/fitnessdrip",
+          },
+          {
+            label: "Skin Health",
+            href: "/onlineshop/dripandboosters/ivdrips/skinhealth",
+          },
+          {
+            label: "Detox Drip",
+            href: "/onlineshop/dripandboosters/ivdrips/detoxdrip",
+          },
+          {
+            label: "Energy Drip",
+            href: "/onlineshop/dripandboosters/ivdrips/energydrip",
+          },
+          {
+            label: "Elite Infusion",
+            href: "/onlineshop/dripandboosters/ivdrips/eliteinfusion",
+          },
+          {
+            label: "NAD+",
+            href: "/onlineshop/dripandboosters/ivdrips/nadplus",
+          },
+          {
+            label: "Hydration Drip",
+            href: "/onlineshop/dripandboosters/ivdrips/hydrationdrip",
+          },
+          {
+            label: "Hair Health Drip",
+            href: "/onlineshop/dripandboosters/ivdrips/hairhealthdrip",
+          }
+        ]
+      },
+      {
+        label: "Boosters",
+        other: [
+          {
+            label: "Boitin",
+            href: "/onlineshop/dripandboosters/boosters/boitin",
+          },
+          {
+            label: "Hayfever Consultation",
+            href: "/onlineshop/dripandboosters/boosters/hayfeverconsultation",
+          },
+          {
+            label: "Vitamin B12",
+            href: "/onlineshop/dripandboosters/boosters/vitaminb12",
+          },
+          {
+            label: "Glutathionce",
+            href: "/onlineshop/dripandboosters/boosters/glutathionce",
+          },
+          {
+            label: "Magnesium",
+            href: "/onlineshop/dripandboosters/boosters/magnesium",
+          },
+          {
+            label: "Vitamin D",
+            href: "/onlineshop/dripandboosters/boosters/vitamind",
+          }
+        ]
+      }
+    ]
+  },
+  {
+    label: "Kits",
+    other: [
+      {
+        label: "All Kits",
+        other: [
+          {
+            label: "Self Collect kits",
+            href: "/onlineshop/order-kits/self-collect-kits",
+          },
+          {
+            label: "Others kits",
+            href: "/onlineshop/order-kits/self-collect-kits",
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 // =============================================
 //                NAVBAR COMPONENT
 // =============================================
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Navbar({ mobileMenuOpen, setMobileMenuOpen, isSticky }) {
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const [hoveredDropdown, setHoveredDropdown] = useState(null);
-  const {subcategories} = useCategory()
-  const doctorDepartments = subcategories?.map(cat => {
-    return {
-      name: cat.name, slug: cat?.category?.slug
-    }
-  })
-  const articleCategories = [...doctorDepartments]
+  const { subcategories } = useCategory();
+  const doctorDepartments = subcategories?.map((cat) => ({
+    name: cat.name,
+    slug: cat?.category?.slug,
+  }));
+  const articleCategories = [...(doctorDepartments || [])];
 
   const [isMegaHovered, setIsMegaHovered] = useState(false);
   const [isDropdownHovered, setIsDropdownHovered] = useState(false);
-
   const [mobileDropdown, setMobileDropdown] = useState(null);
   const hoverTimeout = useRef(null);
 
@@ -200,24 +481,23 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed md:top-8 top-0 left-0 w-full z-50 bg-white shadow-md">
+    <nav
+      className={`w-full transition-all duration-300 ${isSticky
+        ? "fixed top-0 left-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200/90 shadow-md"
+        : "bg-white border-t border-b border-gray-100 relative"
+        }`}
+    >
+      {/* DESKTOP NAVIGATION BAR (ROW 2 - DYNAMICALLY STICKY) */}
+      <div className="hidden lg:flex items-center justify-center container mx-auto px-4 lg:px-8 py-2">
+        {/* NAV LINKS WITH ACTIVE INDICATOR */}
+        <div className="flex items-center gap-1 xl:gap-2 relative">
+          {navLinks.map((item, idx) => {
+            const active = isActive(item.href);
 
-      {/* HEADER */}
-      <div className="h-[90px] flex items-center">
-        <div className="container mx-auto flex justify-between items-center px-6 lg:px-12">
-
-          {/* LOGO */}
-          <Link href="/" className="flex items-center" onClick={closeAllMenus}>
-            <Image src="/logos/navLogo.png" width={75} height={75} alt="logo" />
-          </Link>
-
-          {/* DESKTOP NAV */}
-          <div className="hidden md:flex items-center gap-4 text-[16px] relative">
-
-            {navLinks.map((item, idx) => (
+            return (
               <div
                 key={idx}
-                className="relative"
+                className="relative py-1.5 px-2.5"
                 onMouseEnter={() => {
                   clearTimeout(hoverTimeout.current);
 
@@ -240,69 +520,39 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={closeAllMenus}
-                  className={`pb-1 flex items-center gap-1 font-medium transition ${isActive(item.href)
+                  className={`flex items-center gap-1 text-[14px] xl:text-[15px] font-medium transition-colors ${active
                     ? "text-[var(--brandColor)] font-semibold"
                     : "text-gray-700 hover:text-[var(--brandColor)]"
                     }`}
                 >
-                  {item.label}
-                  {(item.mega || item.dropdown) && <ChevronDown size={16} />}
-                </Link>
-                {/* ====================================== */}
-                {/*            NORMAL DROPDOWN             */}
-                {/* ====================================== */}
-                {item.dropdown && <AnimatePresence>
-                  {hoveredDropdown === "orderkits" && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      onMouseEnter={() => setIsDropdownHovered(true)}
-                      onMouseLeave={() => {
-                        setIsDropdownHovered(false);
-                        setTimeout(() => setHoveredDropdown(null), 150);
-                      }}
-                      className="
-              hidden md:block absolute z-[999]
-              bg-white shadow-lg border border-gray-200
-              rounded-lg py-3 w-64
-              left-0 top-14
-            "
-                    >
-                      {orderKitsDropdown?.map((item, i) => (
-                        <Link
-                          key={i}
-                          href={`/order-kits/${item.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                          onClick={closeAllMenus}
-                          className="
-                  block px-4 py-2 text-[var(--textDark)]
-                  hover:bg-[var(--brandColorLight)]
-                  hover:text-[var(--brandColor)]
-                  transition
-                "
-                        >
-                          {item}
-                        </Link>
-                      ))}
-                    </motion.div>
+                  <span>{item.label}</span>
+                  {(item.mega || item.dropdown) && (
+                    <ChevronDown
+                      size={14}
+                      className={`transition-transform duration-200 ${hoveredMenu === item.mega || hoveredDropdown === item.dropdown
+                        ? "rotate-180 text-[var(--brandColor)]"
+                        : "text-gray-400"
+                        }`}
+                    />
                   )}
-                </AnimatePresence>}
+                </Link>
+
+                {/* ACTIVE MENU UNDERLINE INDICATOR */}
+                {active && (
+                  <motion.div
+                    layoutId="activeNavIndicator"
+                    className="absolute bottom-0 left-2.5 right-2.5 h-[3px] bg-[var(--brandColor)] shadow-xs"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+
               </div>
-            ))}
-
-            <NavButton />
-          </div>
-
-          {/* MOBILE MENU BUTTON */}
-          <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
-          </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* ====================================== */}
-      {/*         DESKTOP MEGA MENU              */}
-      {/* ====================================== */}
+      {/* DESKTOP MEGA MENU */}
       <AnimatePresence>
         {hoveredMenu && (
           <motion.div
@@ -314,30 +564,23 @@ export default function Navbar() {
               setIsMegaHovered(false);
               hoverTimeout.current = setTimeout(() => closeAllMenus(), 200);
             }}
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="
-              hidden md:block absolute left-0 w-full 
-              bg-[var(--brandColorLight)]
-              py-10 shadow-lg max-h-[80vh] overflow-y-auto
-            "
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.2 }}
+            className="hidden lg:block absolute left-0 top-full w-full bg-white border-t border-b border-gray-100 py-8 shadow-xl max-h-[70vh] overflow-y-auto z-50"
           >
-            <div className="container mx-auto px-12 columns-2 md:columns-5 lg:columns-5 gap-4">
-
+            <div className="container mx-auto px-8 flex gap-10 flex-wrap">
               {hoveredMenu === "doctors" &&
-                doctorDepartments.map((dept, i) => (
+                doctorDepartments?.map((dept, i) => (
                   <Link
                     key={i}
                     onClick={closeAllMenus}
                     href={`/doctors/${dept?.slug}`}
-                    className="
-                      flex items-center gap-2 p-1 text-[var(--textDark)]
-                      hover:text-[var(--brandColor)]
-                      hover:underline underline-offset-2 transition text-md
-                    "
+                    className="flex items-center gap-2 p-1 text-gray-700 hover:text-[var(--brandColor)] hover:underline underline-offset-4 transition-colors text-sm font-medium"
                   >
-                    {dept?.name}
+                    <div className="h-3 w-3 bg-[var(--brandColor)] rounded-full"></div>
+                    <span className="hover:underline font-bold"> {dept?.name}</span>
                   </Link>
                 ))}
 
@@ -345,42 +588,33 @@ export default function Navbar() {
                 Object.keys(groupedTestItems)
                   .sort()
                   .map((letter, index) => (
-                    <div key={index}>
-
-                      {/* Letter header */}
-                      <div className="text-lg font-semibold mb-2 text-[var(--brandColor)]">
+                    <div key={index} className="min-w-[140px]">
+                      <div className="text-base font-extrabold mb-2 text-[var(--brandColor)] border-b border-gray-100 pb-1">
                         {letter}
                       </div>
-
-                      {/* Items under this letter */}
                       {groupedTestItems[letter].map((dept, i) => (
                         <Link
                           key={i}
                           onClick={closeAllMenus}
-                          href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
-                          className="
-                            block p-1 text-[var(--textDark)]
-                            hover:text-[var(--brandColor)]
-                            hover:underline underline-offset-2 transition text-md
-                          "
+                          href={`/specialties/${dept
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, "-")
+                            .replace(/^-|-$/g, "")}`}
+                          className="block py-1 text-gray-700 hover:text-[var(--brandColor)] hover:underline underline-offset-4 transition-colors text-sm"
                         >
-                          {dept}
+                          <span className="font-bold">{dept}</span>
                         </Link>
                       ))}
                     </div>
                   ))}
 
               {hoveredMenu === "articles" &&
-                articleCategories.map((cat, i) => (
+                articleCategories?.map((cat, i) => (
                   <Link
                     key={i}
                     onClick={closeAllMenus}
                     href={`/articles/${cat?.slug}`}
-                    className="
-                      flex items-center gap-2 p-1 text-[var(--textDark)]
-                      hover:text-[var(--brandColor)]
-                      hover:underline underline-offset-2 transition text-md
-                    "
+                    className="flex items-center gap-2 p-1 text-gray-700 hover:text-[var(--brandColor)] hover:underline underline-offset-4 transition-colors text-sm font-medium"
                   >
                     {cat?.name}
                   </Link>
@@ -391,14 +625,11 @@ export default function Navbar() {
                   <Link
                     key={i}
                     onClick={closeAllMenus}
-                    href={`/test/${cat.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                    className="
-                      flex items-center gap-2 p-1 text-[var(--textDark)]
-                      hover:text-[var(--brandColor)]
-                      hover:underline underline-offset-2 transition text-md
-                    "
+                    href={cat?.href}
+                    className="flex items-center gap-2 p-1 text-gray-700 hover:text-[var(--brandColor)] hover:underline underline-offset-4 transition-colors text-sm font-medium"
                   >
-                    {cat}
+                    <div className="h-3 w-3 bg-[var(--brandColor)] rounded-full"></div>
+                    <span className="hover:underline font-bold">{cat?.label}</span>
                   </Link>
                 ))}
 
@@ -406,110 +637,202 @@ export default function Navbar() {
                 patientMenuItems.map((item, i) => (
                   <Link
                     key={i}
-                    href={`/specialties/${item.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                    className="
-                      flex items-center gap-2 p-1 text-[var(--textDark)]
-                      hover:text-[var(--brandColor)]
-                      hover:underline underline-offset-2 transition text-md
-                    "
+                    onClick={closeAllMenus}
+                    href={item?.href}
+                    className="flex items-center gap-2 p-1 text-gray-700 hover:text-[var(--brandColor)] hover:underline underline-offset-4 transition-colors text-sm font-medium"
                   >
-                    {item}
+                    <div className="h-3 w-3 bg-[var(--brandColor)] rounded-full"></div>
+                    <span className="hover:underline font-bold">{item?.label}</span>
                   </Link>
                 ))}
+
+              {hoveredMenu === "onlineshop" &&
+                onlineShopMenuItems.map((item, i) => (
+                  <div key={i} className="flex flex-col items-start gap-3 p-2 min-w-[220px]">
+                    <span className="text-lg font-bold text-gray-900 border-b-2 border-[var(--brandColor)] pb-1">
+                      {item?.label}
+                    </span>
+                    <div className="flex flex-col gap-4 pt-1 w-full">
+                      {item?.other?.map((subGroup, index) => (
+                        <div className="text-sm font-semibold text-[var(--brandColor)] flex flex-col gap-1" key={index}>
+                          {subGroup?.label}
+                          {subGroup?.other?.map((it, indx) => (
+                            <Link
+                              href={it?.href}
+                              onClick={closeAllMenus}
+                              className="text-sm font-normal text-gray-600 hover:text-[var(--brandColor)] hover:underline underline-offset-2 transition-colors pl-2"
+                              key={indx}
+                            >
+                              {it?.label}
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+
+
+              {
+                hoveredMenu === "healthhub" && (
+                  <>
+                    {
+                      healthHubItem?.map((item, index) => {
+                        return (
+                          <ul key={index} className="text-sm font-semibold text-black flex items-center gap-3">
+                            <div className="w-3 h-3 rounded-full bg-[var(--brandColor)]"></div>
+                            <li>{item}</li>
+                          </ul>
+                        )
+                      })
+                    }
+                  </>
+                )
+              }
+
+
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-
-
-      {/* ====================================== */}
-      {/*            MOBILE MENU                 */}
-      {/* ====================================== */}
+      {/* MOBILE NAVIGATION DRAWER */}
       <AnimatePresence>
-        {isOpen && (
+        {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            className="md:hidden bg-white shadow-lg px-6 py-4 space-y-4"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden bg-white border-b border-gray-200 px-6 py-5 space-y-4 shadow-2xl max-h-[80vh] overflow-y-auto"
           >
-
             {navLinks.map((item, idx) => {
               const slugify = (str) =>
                 str.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+              const active = isActive(item.href);
 
               return (
-                <div key={idx}>
-
+                <div key={idx} className="border-b border-gray-100 pb-3">
                   <div
                     onClick={() =>
                       item.mega || item.dropdown
                         ? setMobileDropdown(
                           mobileDropdown === item.label ? null : item.label
                         )
-                        : setIsOpen(false)
+                        : setMobileMenuOpen(false)
                     }
-                    className={`flex justify-between items-center text-lg font-medium ${isActive(item.href)
-                      ? "text-[var(--brandColor)]"
-                      : "text-gray-700"
+                    className={`flex justify-between items-center text-base font-semibold ${active ? "text-[var(--brandColor)]" : "text-gray-800"
                       }`}
                   >
                     <Link
                       href={item.href}
                       onClick={() => {
                         closeAllMenus();
-                        setIsOpen(false);
+                        setMobileMenuOpen(false);
                       }}
                     >
                       {item.label}
                     </Link>
 
-                    {(item.mega || item.dropdown) && <ChevronDown size={18} />}
+                    {(item.mega || item.dropdown) && (
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform duration-200 ${mobileDropdown === item.label ? "rotate-180 text-[var(--brandColor)]" : "text-gray-400"
+                          }`}
+                      />
+                    )}
                   </div>
 
                   {mobileDropdown === item.label && (
-                    <div className="ml-4 mt-2 space-y-2 max-h-64 overflow-y-auto pr-2">
+                    <div className="ml-3 mt-3 space-y-2 max-h-[60vh] overflow-y-auto pr-2 border-l-2 border-[var(--brandColorLight)] pl-3">
+                      {item.mega === "onlineshop" &&
+                        onlineShopMenuItems.map((category, ci) => (
+                          <div key={ci} className="mb-3">
+                            <p className="text-sm font-bold text-gray-900 mb-1">{category.label}</p>
+                            {category.other?.map((group, gi) => (
+                              <div key={gi} className="mb-2 ml-2">
+                                <p className="text-xs font-semibold text-[var(--brandColor)] mb-1">
+                                  {group.label}
+                                </p>
+                                {group.other?.map((link, li) => (
+                                  <Link
+                                    key={li}
+                                    href={link.href}
+                                    onClick={() => {
+                                      closeAllMenus();
+                                      setMobileMenuOpen(false);
+                                    }}
+                                    className="block text-gray-600 text-xs py-1 hover:text-[var(--brandColor)] transition-colors"
+                                  >
+                                    {link.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
 
-                      {(
-                        item.mega === "doctors"
-                          ? doctorDepartments
+                      {item.mega !== "onlineshop" &&
+                        (item.mega === "doctors"
+                          ? doctorDepartments || []
                           : item.mega === "specialties"
                             ? testItems
                             : item.mega === "articles"
-                              ? articleCategories
+                              ? articleCategories || []
                               : item.mega === "patients"
                                 ? patientMenuItems
                                 : item.mega === "test"
                                   ? testMegaMenu
-                                  : item.dropdown === 'orderkits' ? orderKitsDropdown : []
-                      ).map((sub, i) =>
-                        typeof sub === "string" ? (
-                          <Link
-                            key={i}
-                            href={`/${item.mega}/${slugify(sub)}`}
-                            onClick={() => {
-                              closeAllMenus();
-                              setIsOpen(false);
-                            }}
-                            className="block text-gray-600 text-sm py-1"
-                          >
-                            {sub}
-                          </Link>
-                        ) : null
-                      )}
-
+                                  : item.dropdown === "orderkits"
+                                    ? orderKitsDropdown
+                                    : []
+                        ).map((sub, i) =>
+                          typeof sub === "string" ? (
+                            <Link
+                              key={i}
+                              href={`/${item.mega || "order-kits"}/${slugify(sub)}`}
+                              onClick={() => {
+                                closeAllMenus();
+                                setMobileMenuOpen(false);
+                              }}
+                              className="block text-gray-600 text-sm py-1 hover:text-[var(--brandColor)] transition-colors"
+                            >
+                              {sub}
+                            </Link>
+                          ) : sub?.name ? (
+                            <Link
+                              key={i}
+                              href={`/${item.mega}/${sub.slug}`}
+                              onClick={() => {
+                                closeAllMenus();
+                                setMobileMenuOpen(false);
+                              }}
+                              className="block text-gray-600 text-sm py-1 hover:text-[var(--brandColor)] transition-colors"
+                            >
+                              {sub.name}
+                            </Link>
+                          ) : null
+                        )}
                     </div>
                   )}
                 </div>
               );
             })}
 
-            <NavButton />
+            {/* MOBILE BOOK A TEST CTA */}
+            <div className="pt-2">
+              <Link
+                href="/get-book"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white text-center font-semibold py-3 flex items-center justify-center gap-2 shadow-md transition-all cursor-pointer"
+              >
+                <span>Book a Test</span>
+                <ArrowRight size={18} />
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-
     </nav>
   );
 }

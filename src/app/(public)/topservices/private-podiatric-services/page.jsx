@@ -1,16 +1,16 @@
-import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
-import ClinicAdvantages from '@/components/modules/singleService/Advantages'
-import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
+import ContactSection from '@/components/modules/appointment/ContactSection';
+import ServicesCTA from '@/components/modules/services/ServicesCTA';
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner';
+import ClinicAdvantages from '@/components/modules/singleService/Advantages';
+import MobileClinicIntro from '@/components/modules/singleService/Banner';
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
-    tag: "Services",
-    title: "Private Paediatric Services",
-    description: `At White Cross Clinic, we offer Private Paediatric Services dedicated to the health and well-being of your child. Our team of experienced paediatricians provides comprehensive medical care for infants, children, and adolescents in a compassionate and child-friendly environment. From routine check-ups to specialized care, we are committed to ensuring the optimal health and development of your child.`,
-    image: "/images/privatePaediatric.webp",
-    imageAlt: "Private Paediatric Services",
+  tag: "Services",
+  title: "Private Paediatric Services",
+  description: `At White Cross Clinic, we offer Private Paediatric Services dedicated to the health and well-being of your child. Our team of experienced paediatricians provides comprehensive medical care for infants, children, and adolescents in a compassionate and child-friendly environment. From routine check-ups to specialized care, we are committed to ensuring the optimal health and development of your child.`,
+  image: "/images/privatePaediatric.webp",
+  imageAlt: "Private Paediatric Services",
 };
 const title = "Advantages Of Private Paediatric Services"
 export const advantages = [
@@ -50,16 +50,16 @@ export const advantages = [
 
 
 export default function page() {
-    return (
-        <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Private Paediatric Services</h2>
-            </section>
-            <MobileClinicIntro mobileClinicData={mobileClinicData} />
-            
-            <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
-            <ContactSection />
-        </div>
-    )
+  return (
+    <div className='mt-20'>
+      <TopServicesItemBanner>
+        Private Podiatric Services
+      </TopServicesItemBanner>
+      <MobileClinicIntro mobileClinicData={mobileClinicData} />
+
+      <ClinicAdvantages advantages={advantages} title={title} />
+      <ServicesCTA title={"Private Podiatric Services"} />
+      <ContactSection />
+    </div>
+  )
 }

@@ -1,9 +1,9 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
 import BrandTable from './BrandTable'
 
 // DYNAMIC DATA OBJECT
@@ -105,27 +105,27 @@ export const paediatricMedication = [
     },
 ];
 const data = [
-  { name: "Cholera vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Hepatitis A and B vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Hepatitis A vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Hepatitis B vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Japanese Encephalitis Vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Measles, Mumps, and Rubella vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Meningitis ACWY Vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Rabies vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Polio, diphtheria & tetanus vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Tick-borne Encephalitis vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Typhoid vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Cholera vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Hepatitis A and B vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Hepatitis A vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Hepatitis B vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Japanese Encephalitis Vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Measles, Mumps, and Rubella vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Meningitis ACWY Vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Rabies vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Polio, diphtheria & tetanus vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Tick-borne Encephalitis vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Typhoid vaccination", perDose: "£0", doses: "0 per dose", price: "£0" },
 ];
 
 
 export default function page() {
     return (
         <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Mobile Clinics</h2>
-            </section>
+            <TopServicesItemBanner>
+                Immunisation
+            </TopServicesItemBanner>
             <VaccinePricingTable data={data} />
             {/* Travel Medication */}
             <BrandTable
@@ -149,7 +149,7 @@ export default function page() {
             />
             <MobileClinicIntro mobileClinicData={mobileClinicData} />
             <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
+            <ServicesCTA title={"Immunisation"} />
             <ContactSection />
         </div>
     )

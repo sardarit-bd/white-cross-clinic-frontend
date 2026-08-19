@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function SpecimensPage() {
   return (
-    <div className="w-full py-10 pt-48">
+    <div className="w-full py-10">
       {/* Top Section */}
-      <div className="container mx-auto bg-white p-8 rounded-lg shadow-sm">
+      <div className="container mx-auto bg-white p-4">
         <h1 className="text-3xl font-bold mb-4" style={{ color: "var(--brandColor)" }}>
           Specimens
         </h1>
@@ -38,7 +38,7 @@ export default function SpecimensPage() {
       {/* Card Sections */}
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
         {/* Card 1 */}
-        <div className="border rounded-lg p-6 bg-white shadow-sm hover:shadow-md transition">
+        <div className="border border-gray-200 p-6 bg-white">
           <h2 className="text-xl font-semibold mb-2" style={{ color: "var(--brandColor)" }}>
             Specimen Collection
           </h2>
@@ -55,7 +55,7 @@ export default function SpecimensPage() {
         </div>
 
         {/* Card 2 */}
-        <div className="border rounded-lg p-6 bg-white shadow-sm hover:shadow-md transition">
+        <div className="border border-gray-200 p-6 bg-white">
           <h2 className="text-xl font-semibold mb-2" style={{ color: "var(--brandColor)" }}>
             Specimen Packaging
           </h2>
@@ -73,7 +73,7 @@ export default function SpecimensPage() {
         </div>
 
         {/* Card 3 */}
-        <div className="border rounded-lg p-6 bg-white shadow-sm hover:shadow-md transition">
+        <div className="border border-gray-200 p-6 bg-white">
           <h2 className="text-xl font-semibold mb-2" style={{ color: "var(--brandColor)" }}>
             Specimen Transport
           </h2>
@@ -91,7 +91,7 @@ export default function SpecimensPage() {
         </div>
 
         {/* Card 4 */}
-        <div className="border rounded-lg p-6 bg-white shadow-sm hover:shadow-md transition">
+        <div className="border border-gray-200 p-6 bg-white">
           <h2 className="text-xl font-semibold mb-2" style={{ color: "var(--brandColor)" }}>
             Specimen Rejection Criteria
           </h2>

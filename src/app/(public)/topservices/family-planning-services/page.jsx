@@ -1,9 +1,9 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
@@ -43,22 +43,22 @@ export const advantages = [
 
 
 const data = [
-  { name: "Family Planning Services", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Coil removal", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "STI checks", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "STI referrals", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Family Planning Services", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Coil removal", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "STI checks", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "STI referrals", perDose: "£0", doses: "0 per dose", price: "£0" },
 ];
 
 export default function page() {
     return (
         <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Family Planning Services</h2>
-            </section>
+            <TopServicesItemBanner>
+                Family Planning Services
+            </TopServicesItemBanner>
             <VaccinePricingTable data={data} />
             <MobileClinicIntro mobileClinicData={mobileClinicData} />
             <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
+            <ServicesCTA title="Family Planning Services" />
             <ContactSection />
         </div>
     )

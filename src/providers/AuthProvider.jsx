@@ -1,7 +1,7 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
@@ -33,6 +33,7 @@ export function AuthProvider({ children }) {
 
         return res.data;
     };
+
 
     const login = async (payload) => {
         try {
@@ -68,6 +69,10 @@ export function AuthProvider({ children }) {
             setLoading(false);
         }
     };
+
+
+
+
     const sendContactEmail = async (payload) => {
         try {
             const res = await axios.post(

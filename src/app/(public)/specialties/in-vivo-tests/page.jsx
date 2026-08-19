@@ -2,7 +2,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 export default function InVivoTestsPage() {
   const [search1, setSearch1] = useState("");
@@ -33,7 +32,7 @@ export default function InVivoTestsPage() {
     "Vancomycin Hydrochloride",
   ];
 
- const microbiologyTests = [
+  const microbiologyTests = [
     "16S rRNA Bacterial Gene",
     "18S rRNA Fungal Gene",
     "Aspergillus Precipitins",
@@ -109,7 +108,7 @@ export default function InVivoTestsPage() {
     "Urine Chemistry, Microscopy and Culture (Self-collect)",
     "Urine for Extended Culture",
     "Urine for Microscopy and Culture"
-];
+  ];
 
   const filter = (list, search) =>
     list.filter((item) =>
@@ -117,7 +116,7 @@ export default function InVivoTestsPage() {
     );
 
   const SectionBox = ({ title, search, setSearch, list }) => (
-    <div className="mt-10 w-full bg-white rounded-lg shadow-[var(--shadowCard)] p-6">
+    <div className="mt-10 w-full bg-white p-0">
       <h2 className="text-2xl font-semibold text-[var(--textDark)] mb-4">
         {title}
       </h2>
@@ -126,13 +125,13 @@ export default function InVivoTestsPage() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search..."
-        className="w-full border border-[var(--borderLight)] px-3 py-2 rounded-md focus:outline-none focus:border-[var(--brandColor)]"
+        className="w-96 border border-[var(--borderLight)] px-3 py-2 focus:outline-none focus:border-[var(--brandColor)]"
       />
 
       <div className="mt-4 overflow-x-auto">
-        <table className="min-w-full border-collapse">
+        <table className="min-w-full border-collapse border border-[var(--borderLight)]">
           <thead>
-            <tr className="bg-[var(--textDark)] text-white">
+            <tr className="bg-[var(--brandColor)] text-white">
               <th className="text-left px-4 py-3 font-medium">Type</th>
             </tr>
           </thead>
@@ -141,7 +140,7 @@ export default function InVivoTestsPage() {
             {filter(list, search).map((item, idx) => (
               <tr
                 key={idx}
-                className="border-b hover:bg-[var(--brandColorLight)] transition cursor-pointer"
+                className="border-b border-[var(--borderLight)] hover:bg-[var(--brandColorLight)] transition cursor-pointer"
               >
                 <td className="px-4 py-3">
                   <p
@@ -169,18 +168,18 @@ export default function InVivoTestsPage() {
   );
 
   return (
-    <div className="min-h-screen pt-32 pb-20 bg-[var(--bgLight)]">
-      <div className="container mx-auto px-6 lg:px-8">
-        
+    <div className="bg-white p-6 border border-gray-100">
+      <div className="container mx-auto">
+
         {/* PAGE TITLE */}
         <h1 className="text-3xl font-bold text-[var(--textDark)]">
           In-Vivo Tests
         </h1>
 
         <p className="mt-3 text-[var(--textLight)] font-medium">
-          These tests, ideally, must be carried out by appointment. Please telephone 
+          These tests, ideally, must be carried out by appointment. Please telephone
           <span className="text-[var(--brandColor)] font-semibold"> 07785235269 </span>
-          for details, patient preparation, and appointment times. Sample-taking fees for 
+          for details, patient preparation, and appointment times. Sample-taking fees for
           Extended tests are charged per visit.
         </p>
 
@@ -189,7 +188,7 @@ export default function InVivoTestsPage() {
         </p>
 
         {/* Extended Testing Info Block */}
-        <div className="mt-10 bg-white rounded-lg shadow-[var(--shadowCard)] p-6">
+        <div className="mt-10 border border-gray-200 p-3">
           <h2 className="text-2xl font-semibold text-[var(--textDark)]">
             Extended Testing
           </h2>

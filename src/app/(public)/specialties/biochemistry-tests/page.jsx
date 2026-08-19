@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 const biochemistryTests = [
   "5 HIAA",
@@ -56,10 +55,10 @@ export default function BiochemistryTests() {
   );
 
   return (
-    <div className="container mx-auto px-6 md:px-10 py-10">
+    <div className="bg-white border border-gray-100 container mx-auto p-6">
 
       {/* HEADER */}
-      <div className="bg-white border border-gray-200 shadow-sm rounded-md p-6 md:p-10 mb-8">
+      <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-4">
           Biochemistry Tests
         </h1>
@@ -75,13 +74,13 @@ export default function BiochemistryTests() {
             placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+            className="w-full border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
           />
         </div>
       </div>
 
       {/* TABLE */}
-      <div className="border border-gray-200 rounded-md overflow-hidden">
+      <div className="border border-gray-200 overflow-hidden">
 
         {/* Table Header */}
         <div className="bg-[var(--brandColor)] text-white px-4 py-3 font-semibold">
@@ -89,7 +88,7 @@ export default function BiochemistryTests() {
         </div>
 
         {/* Table Rows */}
-        <div className="divide-y">
+        <div className="divide-y divide-gray-200">
           {filtered.map((item, index) => (
             <p
               key={index}

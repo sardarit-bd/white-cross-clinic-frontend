@@ -8,7 +8,7 @@ export default function TopBar() {
             className=""
             style={{ backgroundColor: "var(--brandColor)" }}
         >
-            <div className="container mx-auto hidden md:flex justify-between items-center px-6 lg:px-12 py-2 text-white text-sm">
+            <div className="container mx-auto hidden md:flex justify-between items-center px-6 py-2 text-white text-sm">
                 <div className="flex items-center gap-2">
                     <Clock size={16} />
                     <span>Monday - Saturday, 8AM to 10PM</span>

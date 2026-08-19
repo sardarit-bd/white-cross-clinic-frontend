@@ -1,9 +1,10 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
 import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
 
 // DYNAMIC DATA OBJECT
 const mobileClinicData = {
@@ -43,23 +44,23 @@ export const advantages = [
 
 
 const data = [
-  { name: "Dressing change", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "No leg ulcers", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "No compression bandages", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Wound infection treatment (antibiotics)", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Dressing change", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "No leg ulcers", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "No compression bandages", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Wound infection treatment (antibiotics)", perDose: "£0", doses: "0 per dose", price: "£0" },
 ];
 
 
 export default function page() {
     return (
         <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Wound Care</h2>
-            </section>
+            <TopServicesItemBanner>
+                Wound Care
+            </TopServicesItemBanner>
             <VaccinePricingTable data={data} />
             <MobileClinicIntro mobileClinicData={mobileClinicData} />
             <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
+            <ServicesCTA title={"Wound Care"}/>
             <ContactSection />
         </div>
     )

@@ -1,37 +1,37 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CalendarClock, ChevronsRight, MonitorSmartphone, ShieldCheck, Stethoscope } from "lucide-react";
+import { CalendarClock, ChevronsRight, MonitorSmartphone, Stethoscope } from "lucide-react";
 
 const services = [
   {
     id: 1,
     icon: Stethoscope,
-    title: "Comprehensive Care Under One Roof",
-    description:
-      "From routine check-ups to advanced treatments, all essential healthcare services are available in one place for seamless, coordinated care.",
+    title: "Clinical Safety & Governance",
+    description: [
+      "Our doctors must understand your medical history, current symptoms, and clinical risk level.",
+      "We conduct a full clinical examination and arrange initial investigations (blood tests, ECG, imaging, etc.).",
+      "We determine whether specialist referral is necessary, appropriate, and urgent."
+    ]
   },
   {
     id: 2,
     icon: CalendarClock,
-    title: "Same / Next-Day Appointments",
-    description:
-      "We prioritize timely care with flexible scheduling, ensuring patients can be seen as early as the same day or the very next day.",
+    title: "Referral Quality",
+    description: [
+      "Our doctors prepare a comprehensive clinical report summarising your condition, investigations, and referral justification",
+      "This ensures specialists receive clear, structured information, enabling faster diagnosis and treatment."
+    ]
   },
   {
     id: 3,
     icon: MonitorSmartphone,
-    title: "Clinic, Virtual, or Mobile Visits",
-    description:
-      "Receive care your way—visit the clinic, connect virtually, or request optional mobile visits based on your convenience.",
-  },
-  {
-    id: 4,
-    icon: ShieldCheck,
-    title: "Preventative & Accessible Healthcare",
-    description:
-      "We focus on preventive care while ensuring our services remain inclusive, accessible, and welcoming to everyone.",
-  },
+    title: "Continuity of Care",
+    description: [
+      "White Cross Clinic continues to monitor your progress, review specialist reports, and manage ongoing health needs.",
+      "We act as your clinical advocate, liaising with specialists on your behalf."
+    ]
+  }
 ];
 
 const leftColumn = {
@@ -54,8 +54,8 @@ const rightColumn = {
 
 export default function CoreServicesSection() {
   return (
-    <section className="py-20 bg-[var(--bgLight)]">
-      <div className="container mx-auto px-6 md:px-12 text-center">
+    <section className="py-20 bg-gray-200/60">
+      <div className="container mx-auto px-6 text-center">
 
         {/* ===========================
             SECTION HEADER
@@ -67,14 +67,15 @@ export default function CoreServicesSection() {
           className="mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-3">
-            Why Choose{" "}
-            <span className="text-[var(--brandColor)]">White Cross Clinic</span>
+            Why Patients Must Register with {" "}
+            <br />
+            <span className="text-[var(--brandColor)]">White Cross Clinic First</span>
           </h2>
 
           <motion.div
             initial={{ width: 0 }}
-            whileInView={{ width: "120px" }}
-            transition={{ duration: 1, ease: "easeInOut" }}
+            whileInView={{ width: "450px" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
             className="h-[4px] mx-auto rounded-full relative overflow-hidden"
           >
             <div
@@ -95,27 +96,35 @@ export default function CoreServicesSection() {
         {/* ===========================
             SERVICES CARDS
         ============================ */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {services.map((item) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {services.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div
-                key={item.id}
+                key={index}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                className="relative p-8 bg-white rounded-xl shadow-md cursor-default transition-all duration-500 hover:shadow-lg"
+                className="relative p-8 bg-white border border-gray-100 cursor-default transition-all duration-500 hover:shadow-lg"
               >
-                <div className="flex justify-center mb-4 text-[var(--brandColor)]">
-                  <Icon size={38} />
+                <div className="flex justify-start mb-8 text-[var(--brandColor)]">
+                  <Icon size={56} />
                 </div>
 
-                <h3 className="text-lg font-semibold text-[var(--textDark)] mb-3">
+                <h3 className="text-2xl text-left font-semibold text-[var(--textDark)] mb-10">
                   {item.title}
                 </h3>
 
-                <p className="text-sm text-[var(--textLight)] leading-relaxed">
-                  {item.description}
-                </p>
+                <div className="text-sm text-[var(--textLight)] leading-relaxed text-left">
+                  {item.description.map((item, i) => (
+                    <div key={i} className="flex item-center gap-2 mb-5">
+                      <div className="w-7 h-6 rounded-full bg-[var(--brandColor)] text-white flex items-center justify-center text-sm">
+                        {i + 1}
+                      </div>
+                      <span className="text-lg w-full">{item}</span>
+                    </div>
+
+                  ))}
+                </div>
               </motion.div>
             );
           })}
@@ -124,10 +133,10 @@ export default function CoreServicesSection() {
         {/* ===========================
             NEW TWO-COLUMN SECTION
         ============================ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
 
           {/* LEFT COLUMN */}
-          <div className="bg-[var(--brandColorDark)] text-white rounded-xl shadow-[var(--shadowCard)]">
+          <div className="bg-[var(--brandColorDark)] text-white">
             <h3 className="text-lg font-semibold px-6 py-4 border-b border-white/20">
               {leftColumn.title}
             </h3>
@@ -144,7 +153,7 @@ export default function CoreServicesSection() {
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="bg-[var(--brandColorDark)] text-white rounded-xl shadow-[var(--shadowCard)]">
+          <div className="bg-[var(--brandColorDark)] text-white">
             <h3 className="text-lg font-semibold px-6 py-4 border-b border-white/20">
               {rightColumn.title}
             </h3>

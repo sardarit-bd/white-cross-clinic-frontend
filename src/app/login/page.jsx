@@ -1,14 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Mail, Lock } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { motion } from "framer-motion";
+import { Lock, Mail } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { setAuthCookie } from "./authActions";
 
 export default function LoginPage() {
@@ -27,7 +26,7 @@ export default function LoginPage() {
             //     { email, password },
             //     { withCredentials: true }
             // );
-            const userData = res;  
+            const userData = res;
             if (userData?.success) {
                 const accessToken = userData?.data?.accessToken
                 await setAuthCookie(accessToken)
@@ -60,7 +59,7 @@ export default function LoginPage() {
                             width={100}
                             height={100}
                             alt="White Cross Clinic"
-                            className="rounded-lg shadow-md"
+                            className="rounded-lg"
                         />
                     </Link>
                 </div>

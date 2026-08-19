@@ -40,7 +40,7 @@ const articles = [
 export default function ArticlesPreviewSection() {
   return (
     <section className="py-20 bg-[var(--bgLight)]">
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export default function ArticlesPreviewSection() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group"
+              className="bg-white border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group"
             >
               <div className="relative">
                 <Image
@@ -110,7 +110,7 @@ export default function ArticlesPreviewSection() {
         <div className="text-center mt-12">
           <Link
             href="/articles"
-            className="inline-block px-8 py-3 bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white font-medium rounded-full shadow-md transition-all"
+            className="inline-block px-8 py-3 bg-[var(--brandColor)] hover:bg-[var(--brandColorDark)] text-white font-medium shadow-md transition-all"
           >
             View All Articles
           </Link>

@@ -1,9 +1,9 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
-import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
 import MobileClinicIntro from '@/components/modules/singleService/Banner'
-import React from 'react'
 import BrandTable from '../immunisation/BrandTable'
 
 // DYNAMIC DATA OBJECT
@@ -124,31 +124,31 @@ export const bloodTests = [
 ];
 
 const data = [
-  { name: "Advice group and individual sessions", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Pain management advice and programmes", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Patient information in a variety of formats", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Home exercise programmes", perDose: "£0", doses: "0 per dose", price: "£0" },
-  {
-    name: "Pelvic exercises for patients with continence problems",
-    perDose: "£0",
-    doses: "0 per dose",
-    price: "£0",
-  },
-  { name: "Gym based exercise classes", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "One-to-one gym sessions", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Manual therapy", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Injection therapy", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Splinting", perDose: "£0", doses: "0 per dose", price: "£0" },
-  { name: "Gym based exercise classes", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Advice group and individual sessions", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Pain management advice and programmes", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Patient information in a variety of formats", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Home exercise programmes", perDose: "£0", doses: "0 per dose", price: "£0" },
+    {
+        name: "Pelvic exercises for patients with continence problems",
+        perDose: "£0",
+        doses: "0 per dose",
+        price: "£0",
+    },
+    { name: "Gym based exercise classes", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "One-to-one gym sessions", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Manual therapy", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Injection therapy", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Splinting", perDose: "£0", doses: "0 per dose", price: "£0" },
+    { name: "Gym based exercise classes", perDose: "£0", doses: "0 per dose", price: "£0" },
 ];
 
 
 export default function page() {
     return (
         <div className='mt-20'>
-            <section className='bg-[var(--brandColor)] h-[300px] flex flex-col items-center justify-center text-white'>
-                <h2 className='text-5xl text-center'>Physiotherapy Services</h2>
-            </section>
+            <TopServicesItemBanner>
+                Physiotherapy Services
+            </TopServicesItemBanner>
             <VaccinePricingTable data={data} />
             <MobileClinicIntro mobileClinicData={mobileClinicData} />
             <BrandTable data={bloodTests} title="Vaccines" columns={[
@@ -158,7 +158,7 @@ export default function page() {
                 "Price Per Course"
             ]} />
             <ClinicAdvantages advantages={advantages} title={title} />
-            <EmergencyCTA />
+            <ServicesCTA title={"Physiotherapy Services"} />
             <ContactSection />
         </div>
     )

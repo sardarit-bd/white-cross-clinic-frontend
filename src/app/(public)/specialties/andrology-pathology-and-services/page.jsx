@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 
 // Extracted from your screenshot
 const testItems = [
@@ -48,10 +47,10 @@ export default function AndrologyPathology() {
   );
 
   return (
-    <div className="container mx-auto px-6 md:px-10 py-10">
+    <div className="bg-white border border-gray-100 container mx-auto p-6">
 
       {/* HEADER */}
-      <div className="bg-white border border-gray-200 rounded-md p-6 md:p-10 shadow-sm mb-10">
+      <div className="mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)]">
           Andrology: Pathology And Services
         </h1>
@@ -71,21 +70,21 @@ export default function AndrologyPathology() {
             placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+            className="w-full border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
           />
         </div>
       </div>
 
       {/* TABLE */}
-      <div className="border border-gray-200 rounded-md overflow-hidden">
-        
+      <div className="border border-gray-200 overflow-hidden">
+
         {/* TABLE HEADER */}
         <div className="bg-[var(--brandColor)] text-white px-4 py-3 font-semibold">
           Test Name
         </div>
 
         {/* ITEMS */}
-        <div className="divide-y">
+        <div className="divide-y divide-gray-200">
           {filteredTests.map((item, index) => (
             <p
               key={index}
@@ -103,7 +102,7 @@ export default function AndrologyPathology() {
       </div>
 
       {/* SPECIAL ARRANGEMENT */}
-      <div className="mt-10 bg-white border border-gray-200 rounded-md p-6 md:p-10 shadow-sm">
+      <div className="mt-10 bg-white border border-gray-200 p-3 md:p-5">
         <h2 className="text-2xl md:text-3xl font-bold text-[var(--textDark)] mb-4">
           By Special Arrangement
         </h2>

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function TopServicesBanner() {
     return (
-        <div className="relative w-full h-[300px] md:h-[420px] overflow-hidden">
+        <div className="relative w-full h-[150px] md:h-[250px] overflow-hidden">
             <Image
                 src="/images/serviceBanner.webp" // replace with your banner
                 alt="Banner"

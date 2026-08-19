@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
 import { motion } from "framer-motion";
-import { PhoneCall, Mail, MapPin, Clock } from "lucide-react";
+import { Clock, Mail, MapPin, PhoneCall } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -62,7 +62,7 @@ export default function ContactSection() {
           <div className="space-y-6">
             <motion.div
               whileHover={{ y: -4 }}
-              className="bg-white shadow-lg rounded-2xl p-6 border border-[var(--borderLight)] flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
+              className="bg-white p-6 border border-[var(--borderLight)] flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
             >
               <PhoneCall size={36} className="text-[var(--brandAccent)] flex-shrink-0" />
               <div>
@@ -83,7 +83,7 @@ export default function ContactSection() {
 
             <motion.div
               whileHover={{ y: -4 }}
-              className="bg-white shadow-lg rounded-2xl p-6 border border-[var(--borderLight)] flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
+              className="bg-white p-6 border border-[var(--borderLight)] flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
             >
               <Mail size={36} className="text-[var(--brandAccent)] flex-shrink-0" />
               <div>
@@ -104,7 +104,7 @@ export default function ContactSection() {
 
             <motion.div
               whileHover={{ y: -4 }}
-              className="bg-white shadow-lg rounded-2xl p-6 border border-[var(--borderLight)] flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
+              className="bg-white p-6 border border-[var(--borderLight)] flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
             >
               <MapPin size={36} className="text-[var(--brandAccent)] flex-shrink-0" />
               <div>
@@ -127,7 +127,7 @@ export default function ContactSection() {
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white shadow-lg rounded-2xl p-8 border border-[var(--borderLight)] space-y-5"
+            className="bg-white p-8 border border-[var(--borderLight)] space-y-5"
             onSubmit={handleSubmit}
           >
             <h3 className="text-xl font-semibold text-[var(--textDark)] mb-4">
@@ -141,7 +141,7 @@ export default function ContactSection() {
                 required
                 value={form.name}
                 onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-                className="w-full border border-[var(--borderLight)] rounded-lg p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+                className="w-full border border-[var(--borderLight)] p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
               />
               <input
                 type="email"
@@ -149,7 +149,7 @@ export default function ContactSection() {
                 value={form.email}
                 onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
                 required
-                className="w-full border border-[var(--borderLight)] rounded-lg p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+                className="w-full border border-[var(--borderLight)] p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
               />
             </div>
 
@@ -159,7 +159,7 @@ export default function ContactSection() {
               value={form.phone}
               required
               onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
-              className="w-full border border-[var(--borderLight)] rounded-lg p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+              className="w-full border border-[var(--borderLight)] p-3 focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
             />
 
             <textarea
@@ -168,13 +168,13 @@ export default function ContactSection() {
               onChange={(e) => setForm((prev) => ({ ...prev, msg: e.target.value }))}
               rows={4}
               required
-              className="w-full border border-[var(--borderLight)] rounded-lg p-3 resize-none focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
+              className="w-full border border-[var(--borderLight)] p-3 resize-none focus:ring-2 focus:ring-[var(--brandColor)] outline-none"
             />
 
             <button
               type="submit"
               disabled={loading}
-              className="bg-[var(--brandColor)] text-white px-8 py-3 rounded-full font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="bg-[var(--brandColor)] text-white px-8 py-3 font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading && (
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>

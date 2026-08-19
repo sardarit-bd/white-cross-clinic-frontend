@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 const tests = [
     "11 Deoxycorticosterone",
     "11 Deoxycortisol",
@@ -151,20 +150,18 @@ export default function EndocrinologyPage() {
     );
 
     return (
-        <div className="w-full bg-white p-6 md:p-10 rounded-xl shadow-[var(--shadowCard)] border border-[var(--borderLight)]">
-            
+        <div className="w-full bg-white p-6 border border-gray-100">
+
             {/* Page Title */}
             <h1 className="text-3xl font-bold text-[var(--textDark)] mb-3">
                 Endocrinology
             </h1>
 
             <p className="text-[var(--textLight)] mb-6 max-w-3xl">
-                WCC offers an extensive range of diagnostic tests that can be used 
+                WCC offers an extensive range of diagnostic tests that can be used
                 to determine problems in the endocrine system.
             </p>
-            <p className="text-[var(--textLight)] mb-6 max-w-3xl font-bold">
-                Please use the search box below to filter this list
-            </p>
+
 
             {/* Search Bar */}
             <div className="mb-4">
@@ -173,12 +170,12 @@ export default function EndocrinologyPage() {
                     placeholder="Search..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="w-full md:w-64 px-4 py-2 border border-[var(--borderLight)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--brandColor)]"
+                    className="w-full md:w-72 px-4 py-2 border border-[var(--borderLight)] focus:outline-none focus:ring-2 focus:ring-[var(--brandColor)]"
                 />
             </div>
 
             {/* Table Header */}
-            <div className="bg-[var(--brandColor)] text-white py-3 px-4 font-semibold rounded-t-md">
+            <div className="bg-[var(--brandColor)] text-white py-3 px-4 font-semibold">
                 Profile/Test Name
             </div>
 

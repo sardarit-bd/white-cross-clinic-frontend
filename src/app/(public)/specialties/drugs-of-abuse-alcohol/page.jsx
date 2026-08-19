@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function DrugsOfAbuseAlcohol() {
   const [search, setSearch] = useState("");
@@ -29,8 +29,8 @@ export default function DrugsOfAbuseAlcohol() {
   );
 
   return (
-    <div className="w-full bg-[var(--bgLight)]">
-      <div className="max-w-6xl mx-auto p-5 md:p-10">
+    <div className="w-full bg-white border border-gray-100 p-6">
+      <div className="container mx-auto">
 
         {/* PAGE TITLE */}
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-4">
@@ -84,14 +84,14 @@ export default function DrugsOfAbuseAlcohol() {
           <input
             type="text"
             placeholder="Search..."
-            className="border border-[var(--borderLight)] rounded-md px-3 py-2 w-full md:w-80 bg-white"
+            className="border border-[var(--borderLight)] px-3 py-2 w-full md:w-80 bg-white"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 
         {/* TABLE HEADER */}
-        <div className="bg-[var(--brandColorDark)] text-white font-semibold px-4 py-3 rounded-t-md">
+        <div className="bg-[var(--brandColorDark)] text-white font-semibold px-4 py-3">
           Test Name
         </div>
 

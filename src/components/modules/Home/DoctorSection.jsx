@@ -1,9 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import Image from "next/image";
 
 const doctors = [
   {
@@ -35,7 +34,7 @@ const doctors = [
 export default function DoctorsSection() {
   return (
     <section className="py-20 bg-[var(--bgLight)]">
-      <div className="container mx-auto px-6 md:px-12 text-center">
+      <div className="container mx-auto px-6 text-center">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -60,7 +59,7 @@ export default function DoctorsSection() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-white rounded-xl shadow-md overflow-hidden group transition-all duration-500 hover:shadow-xl"
+              className="bg-white border border-gray-100 overflow-hidden group transition-all duration-500 hover:shadow-xl"
             >
               {/* Image */}
               <div className="relative">
@@ -73,7 +72,7 @@ export default function DoctorsSection() {
                 />
 
                 {/* Hover Social Buttons */}
-                <div className="absolute inset-0 flex items-center justify-center gap-4 bg-[rgba(0,118,188,0.15)] opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <div className="absolute inset-0 flex items-end pb-4 justify-center gap-4 bg-[rgba(0,118,188,0.15)] opacity-0 group-hover:opacity-100 transition-all duration-500">
                   {[Twitter, Facebook, Instagram, Linkedin].map((Icon, idx) => (
                     <button
                       key={idx}

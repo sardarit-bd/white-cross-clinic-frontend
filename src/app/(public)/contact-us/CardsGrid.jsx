@@ -4,7 +4,7 @@ export default function CardsGrid() {
     return (
         <div className="container my-10 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             <div
-                className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col"
+                className="bg-white border border-gray-200 p-6 flex flex-col"
             >
                 <h3 className="text-xl font-bold text-[var(--textDark)] mb-3">
                     Convenient Location - Easy Access to Quality Healthcare
@@ -29,7 +29,7 @@ export default function CardsGrid() {
                 </Link>
             </div>
             <div
-                className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col"
+                className="bg-white border border-gray-200 p-6 flex flex-col"
             >
                 <h3 className="text-xl font-bold text-[var(--textDark)] mb-3">
                     Opening Hours - Flexible Appointments to Suit Your Schedule
@@ -50,7 +50,7 @@ export default function CardsGrid() {
             </div>
 
             <div
-                className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col"
+                className="bg-white border border-gray-200 p-6  flex flex-col"
             >
                 <h3 className="text-xl font-bold text-[var(--textDark)] mb-3">
                     Booking an Appointment - Easy and Convenient
@@ -72,7 +72,7 @@ export default function CardsGrid() {
             </div>
 
             <div
-                className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col"
+                className="bg-white border border-gray-200 p-6 flex flex-col"
             >
                 <h3 className="text-xl font-bold text-[var(--textDark)] mb-3">
                     Our Team - Experienced and Caring Healthcare Professionals

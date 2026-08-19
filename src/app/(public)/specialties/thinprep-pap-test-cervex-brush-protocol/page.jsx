@@ -1,13 +1,12 @@
 "use client";
-import React from "react";
 
 export default function ThinPrepBrushProtocol() {
   return (
-    <div className="min-h-screen bg-[var(--bgLight)] py-10">
-      <div className="container mx-auto px-6 lg:px-10">
+    <div className="min-h-screen bg-white border border-gray-100 p-6">
+      <div className="container mx-auto">
 
         {/* PAGE HEADER */}
-        <div className="bg-white p-8 rounded-lg shadow-md border-l-4 border-[var(--brandColor)] mb-10">
+        <div className="bg-white mb-10">
           <h1 className="text-3xl font-bold text-[var(--textDark)] mb-3">
             ThinPrep® PAP Test Cervex Brush Protocol
           </h1>
@@ -32,7 +31,7 @@ export default function ThinPrepBrushProtocol() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
           {/* DO CARD */}
-          <div className="bg-white p-8 rounded-lg shadow-md border border-[var(--borderLight)]">
+          <div className="bg-white p-4 border border-gray-200">
             <h2 className="text-2xl font-semibold text-[var(--brandColor)] mb-4">
               Do
             </h2>
@@ -61,7 +60,7 @@ export default function ThinPrepBrushProtocol() {
           </div>
 
           {/* DONT CARD */}
-          <div className="bg-white p-8 rounded-lg shadow-md border border-[var(--borderLight)]">
+          <div className="bg-white p-4 border border-gray-200">
             <h2 className="text-2xl font-semibold text-red-600 mb-4">
               Don’t
             </h2>

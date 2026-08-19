@@ -2,8 +2,8 @@
 
 export default function CoeliacDiseaseUpdate() {
   return (
-    <div className="min-h-screen bg-[var(--bgLight)] py-10">
-      <div className="max-w-5xl mx-auto bg-white shadow-sm rounded-xl p-6 md:p-10">
+    <div className="min-h-screen bg-white p-6 border border-gray-100">
+      <div className="container mx-auto">
 
         {/* TITLE */}
         <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-4">
@@ -102,7 +102,7 @@ export default function CoeliacDiseaseUpdate() {
         </p>
 
         {/* TABLE (Scroll on Mobile) */}
-        <div className="overflow-x-auto mt-6 rounded-lg border border-[var(--borderLight)]">
+        <div className="overflow-x-auto mt-6 border border-[var(--borderLight)]">
           <table className="min-w-[700px] w-full">
             <thead className="bg-[var(--brandColor)] text-white">
               <tr>
@@ -114,7 +114,7 @@ export default function CoeliacDiseaseUpdate() {
             </thead>
 
             <tbody>
-              <tr className="border-b">
+              <tr className="border-b border-gray-200">
                 <td className="p-3">0.2 to 10</td>
                 <td className="p-3">N/A</td>
                 <td className="p-3">N/A</td>
@@ -123,14 +123,14 @@ export default function CoeliacDiseaseUpdate() {
                 </td>
               </tr>
 
-              <tr className="border-b">
+              <tr className="border-b border-gray-200">
                 <td className="p-3">&gt;= 10</td>
                 <td className="p-3">N/A</td>
                 <td className="p-3">N/A</td>
                 <td className="p-3">Suggestive of coeliac disease</td>
               </tr>
 
-              <tr className="border-b">
+              <tr className="border-b border-gray-200">
                 <td className="p-3">&lt;0.2</td>
                 <td className="p-3">&gt;= 0.1</td>
                 <td className="p-3">N/A</td>
@@ -139,7 +139,7 @@ export default function CoeliacDiseaseUpdate() {
                 </td>
               </tr>
 
-              <tr className="border-b">
+              <tr className="border-b border-gray-200">
                 <td className="p-3">&lt;0.2</td>
                 <td className="p-3">&lt;0.1</td>
                 <td className="p-3">&lt;7</td>
