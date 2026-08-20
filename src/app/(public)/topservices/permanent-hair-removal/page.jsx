@@ -1,4 +1,5 @@
 import ContactSection from '@/components/modules/appointment/ContactSection'
+import ServicesCTA from '@/components/modules/services/ServicesCTA'
 import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
 import VaccinePricingTable from '@/components/modules/services/VacineTable'
 import ClinicAdvantages from '@/components/modules/singleService/Advantages'
