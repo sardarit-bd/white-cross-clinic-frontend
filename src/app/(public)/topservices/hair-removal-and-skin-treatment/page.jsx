@@ -1,8 +1,8 @@
-import ContactSection from '@/components/modules/appointment/ContactSection'
-import ServicesCTA from '@/components/modules/services/ServicesCTA'
-import TopServicesItemBanner from '@/components/modules/services/TopServicesItemBanner'
-import ClinicAdvantages from '@/components/modules/singleService/Advantages'
-import MobileClinicIntro from '@/components/modules/singleService/Banner'
+import ContactSection from '../../../../components/modules/appointment/ContactSection'
+import ServicesCTA from '../../../../components/modules/services/ServicesCTA'
+import TopServicesItemBanner from '../../../../components/modules/services/TopServicesItemBanner'
+import ClinicAdvantages from '../../../../components/modules/singleService/Advantages'
+import MobileClinicIntro from '../../../../components/modules/singleService/Banner'
 
 
 // DYNAMIC DATA OBJECT
