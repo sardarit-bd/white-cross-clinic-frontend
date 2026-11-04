@@ -18,7 +18,15 @@ export default function TestForm({ onSubmit, initialData }) {
         selfCollectKit: initialData?.selfCollectKit || "",
         sampleGuide: initialData?.sampleGuide || [{ code: "", value: "" }],
         profileDetails: initialData?.profileDetails || [""],
-        note: initialData?.note || ""
+        note: initialData?.note || "",
+        price: initialData?.price ?? "",
+        phlebotomyFee: initialData?.phlebotomyFee ?? "",
+        testDuration: initialData?.testDuration || "",
+        lab: initialData?.lab || "",
+        subtitle: initialData?.subtitle || "",
+        category: initialData?.category || "",
+        aboutText: initialData?.aboutText || "",
+        faqs: initialData?.faqs?.length ? initialData.faqs : [{ question: "", answer: "" }],
     });
 
     useEffect(() => {
@@ -36,7 +44,17 @@ export default function TestForm({ onSubmit, initialData }) {
                 profileDetails: initialData.profileDetails?.length
                     ? initialData.profileDetails
                     : [""],
-                note: initialData?.note || ""
+                note: initialData?.note || "",
+                price: initialData?.price ?? "",
+                phlebotomyFee: initialData?.phlebotomyFee ?? "",
+                testDuration: initialData?.testDuration || "",
+                lab: initialData?.lab || "",
+                subtitle: initialData?.subtitle || "",
+                category: initialData?.category || "",
+                aboutText: initialData?.aboutText || "",
+                faqs: initialData?.faqs?.length
+                    ? initialData.faqs
+                    : [{ question: "", answer: "" }],
             });
         }
     }, [initialData]);
@@ -56,7 +74,17 @@ export default function TestForm({ onSubmit, initialData }) {
                 selfCollectKit: form.selfCollectKit,
                 sampleGuide: form.sampleGuide,
                 profileDetails: form.profileDetails,
-                note: form.note
+                note: form.note,
+                price: form.price === "" ? null : Number(form.price),
+                phlebotomyFee: form.phlebotomyFee === "" ? null : Number(form.phlebotomyFee),
+                testDuration: form.testDuration,
+                lab: form.lab,
+                subtitle: form.subtitle,
+                category: form.category,
+                aboutText: form.aboutText,
+                faqs: form.faqs
+                    .filter((f) => f.question?.trim() || f.answer?.trim())
+                    .map((f) => ({ question: f.question, answer: f.answer })),
             };
 
             const res = await onSubmit?.(payload);
@@ -70,7 +98,15 @@ export default function TestForm({ onSubmit, initialData }) {
                 selfCollectKit: "",
                 sampleGuide: [{ code: "", value: "" }],
                 profileDetails: [""],
-                note: ""
+                note: "",
+                price: "",
+                phlebotomyFee: "",
+                testDuration: "",
+                lab: "",
+                subtitle: "",
+                category: "",
+                aboutText: "",
+                faqs: [{ question: "", answer: "" }],
             });
             toast.success("Test saved successfully");
             setLoading(false)
@@ -87,7 +123,7 @@ export default function TestForm({ onSubmit, initialData }) {
             animate={{ opacity: 1 }}
             className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 space-y-6 mb-5"
         >
-            <h2 className="text-xl font-semibold flex items-center gap-2 text-[var(--brandColor)]">
+            <h2 className="text-xl font-semibold flex items-center gap-2 text-(--brandColor)">
                 <ClipboardList size={20} />
                 {initialData ? "Edit Test" : "Create Test"}
             </h2>
@@ -158,6 +194,92 @@ export default function TestForm({ onSubmit, initialData }) {
                         className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
                     />
                 </div>
+
+                {/* Subtitle */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Subtitle
+                    </label>
+                    <input
+                        value={form.subtitle}
+                        onChange={(e) =>
+                            setForm({ ...form, subtitle: e.target.value })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+                    />
+                </div>
+
+                {/* Category */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Category (badge)
+                    </label>
+                    <input
+                        value={form.category}
+                        onChange={(e) =>
+                            setForm({ ...form, category: e.target.value })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+                    />
+                </div>
+
+                {/* Price */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Price (£)
+                    </label>
+                    <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={form.price}
+                        onChange={(e) => setForm({ ...form, price: e.target.value })}
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+                    />
+                </div>
+
+                {/* Phlebotomy Fee */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Phlebotomy Fee (£)
+                    </label>
+                    <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={form.phlebotomyFee}
+                        onChange={(e) =>
+                            setForm({ ...form, phlebotomyFee: e.target.value })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+                    />
+                </div>
+
+                {/* Test Duration */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Test Duration
+                    </label>
+                    <input
+                        value={form.testDuration}
+                        onChange={(e) =>
+                            setForm({ ...form, testDuration: e.target.value })
+                        }
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+                    />
+                </div>
+
+                {/* Lab */}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Lab
+                    </label>
+                    <input
+                        value={form.lab}
+                        onChange={(e) => setForm({ ...form, lab: e.target.value })}
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50"
+                    />
+                </div>
             </div>
 
             {/* Special Instructions */}
@@ -215,7 +337,7 @@ export default function TestForm({ onSubmit, initialData }) {
                             sampleGuide: [...form.sampleGuide, { code: "", value: "" }],
                         })
                     }
-                    className="text-[var(--brandColor)] text-sm"
+                    className="text-(--brandColor) text-sm"
                 >
                     + Add Guide
                 </button>
@@ -224,7 +346,7 @@ export default function TestForm({ onSubmit, initialData }) {
             {/* Profile Details */}
             <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Profile Details
+                    Profile Details (shown as "About This Test")
                 </label>
 
                 {form.profileDetails.map((item, i) => (
@@ -249,9 +371,72 @@ export default function TestForm({ onSubmit, initialData }) {
                             profileDetails: [...form.profileDetails, ""],
                         })
                     }
-                    className="text-[var(--brandColor)] text-sm"
+                    className="text-(--brandColor) text-sm"
                 >
                     + Add Detail
+                </button>
+            </div>
+
+            {/* About Text */}
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2 mt-2">
+                    About This Testing (paragraph)
+                </label>
+                <textarea
+                    value={form.aboutText}
+                    onChange={(e) =>
+                        setForm({ ...form, aboutText: e.target.value })
+                    }
+                    rows="4"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 bg-gray-50 resize-none"
+                />
+            </div>
+
+            {/* FAQs */}
+            <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Frequently Asked Questions
+                </label>
+
+                {form.faqs.map((item, i) => (
+                    <div key={i} className="mb-3 space-y-2">
+                        <input
+                            placeholder="Question"
+                            value={item.question}
+                            onChange={(e) => {
+                                const updated = form.faqs.map((f, idx) =>
+                                    idx === i ? { ...f, question: e.target.value } : f
+                                );
+                                setForm({ ...form, faqs: updated });
+                            }}
+                            className="w-full border rounded-xl px-3 py-2"
+                        />
+                        <textarea
+                            placeholder="Answer"
+                            value={item.answer}
+                            onChange={(e) => {
+                                const updated = form.faqs.map((f, idx) =>
+                                    idx === i ? { ...f, answer: e.target.value } : f
+                                );
+                                setForm({ ...form, faqs: updated });
+                            }}
+                            rows="3"
+                            className="w-full border rounded-xl px-3 py-2 resize-none"
+                        />
+                    </div>
+                ))}
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        setForm({
+                            ...form,
+                            faqs: [...form.faqs, { question: "", answer: "" }],
+                        })
+                    }
+                    className="text-(--brandColor) text-sm"
+                >
+                    + Add FAQ
                 </button>
             </div>
 
@@ -273,7 +458,7 @@ export default function TestForm({ onSubmit, initialData }) {
             {/* Submit */}
             <button
                 onClick={handleSubmit}
-                className={`bg-[var(--brandColor)] text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-auto ${loading && 'opacity-50 cursor-not-allowed'}`}
+                className={`bg-(--brandColor) text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-auto ${loading && 'opacity-50 cursor-not-allowed'}`}
             >
                 {loading ? "Saving..." : initialData ? "Update Test" : "Create Test"}
             </button>

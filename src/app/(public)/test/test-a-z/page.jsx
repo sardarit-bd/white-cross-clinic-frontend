@@ -7,6 +7,28 @@ import TestListLoading from "./TestListLoading";
 
 export default function PageA() {
 
+
+    const {tests, testsLoading} = useTest()
+
+    const [selectedTest, setTest] = useState('All')
+    const [filteredTest, setFilteredTest] = useState([...tests])
+
+    useEffect(() => {
+        if (selectedTest === 'All') {
+            setFilteredTest([...tests])
+        } else {
+            const filtered = tests.filter(test => test?.title?.charAt(0).toLowerCase() === selectedTest?.toLowerCase())
+            setFilteredTest([...filtered])
+        }
+    }, [selectedTest, tests])
+
+    if(testsLoading){
+        return <TestListLoading />
+    }
+    return <main className="container mx-auto py-10 pt-48">
+        <TestsList allTests={filteredTest} setTest={setTest} selectedTest={selectedTest} />
+    </main>;
+}
     // const tests = [
     //     "1,25 Vitamin D",
     //     "1p36 Deletion Syndrome – karyotype + CGH",
@@ -471,25 +493,3 @@ export default function PageA() {
     //     "Hereditary Comprehensive Cancer NGS Panel",
     //     "Hereditary Neuropathy with Liability to Pressure Palsy – PMP22 deletion analysis"
     // ];
-
-    const {tests, testsLoading} = useTest()
-
-    const [selectedTest, setTest] = useState('All')
-    const [filteredTest, setFilteredTest] = useState([...tests])
-
-    useEffect(() => {
-        if (selectedTest === 'All') {
-            setFilteredTest([...tests])
-        } else {
-            const filtered = tests.filter(test => test?.title?.charAt(0).toLowerCase() === selectedTest?.toLowerCase())
-            setFilteredTest([...filtered])
-        }
-    }, [selectedTest, tests])
-
-    if(testsLoading){
-        return <TestListLoading />
-    }
-    return <main className="container mx-auto py-10 pt-48">
-        <TestsList allTests={filteredTest} setTest={setTest} selectedTest={selectedTest} />
-    </main>;
-}

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "White Cross Clinic"
+  title: "White Cross Clinic",
 };
 
 export default function RootLayout({ children }) {

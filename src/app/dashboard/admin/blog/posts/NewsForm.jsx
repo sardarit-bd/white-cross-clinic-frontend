@@ -11,7 +11,7 @@ import {
   X,
   UploadCloud,
   AlertCircle,
-  CheckCircle
+  CheckCircle,
 } from "lucide-react";
 import api from "@/lib/api";
 
@@ -34,14 +34,14 @@ export default function NewsForm({
   const [imagePreview, setImagePreview] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const [isEdit, setIEdit] = useState(false)
+  const [isEdit, setIEdit] = useState(false);
 
   // Auto-fill when editing
   useEffect(() => {
-    if(initialData && !isEdit){
-      setIEdit(true)
+    if (initialData && !isEdit) {
+      setIEdit(true);
     }
-  }, [initialData])
+  }, [initialData]);
 
   useEffect(() => {
     if (initialData) {
@@ -61,14 +61,14 @@ export default function NewsForm({
   // Cleanup preview URL
   useEffect(() => {
     return () => {
-      if (imagePreview && imagePreview.startsWith('blob:')) {
+      if (imagePreview && imagePreview.startsWith("blob:")) {
         URL.revokeObjectURL(imagePreview);
       }
     };
   }, [imagePreview]);
 
   const filteredSubs = subcategories?.filter(
-    (s) => s.category?._id === form.category
+    (s) => s.category?._id === form.category,
   );
 
   const validateForm = () => {
@@ -84,7 +84,7 @@ export default function NewsForm({
     if (!file) return;
 
     // Validate file type
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith("image/")) {
       toast.error("Please upload an image file");
       return;
     }
@@ -96,7 +96,7 @@ export default function NewsForm({
     }
 
     // Clean up previous preview
-    if (imagePreview && imagePreview.startsWith('blob:')) {
+    if (imagePreview && imagePreview.startsWith("blob:")) {
       URL.revokeObjectURL(imagePreview);
     }
 
@@ -105,7 +105,7 @@ export default function NewsForm({
   };
 
   const removeImage = () => {
-    if (imagePreview && imagePreview.startsWith('blob:')) {
+    if (imagePreview && imagePreview.startsWith("blob:")) {
       URL.revokeObjectURL(imagePreview);
     }
     setImageFile(null);
@@ -120,36 +120,36 @@ export default function NewsForm({
     }
 
     const formData = new FormData();
-    let imgUrl = ''
+    let imgUrl = "";
 
     if (imageFile) {
       formData.append("image", imageFile);
       const res = await api.post("/upload/image", formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data" },
       });
       imgUrl = res.data?.data?.url;
     }
 
     const payload = {
-      title : form.title,
+      title: form.title,
       image: imgUrl,
       tags: form.tags,
       description: form.description,
       category: form.category,
-      subcategory: form.subcategory
-    }
+      subcategory: form.subcategory,
+    };
 
     try {
       let res;
 
       if (isEdit) {
-        payload.id = initialData?._id
+        payload.id = initialData?._id;
         res = await updateNews.mutateAsync(payload);
         toast.success(
           <div className="flex items-center gap-2">
             <CheckCircle size={20} />
             <span>News updated successfully!</span>
-          </div>
+          </div>,
         );
       } else {
         res = await createNews.mutateAsync(payload);
@@ -157,7 +157,7 @@ export default function NewsForm({
           <div className="flex items-center gap-2">
             <CheckCircle size={20} />
             <span>News created successfully!</span>
-          </div>
+          </div>,
         );
       }
 
@@ -174,7 +174,6 @@ export default function NewsForm({
       setErrors({});
 
       onFinish?.();
-
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
@@ -210,15 +209,23 @@ export default function NewsForm({
                   <select
                     value={form.category}
                     onChange={(e) => {
-                      setForm({ ...form, category: e.target.value, subcategory: "" });
-                      if (errors.category) setErrors({ ...errors, category: null });
+                      setForm({
+                        ...form,
+                        category: e.target.value,
+                        subcategory: "",
+                      });
+                      if (errors.category)
+                        setErrors({ ...errors, category: null });
                     }}
-                    className={`w-full border ${errors.category ? 'border-red-300' : 'border-gray-200'
-                      } rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white`}
+                    className={`w-full border ${
+                      errors.category ? "border-red-300" : "border-gray-200"
+                    } rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white`}
                   >
                     <option value="">Select Category</option>
                     {categories?.map((c) => (
-                      <option key={c._id} value={c._id}>{c.name}</option>
+                      <option key={c._id} value={c._id}>
+                        {c.name}
+                      </option>
                     ))}
                   </select>
                   {errors.category && (
@@ -232,21 +239,28 @@ export default function NewsForm({
                 {/* Subcategory Select */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Subcategory <span className="text-gray-400 text-xs">(optional)</span>
+                    Subcategory{" "}
+                    <span className="text-gray-400 text-xs">(optional)</span>
                   </label>
                   <select
                     value={form.subcategory}
-                    onChange={(e) => setForm({ ...form, subcategory: e.target.value })}
+                    onChange={(e) =>
+                      setForm({ ...form, subcategory: e.target.value })
+                    }
                     className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white"
                     disabled={!form.category}
                   >
                     <option value="">Select Subcategory</option>
                     {filteredSubs?.map((s) => (
-                      <option key={s._id} value={s._id}>{s.name}</option>
+                      <option key={s._id} value={s._id}>
+                        {s.name}
+                      </option>
                     ))}
                   </select>
                   {!form.category && (
-                    <p className="text-gray-400 text-xs mt-1">Select a category first</p>
+                    <p className="text-gray-400 text-xs mt-1">
+                      Select a category first
+                    </p>
                   )}
                 </div>
               </div>
@@ -264,10 +278,14 @@ export default function NewsForm({
                       setForm({ ...form, title: e.target.value });
                       if (errors.title) setErrors({ ...errors, title: null });
                     }}
-                    className={`w-full border ${errors.title ? 'border-red-300' : 'border-gray-200'
-                      } rounded-xl px-4 py-3 pl-11 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white`}
+                    className={`w-full border ${
+                      errors.title ? "border-red-300" : "border-gray-200"
+                    } rounded-xl px-4 py-3 pl-11 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all bg-gray-50 hover:bg-white focus:bg-white`}
                   />
-                  <Tag size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <Tag
+                    size={18}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  />
                 </div>
                 {errors.title && (
                   <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
@@ -280,7 +298,10 @@ export default function NewsForm({
               {/* Tags Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Tags <span className="text-gray-400 text-xs">(comma separated)</span>
+                  Tags{" "}
+                  <span className="text-gray-400 text-xs">
+                    (comma separated)
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -295,7 +316,8 @@ export default function NewsForm({
             {/* Right Column - Image Upload */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Featured Image <span className="text-gray-400 text-xs">(optional)</span>
+                Featured Image{" "}
+                <span className="text-gray-400 text-xs">(optional)</span>
               </label>
 
               <div className="relative border-2 border-dashed border-gray-300 rounded-xl hover:border-[var(--brandColor)] transition-colors">
@@ -374,17 +396,23 @@ export default function NewsForm({
           {/* Description Textarea */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2 mt-2">
-              Description <span className="text-gray-400 text-xs">(optional)</span>
+              Description{" "}
+              <span className="text-gray-400 text-xs">(optional)</span>
             </label>
             <div className="relative">
               <textarea
                 placeholder="Write a brief description..."
                 value={form.description}
-                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, description: e.target.value })
+                }
                 rows="4"
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 pl-11 focus:ring-2 focus:ring-[var(--brandColor)] focus:border-transparent transition-all resize-none bg-gray-50 hover:bg-white focus:bg-white"
               />
-              <FileText size={18} className="absolute left-4 top-4 text-gray-400" />
+              <FileText
+                size={18}
+                className="absolute left-4 top-4 text-gray-400"
+              />
             </div>
           </div>
         </div>

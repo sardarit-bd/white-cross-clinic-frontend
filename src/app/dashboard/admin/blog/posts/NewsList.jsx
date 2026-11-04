@@ -1,21 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { 
-  Newspaper, 
-  Edit2, 
-  Trash2, 
+import {
+  Newspaper,
+  Edit2,
+  Trash2,
   Calendar,
   Tag,
   FolderOpen,
-  Image as ImageIcon
+  Image as ImageIcon,
 } from "lucide-react";
 
-export default function NewsList({
-  news,
-  onEdit,
-  deleteNews,
-}) {
+export default function NewsList({ news, onEdit, deleteNews }) {
   if (!news?.length) {
     return (
       <motion.div
@@ -26,8 +22,12 @@ export default function NewsList({
         <div className="w-24 h-24 bg-[var(--brandColor)] rounded-full flex items-center justify-center mx-auto mb-6">
           <Newspaper size={40} className="text-white" />
         </div>
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">No News Articles</h3>
-        <p className="text-gray-500">Create your first news article to get started</p>
+        <h3 className="text-2xl font-bold text-gray-800 mb-2">
+          No News Articles
+        </h3>
+        <p className="text-gray-500">
+          Create your first news article to get started
+        </p>
       </motion.div>
     );
   }
@@ -46,7 +46,7 @@ export default function NewsList({
             News Articles
           </h2>
           <span className="bg-[var(--brandColor)]/10 text-[var(--brandColor)] px-3 py-1 rounded-full text-sm font-medium">
-            {news?.length} {news?.length === 1 ? 'Article' : 'Articles'}
+            {news?.length} {news?.length === 1 ? "Article" : "Articles"}
           </span>
         </div>
       </div>
@@ -65,8 +65,8 @@ export default function NewsList({
               {/* Image Section */}
               <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                 {item.image ? (
-                  <img 
-                    src={item.image} 
+                  <img
+                    src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -75,11 +75,11 @@ export default function NewsList({
                     <ImageIcon size={48} className="text-gray-400" />
                   </div>
                 )}
-                
+
                 {/* Category Badge */}
                 <div className="absolute top-3 left-3">
                   <span className="bg-[var(--brandColor)]/90 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
-                    {item.category?.name || 'Uncategorized'}
+                    {item.category?.name || "Uncategorized"}
                   </span>
                 </div>
 
@@ -94,7 +94,7 @@ export default function NewsList({
                   </button>
                   <button
                     onClick={() => {
-                      if (window.confirm('Delete this news article?')) {
+                      if (window.confirm("Delete this news article?")) {
                         deleteNews.mutate(item._id);
                       }
                     }}
@@ -124,7 +124,7 @@ export default function NewsList({
                   <div className="flex items-center gap-2 text-xs text-gray-500">
                     <FolderOpen size={14} className="text-gray-400" />
                     <span>
-                      {item.category?.name || 'No category'}
+                      {item.category?.name || "No category"}
                       {item.subcategory?.name && ` → ${item.subcategory.name}`}
                     </span>
                   </div>
@@ -134,8 +134,8 @@ export default function NewsList({
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                       <Tag size={14} className="text-gray-400" />
                       <div className="flex flex-wrap gap-1">
-                        {item.tags?.split(',').map((tag, i) => (
-                          <span 
+                        {item.tags?.split(",").map((tag, i) => (
+                          <span
                             key={i}
                             className="bg-gray-100 px-2 py-0.5 rounded-full text-gray-600"
                           >
@@ -151,10 +151,10 @@ export default function NewsList({
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                       <Calendar size={14} className="text-gray-400" />
                       <span>
-                        {new Date(item.createdAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric'
+                        {new Date(item.createdAt).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
                         })}
                       </span>
                     </div>

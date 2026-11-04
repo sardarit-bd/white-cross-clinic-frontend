@@ -17,15 +17,13 @@ export default function Providers({ children }) {
             retry: 1,
           },
         },
-      })
+      }),
   );
 
   return (
     <QueryClientProvider client={client}>
       <AuthProvider>
-        <Suspense fallback={<SiteInitialLoader />}>
-          {children}
-        </Suspense>
+        <Suspense fallback={<SiteInitialLoader />}>{children}</Suspense>
         <Toaster />
       </AuthProvider>
     </QueryClientProvider>

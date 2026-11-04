@@ -9,15 +9,13 @@ import { useCategory } from "@/hooks/useCategory";
 import { useNews } from "@/hooks/useNews";
 
 export default function NewsManagerPage() {
-  
   const [editingNews, setEditingNews] = useState(null);
-  const {categories, subcategories} = useCategory()
-  const {news, createNews, updateNews, deleteNews} = useNews()
+  const { categories, subcategories } = useCategory();
+  const { news, createNews, updateNews, deleteNews } = useNews();
 
   return (
     <div className="0 py-8 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
-        
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -44,12 +42,7 @@ export default function NewsManagerPage() {
         />
 
         {/* News List */}
-        <NewsList
-          news={news}
-          onEdit={setEditingNews}
-          deleteNews={deleteNews}
-        />
-
+        <NewsList news={news} onEdit={setEditingNews} deleteNews={deleteNews} />
       </div>
     </div>
   );

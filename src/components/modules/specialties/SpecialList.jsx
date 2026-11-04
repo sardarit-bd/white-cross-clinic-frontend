@@ -81,11 +81,11 @@ export default function SpecialList() {
       <div className="max-w-5xl mx-auto">
 
         {/* Title */}
-        <h1 className="text-3xl font-bold text-[var(--textDark)]">
+        <h1 className="text-3xl font-bold text-(--textDark)">
           Allergy Test Library
         </h1>
 
-        <p className="mt-3 text-[var(--textLight)] leading-relaxed">
+        <p className="mt-3 text-(--textLight) leading-relaxed">
           Our allergy profiles, individual allergen tests, and allergen
           component tests. Please use the search box below to filter this list.
         </p>
@@ -99,7 +99,7 @@ export default function SpecialList() {
               w-full md:w-96 
               px-4 py-2 
               rounded-lg 
-              border border-[var(--borderLight)] 
+              border border-(--borderLight)
               bg-[var(--bgLight)] 
               focus:outline-none 
               focus:ring-2 focus:ring-[var(--brandColor)]

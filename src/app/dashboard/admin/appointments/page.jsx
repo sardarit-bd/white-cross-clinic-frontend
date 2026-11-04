@@ -1,14 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Clock, MapPin, User, Search, Filter, Plus, Video, Phone, MoreVertical, Edit, Trash2, Download } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  User,
+  Search,
+  Filter,
+  Plus,
+  Video,
+  Phone,
+  MoreVertical,
+  Edit,
+  Trash2,
+  Download,
+} from "lucide-react";
 import { useDoctorAppointment } from "@/hooks/useDoctorAppointment";
 import dayjs from "dayjs";
 
 export default function MyAppointments() {
   // const { data: appointment } = useDoctorAppointmentByPatient()
-  const { deleteAppointment, allDoctorAppointment: appointment } = useDoctorAppointment()
-  console.log(appointment)
+  const { deleteAppointment, allDoctorAppointment: appointment } =
+    useDoctorAppointment();
+  console.log(appointment);
   const [filterDate, setFilterDate] = useState("");
 
   const appointments = appointment?.map((app) => {
@@ -22,47 +37,54 @@ export default function MyAppointments() {
       to: app?.to,
       type: app?.type || "In Place",
       status: "Pending",
-      location: "Meanwhile Garden Medical Centre Westbourne Park 5 Elkstone Rd, London",
+      location:
+        "Meanwhile Garden Medical Centre Westbourne Park 5 Elkstone Rd, London",
       notes: app?.note,
       date: app?.date,
-      confirmed: app?.confirmed
-    }
-  })
+      confirmed: app?.confirmed,
+    };
+  });
 
   // Filter appointments based on active tab and search
   const filteredAppointments = filterDate
     ? appointments?.filter(
-      (app) => app.date && new Date(app.date).toISOString().split("T")[0] === filterDate
-    )
+        (app) =>
+          app.date &&
+          new Date(app.date).toISOString().split("T")[0] === filterDate,
+      )
     : appointments;
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'confirmed': return 'bg-green-100 text-green-800 border-green-200';
-      case 'pending': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case "confirmed":
+        return "bg-green-100 text-green-800 border-green-200";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+      case "completed":
+        return "bg-blue-100 text-blue-800 border-blue-200";
+      case "cancelled":
+        return "bg-red-100 text-red-800 border-red-200";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
-
-
 
   const getTypeIcon = (type) => {
     switch (type) {
-      case 'Video Call': return <Video size={16} className="text-blue-600" />;
-      case 'Phone Call': return <Phone size={16} className="text-green-600" />;
-      default: return <MapPin size={16} className="text-[var(--brandColor)]" />;
+      case "Video Call":
+        return <Video size={16} className="text-blue-600" />;
+      case "Phone Call":
+        return <Phone size={16} className="text-green-600" />;
+      default:
+        return <MapPin size={16} className="text-[var(--brandColor)]" />;
     }
   };
 
-
-const cancelAppointment = async (id) => {
-  const res = await deleteAppointment.mutateAsync(id)
-}
+  const cancelAppointment = async (id) => {
+    const res = await deleteAppointment.mutateAsync(id);
+  };
   return (
     <div className="p-6">
-
       <div className="container mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -88,7 +110,10 @@ const cancelAppointment = async (id) => {
         <div className="space-y-4">
           {filteredAppointments?.length === 0 ? (
             <div className="bg-white rounded-xl shadow-[var(--shadowCard)] p-12 text-center">
-              <Calendar className="mx-auto text-[var(--textMuted)] mb-4" size={48} />
+              <Calendar
+                className="mx-auto text-[var(--textMuted)] mb-4"
+                size={48}
+              />
               <h3 className="text-lg font-semibold text-[var(--textDark)] mb-2">
                 No appointments found
               </h3>
@@ -110,19 +135,30 @@ const cancelAppointment = async (id) => {
                         <h3 className="text-lg font-semibold text-[var(--textDark)]">
                           {appointment.patientName}
                         </h3>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium border`}>
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium border`}
+                        >
                           {appointment.confirmed ? "Confirmed" : "Pending"}
                         </span>
                       </div>
-                      <p className="text-[var(--textLight)] mb-2">{appointment.specialty} - {appointment.doctorName}</p>
+                      <p className="text-[var(--textLight)] mb-2">
+                        {appointment.specialty} - {appointment.doctorName}
+                      </p>
                       <div className="flex items-center gap-4 text-sm text-[var(--textLight)]">
                         <div className="flex items-center gap-1">
                           <Calendar size={14} />
-                          <span>{appointment.day} - {appointment?.date ? dayjs(appointment?.date).format("YYYY-MM-DD") : dayjs(new Date.now()).format("YYYY-MM-DD")}</span>
+                          <span>
+                            {appointment.day} -{" "}
+                            {appointment?.date
+                              ? dayjs(appointment?.date).format("YYYY-MM-DD")
+                              : dayjs(new Date.now()).format("YYYY-MM-DD")}
+                          </span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock size={14} />
-                          <span>{appointment.from} - ({appointment.to})</span>
+                          <span>
+                            {appointment.from} - ({appointment.to})
+                          </span>
                         </div>
                         <div className="flex items-center gap-1">
                           {getTypeIcon(appointment.type)}
@@ -137,13 +173,15 @@ const cancelAppointment = async (id) => {
                       )}
                     </div>
                   </div>
-
                 </div>
 
                 {/* Reason */}
                 <div className="mt-4 pt-4 border-t border-[var(--borderLight)]">
                   <p className="text-sm text-[var(--textLight)]">
-                    <span className="font-medium text-[var(--textDark)]">Additional Notes:</span> {appointment.notes}
+                    <span className="font-medium text-[var(--textDark)]">
+                      Additional Notes:
+                    </span>{" "}
+                    {appointment.notes}
                   </p>
                 </div>
               </div>
@@ -151,7 +189,6 @@ const cancelAppointment = async (id) => {
           )}
         </div>
       </div>
-
     </div>
   );
 }

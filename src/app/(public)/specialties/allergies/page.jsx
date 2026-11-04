@@ -20,7 +20,7 @@ const allergyCards = [
   },
   {
     title: "Allergen Components Testing",
-    desc: "A more precise and detailed picture of a patient’s sensitisation pattern can be obtained by measuring IgE to potentially allergenic components of an allergen.",
+    desc: "A more precise and detailed picture of a patients sensitisation pattern can be obtained by measuring IgE to potentially allergenic components of an allergen.",
     link: "/specialties/allergen-components-testing",
   },
   {
@@ -41,11 +41,11 @@ export default function AllergyOverview() {
       
       {/* Header Card */}
       <div className="bg-white border border-gray-200 shadow-sm rounded-md p-6 md:p-10 mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-[var(--textDark)] mb-4">
+        <h1 className="text-3xl md:text-4xl font-bold text-(--textDark) mb-4">
           Allergy
         </h1>
 
-        <p className="text-[var(--textLight)] leading-relaxed text-base md:text-lg">
+        <p className="text-(--textLight) leading-relaxed text-base md:text-lg">
           Allergy, asthma and autoimmune diseases are increasing around the world, especially in industrialized
           countries, and affect all ages. We offer allergy profiles, which group the most common tests, as well as
           tests for individual allergens and allergen components.
@@ -59,7 +59,7 @@ export default function AllergyOverview() {
             key={index}
             className="bg-white border border-gray-200 rounded-md p-6 shadow-sm flex flex-col"
           >
-            <h2 className="text-xl font-bold text-[var(--textDark)] mb-3">
+            <h2 className="text-xl font-bold text-(--textDark) mb-3">
               {item.title}
             </h2>
 

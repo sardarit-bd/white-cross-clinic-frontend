@@ -6,7 +6,7 @@ export default function TestListLoading() {
       <div className="container mx-auto py-10 pt-48">
         
         {/* Sticky Alphabet Filter Skeleton */}
-        <div className="z-20 bg-[var(--bgLight)] py-3 px-3 shadow-sm">
+        <div className="z-20 bg-(--bgLight) py-3 px-3 shadow-sm">
           <div className="flex flex-wrap gap-3 text-base font-medium">
             {/* Alphabet buttons skeleton */}
             {[...Array(15)].map((_, index) => (
@@ -31,19 +31,19 @@ export default function TestListLoading() {
           <div className="h-4 w-96 bg-gray-200 animate-pulse rounded" />
         </div>
 
-        {/* Table Header Skeleton */}
-        <div className="bg-gray-200 px-4 py-3 rounded-t-lg shadow">
-          <div className="h-5 w-24 bg-gray-300 animate-pulse rounded" />
-        </div>
-
-        {/* Results List Skeleton */}
-        <div className="border border-[var(--borderLight)] rounded-b-lg divide-y divide-[var(--borderLight)] bg-white shadow-sm">
-          {[...Array(8)].map((_, index) => (
+        {/* Card Grid Skeleton */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 px-4">
+          {[...Array(6)].map((_, index) => (
             <div
               key={index}
-              className="px-4 py-3"
+              className="rounded-xl border border-(--borderLight) bg-white p-6 shadow-(--shadowCard)"
             >
-              <div className="h-5 w-3/4 bg-gray-200 animate-pulse rounded" />
+              <div className="h-6 w-3/4 bg-gray-200 animate-pulse rounded" />
+              <div className="mt-3 h-3 w-1/3 bg-gray-200 animate-pulse rounded" />
+              <div className="mt-6 flex gap-3">
+                <div className="h-10 flex-1 bg-gray-200 animate-pulse rounded-lg" />
+                <div className="h-10 flex-1 bg-gray-200 animate-pulse rounded-lg" />
+              </div>
             </div>
           ))}
         </div>

@@ -1,7 +1,7 @@
 import ArticlesPreviewSection from '@/components/modules/Home/ArticlesPreviewSection'
 import BannerSlider from '@/components/modules/Home/BannerSlider'
 import CoreServicesSection from '@/components/modules/Home/CoreServicesSection'
-import DepartmentsSection from '@/components/modules/Home/DepartmentsSection'
+// import DepartmentsSection from '@/components/modules/Home/DepartmentsSection'
 import DoctorsSection from '@/components/modules/Home/DoctorSection'
 import EmergencyCTA from '@/components/modules/Home/EmergencyCTA'
 import GallerySection from '@/components/modules/Home/GallerySection'
@@ -15,7 +15,7 @@ export default function Home() {
       <BannerSlider />
       <HomeSearchSection />
       <CoreServicesSection />
-      <DepartmentsSection />
+      {/* <DepartmentsSection /> */}
       <DoctorsSection />
       <EmergencyCTA />
       <ArticlesPreviewSection />
