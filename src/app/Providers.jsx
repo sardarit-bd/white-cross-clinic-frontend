@@ -5,6 +5,7 @@ import { Suspense, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import SiteInitialLoader from "@/components/shared/SiteInitialLoader";
 import { AuthProvider } from "@/providers/AuthProvider";
+import { CartProvider } from "@/providers/CartProvider";
 
 export default function Providers({ children }) {
   const [client] = useState(
@@ -23,7 +24,9 @@ export default function Providers({ children }) {
   return (
     <QueryClientProvider client={client}>
       <AuthProvider>
-        <Suspense fallback={<SiteInitialLoader />}>{children}</Suspense>
+        <CartProvider>
+          <Suspense fallback={<SiteInitialLoader />}>{children}</Suspense>
+        </CartProvider>
         <Toaster />
       </AuthProvider>
     </QueryClientProvider>

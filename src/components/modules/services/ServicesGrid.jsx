@@ -108,9 +108,9 @@ export default function ServicesGrid() {
   return (
     <section
       className="relative py-20 bg-cover bg-center"
-      style={{ backgroundImage: "url('/images/serviceGridBanner.webp')" }}
+      // style={{ backgroundImage: "url('/images/serviceGridBanner.webp')" }}
     >
-      <div className="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+      <div className="absolute inset-0  backdrop-blur-sm"></div>
 
       <div className="relative container mx-auto px-4">
         {/* GRID */}

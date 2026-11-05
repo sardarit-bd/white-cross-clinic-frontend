@@ -3,7 +3,7 @@ import React, { Suspense } from 'react'
 
 export default function page() {
   return (
-   <div className='pt-36 bg-[var(--bgLight)]'>
+   <div className='pt-36 bg-(--bgLight)'>
     <Suspense>
        <AISearchBox />
     </Suspense>

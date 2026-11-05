@@ -8,10 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import NavButton from "./NavButton";
 import { useCategory } from "@/hooks/useCategory";
-
-/* -----------------------------
-      GROUP SPECIALTIES (A–Z)
------------------------------- */
+import { dripGroups, allServices } from "@/lib/dripsAndBoosters";
 
 function groupByAlphabet(items) {
   const groups = {};
@@ -24,9 +21,6 @@ function groupByAlphabet(items) {
 
   return groups;
 }
-// =============================================
-//        DATA ARRAYS
-// =============================================
 const testItems = [
   "Allergies",
   "Allergen components",
@@ -90,7 +84,7 @@ const testItems = [
   "Virology tests",
   "Vitamin tests",
   "WCC Genetics",
-  "WCC Self-Collection HPV Test"
+  "WCC Self-Collection HPV Test",
 ];
 const groupedTestItems = groupByAlphabet(testItems);
 const doctorDepartments = [
@@ -108,7 +102,7 @@ const doctorDepartments = [
   "Physiotherapy",
   "Psychiatry",
   "Radiology",
-  "Urology"
+  "Urology",
 ];
 
 const articleCategories = [
@@ -122,22 +116,24 @@ const articleCategories = [
   "Neurology",
   "Nutrition",
   "Skin",
-  "Women Health"
+  "Women Health",
 ];
 
 const patientMenuItems = [
   "Home Visits",
   "Patient Reception",
-  "Sample Collection Guide"
+  "Sample Collection Guide",
 ];
 
-// ⭐ NEW DROPDOWN ITEMS
 const orderKitsDropdown = [
-  "Self Collect Kits"
+  "Self Collect Kits",
   // { label: "Registration For Online Order", href: "/order-kits/registration" },
 ];
 
 const testMegaMenu = [
+  "Blood Test",
+  "Health Screening",
+  "Sexual Test",
   "Discontinued Tests",
   "Helpful Information",
   "Profiles",
@@ -146,39 +142,40 @@ const testMegaMenu = [
   "Specimens",
   "Special Instructions",
   "Test A–Z",
-  "WCC News"
+  "WCC News",
 ];
 
-// ⭐ ADDED dropdown: "orderkits"
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Specialties", href: "/specialties", mega: "specialties" },
-  { label: "Social Media", href: "/social" },
-  { label: "Order Kits", href: "/order-kits", dropdown: "orderkits" }, // ⭐ NEW
   { label: "Top Services", href: "/topservices" },
   { label: "Test", href: "/test", mega: "test" },
-  { label: "Doctors", href: "/doctors", mega: "doctors" },
-  { label: "Patients", href: "/patients", mega: "patients" },
-  { label: "Contact Us", href: "/contact-us" },
-  { label: "News", href: "/articles", mega: "articles" },
-  // { label: "Dashboard", href: "/dashboard" },
+  { label: "Resource", href: "/resource" },
+  { label: "Medical Topics", href: "/articles", mega: "articles" },
+  // { label: "Doctor", href: "/doctors", mega: "doctors" },
+  {
+    label: "Drips and Boosters",
+    href: "/drips-and-boosters",
+    mega: "drips-and-boosters",
+  },
+  // { label: "Order Kit", href: "/order-kits", dropdown: "orderkits" },
+  { label: "Online Shop", href: "/online-shop" },
+  { label: "Contact", href: "/contact-us" },
 ];
 
-// =============================================
-//                NAVBAR COMPONENT
-// =============================================
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredMenu, setHoveredMenu] = useState(null);
   const [hoveredDropdown, setHoveredDropdown] = useState(null);
-  const {subcategories} = useCategory()
-  const doctorDepartments = subcategories?.map(cat => {
+  const { subcategories } = useCategory();
+  const doctorDepartments = subcategories?.map((cat) => {
     return {
-      name: cat.name, slug: cat?.category?.slug
-    }
-  })
-  const articleCategories = [...doctorDepartments]
+      name: cat.name,
+      slug: cat?.category?.slug,
+    };
+  });
+  const articleCategories = [...doctorDepartments];
 
   const [isMegaHovered, setIsMegaHovered] = useState(false);
   const [isDropdownHovered, setIsDropdownHovered] = useState(false);
@@ -201,19 +198,12 @@ export default function Navbar() {
 
   return (
     <nav className="fixed md:top-8 top-0 left-0 w-full z-50 bg-white shadow-md">
-
-      {/* HEADER */}
       <div className="h-[90px] flex items-center">
         <div className="container mx-auto flex justify-between items-center px-6 lg:px-12">
-
-          {/* LOGO */}
           <Link href="/" className="flex items-center" onClick={closeAllMenus}>
             <Image src="/logos/navLogo.png" width={75} height={75} alt="logo" />
           </Link>
-
-          {/* DESKTOP NAV */}
           <div className="hidden md:flex items-center gap-4 text-[16px] relative">
-
             {navLinks.map((item, idx) => (
               <div
                 key={idx}
@@ -240,69 +230,65 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={closeAllMenus}
-                  className={`pb-1 flex items-center gap-1 font-medium transition ${isActive(item.href)
-                    ? "text-[var(--brandColor)] font-semibold"
-                    : "text-gray-700 hover:text-[var(--brandColor)]"
-                    }`}
+                  className={`pb-1 flex items-center gap-1 font-medium transition ${
+                    isActive(item.href)
+                      ? "text-[var(--brandColor)] font-semibold"
+                      : "text-gray-700 hover:text-[var(--brandColor)]"
+                  }`}
                 >
                   {item.label}
                   {(item.mega || item.dropdown) && <ChevronDown size={16} />}
                 </Link>
-                {/* ====================================== */}
-                {/*            NORMAL DROPDOWN             */}
-                {/* ====================================== */}
-                {item.dropdown && <AnimatePresence>
-                  {hoveredDropdown === "orderkits" && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      onMouseEnter={() => setIsDropdownHovered(true)}
-                      onMouseLeave={() => {
-                        setIsDropdownHovered(false);
-                        setTimeout(() => setHoveredDropdown(null), 150);
-                      }}
-                      className="
+                {item.dropdown && (
+                  <AnimatePresence>
+                    {hoveredDropdown === "orderkits" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        onMouseEnter={() => setIsDropdownHovered(true)}
+                        onMouseLeave={() => {
+                          setIsDropdownHovered(false);
+                          setTimeout(() => setHoveredDropdown(null), 150);
+                        }}
+                        className="
               hidden md:block absolute z-[999]
               bg-white shadow-lg border border-gray-200
               rounded-lg py-3 w-64
               left-0 top-14
             "
-                    >
-                      {orderKitsDropdown?.map((item, i) => (
-                        <Link
-                          key={i}
-                          href={`/order-kits/${item.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                          onClick={closeAllMenus}
-                          className="
+                      >
+                        {orderKitsDropdown?.map((item, i) => (
+                          <Link
+                            key={i}
+                            href={`/order-kits/${item.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                            onClick={closeAllMenus}
+                            className="
                   block px-4 py-2 text-[var(--textDark)]
                   hover:bg-[var(--brandColorLight)]
                   hover:text-[var(--brandColor)]
                   transition
                 "
-                        >
-                          {item}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>}
+                          >
+                            {item}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
               </div>
             ))}
 
             <NavButton />
           </div>
 
-          {/* MOBILE MENU BUTTON */}
           <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
-      {/* ====================================== */}
-      {/*         DESKTOP MEGA MENU              */}
-      {/* ====================================== */}
       <AnimatePresence>
         {hoveredMenu && (
           <motion.div
@@ -324,7 +310,6 @@ export default function Navbar() {
             "
           >
             <div className="container mx-auto px-12 columns-2 md:columns-5 lg:columns-5 gap-4">
-
               {hoveredMenu === "doctors" &&
                 doctorDepartments.map((dept, i) => (
                   <Link
@@ -346,7 +331,6 @@ export default function Navbar() {
                   .sort()
                   .map((letter, index) => (
                     <div key={index}>
-
                       {/* Letter header */}
                       <div className="text-lg font-semibold mb-2 text-[var(--brandColor)]">
                         {letter}
@@ -357,7 +341,10 @@ export default function Navbar() {
                         <Link
                           key={i}
                           onClick={closeAllMenus}
-                          href={`/specialties/${dept.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}
+                          href={`/specialties/${dept
+                            .toLowerCase()
+                            .replace(/[^a-z0-9]+/g, "-")
+                            .replace(/^-|-$/g, "")}`}
                           className="
                             block p-1 text-[var(--textDark)]
                             hover:text-[var(--brandColor)]
@@ -416,16 +403,37 @@ export default function Navbar() {
                     {item}
                   </Link>
                 ))}
+              {hoveredMenu === "drips-and-boosters" && (
+                <div className="[column-span:all]">
+                  {dripGroups.map((group) => (
+                    <div key={group.title} className="mb-4">
+                      <div className="text-lg font-semibold mb-2 text-[var(--brandColor)]">
+                        {group.title}
+                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-x-4">
+                        {group.items.map((service) => (
+                          <Link
+                            key={service.slug}
+                            onClick={closeAllMenus}
+                            href={`/drips-and-boosters/${service.slug}`}
+                            className="
+                              block p-1 text-[var(--textDark)]
+                              hover:text-[var(--brandColor)]
+                              hover:underline underline-offset-2 transition text-md
+                            "
+                          >
+                            {service.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-
-
-      {/* ====================================== */}
-      {/*            MOBILE MENU                 */}
-      {/* ====================================== */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -434,26 +442,25 @@ export default function Navbar() {
             exit={{ opacity: 0, y: -15 }}
             className="md:hidden bg-white shadow-lg px-6 py-4 space-y-4"
           >
-
             {navLinks.map((item, idx) => {
               const slugify = (str) =>
                 str.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
               return (
                 <div key={idx}>
-
                   <div
                     onClick={() =>
                       item.mega || item.dropdown
                         ? setMobileDropdown(
-                          mobileDropdown === item.label ? null : item.label
-                        )
+                            mobileDropdown === item.label ? null : item.label,
+                          )
                         : setIsOpen(false)
                     }
-                    className={`flex justify-between items-center text-lg font-medium ${isActive(item.href)
-                      ? "text-[var(--brandColor)]"
-                      : "text-gray-700"
-                      }`}
+                    className={`flex justify-between items-center text-lg font-medium ${
+                      isActive(item.href)
+                        ? "text-[var(--brandColor)]"
+                        : "text-gray-700"
+                    }`}
                   >
                     <Link
                       href={item.href}
@@ -470,19 +477,21 @@ export default function Navbar() {
 
                   {mobileDropdown === item.label && (
                     <div className="ml-4 mt-2 space-y-2 max-h-64 overflow-y-auto pr-2">
-
-                      {(
-                        item.mega === "doctors"
-                          ? doctorDepartments
-                          : item.mega === "specialties"
-                            ? testItems
-                            : item.mega === "articles"
-                              ? articleCategories
-                              : item.mega === "patients"
-                                ? patientMenuItems
-                                : item.mega === "test"
-                                  ? testMegaMenu
-                                  : item.dropdown === 'orderkits' ? orderKitsDropdown : []
+                      {(item.mega === "doctors"
+                        ? doctorDepartments
+                        : item.mega === "specialties"
+                          ? testItems
+                          : item.mega === "articles"
+                            ? articleCategories
+                            : item.mega === "patients"
+                              ? patientMenuItems
+                              : item.mega === "test"
+                                ? testMegaMenu
+                                : item.mega === "drips-and-boosters"
+                                  ? allServices.map((s) => s.name)
+                                  : item.dropdown === "orderkits"
+                                    ? orderKitsDropdown
+                                    : []
                       ).map((sub, i) =>
                         typeof sub === "string" ? (
                           <Link
@@ -496,9 +505,8 @@ export default function Navbar() {
                           >
                             {sub}
                           </Link>
-                        ) : null
+                        ) : null,
                       )}
-
                     </div>
                   )}
                 </div>
@@ -509,7 +517,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-
     </nav>
   );
 }

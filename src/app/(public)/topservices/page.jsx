@@ -7,7 +7,7 @@ export default function page() {
   return (
    <div className='pt-20'>
     <TopServicesBanner />
-    <ServicesGallery />
+    {/* <ServicesGallery /> */}
     <ServicesGrid />
    </div>
   )
