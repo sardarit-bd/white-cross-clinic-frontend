@@ -1,7 +1,9 @@
 "use client";
 import { MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
-import ChatWindow from "./ChatWindow";
+import dynamic from "next/dynamic";
+
+const ChatWindow = dynamic(() => import("./ChatWindow"), { ssr: false });
 
 export default function ChatButton() {
   const [open, setOpen] = useState(false);
