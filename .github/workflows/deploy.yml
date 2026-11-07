@@ -1,0 +1,64 @@
+name: Deploy White Cross Clinic Frontend
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: white-cross-clinic-frontend-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Deploy via SSH
+        env:
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+          ssh -i ~/.ssh/id_ed25519 \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            root@72.61.112.137 'bash -se' <<'REMOTE'
+          set -Eeuo pipefail
+
+          cd /var/www/white-cross-clinic-frontend
+
+          echo "Pulling latest main branch..."
+          git pull --ff-only origin main
+
+          echo "Installing dependencies..."
+          npm ci
+
+          echo "Building frontend..."
+          npm run build
+
+          echo "Restarting frontend..."
+          pm2 restart white-cross-clinic-frontend --update-env
+          pm2 save
+
+          echo "Checking HTTP response..."
+          for attempt in {1..15}; do
+            if curl -fsS http://127.0.0.1:3004/ -o /dev/null; then
+              echo "Deployment successful!"
+              exit 0
+            fi
+            sleep 2
+          done
+
+          echo "Health check failed!"
+          exit 1
+          REMOTE
