@@ -47,7 +47,7 @@ export default function BannerSlider() {
   }, [current]);
 
   return (
-    <section className="relative w-full h-[75vh] md:h-[80vh] overflow-hidden">
+    <section className="relative w-full min-h-[620px] h-[90svh] md:h-[80vh] overflow-hidden">
       <AnimatePresence>
         {slides.map(
           (slide, index) =>
@@ -65,37 +65,38 @@ export default function BannerSlider() {
                   src={slide.image}
                   alt={slide.title}
                   fill
+                  sizes="100vw"
                   className="object-cover object-center brightness-[0.55]"
                   priority
                 />
 
                 {/* Content Card */}
-                <div className="absolute inset-0 flex items-center justify-center px-6 md:px-16">
+                <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-14 md:px-24 pt-8 pb-20 md:py-8">
                   <motion.div
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="bg-white/85 backdrop-blur-lg shadow-xl rounded-xl p-8 md:p-12 max-w-2xl text-left"
+                    className="w-full max-w-2xl max-h-full overflow-y-auto bg-white/85 backdrop-blur-lg shadow-xl rounded-xl p-5 sm:p-8 md:p-12 text-left"
                   >
-                    <h1 className="text-3xl md:text-5xl font-bold text-[var(--textDark)] mb-4 leading-tight">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--textDark)] mb-3 md:mb-4 leading-tight">
                       {slide.title}
                     </h1>
 
-                    <h3 className="text-lg md:text-xl font-semibold text-[var(--brandColor)] mb-4">
+                    <h3 className="text-base sm:text-lg md:text-xl font-semibold text-[var(--brandColor)] mb-3 md:mb-4">
                       {slide.subtitle}
                     </h3>
 
-                    <div className="space-y-2 text-[var(--textDark)] text-base md:text-lg font-medium leading-relaxed">
+                    <div className="space-y-1.5 md:space-y-2 text-[var(--textDark)] text-sm sm:text-base md:text-lg font-medium leading-relaxed">
                       {slide.description.map((line, i) => (
                         <p key={i}>{line}</p>
                       ))}
                     </div>
 
                     {/* CTA Buttons */}
-                    <div className="flex gap-4 mt-8">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 md:mt-8">
                       <Link
                         href="/about"
-                        className="px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 transition"
+                        className="px-6 py-3 rounded-full font-semibold text-center text-white shadow-md hover:scale-105 transition"
                         style={{
                           background:
                             "linear-gradient(90deg, var(--brandColor), var(--brandAccent))",
@@ -105,7 +106,7 @@ export default function BannerSlider() {
                       </Link>
                       <Link
                         href="/appointment"
-                        className="px-6 py-3 rounded-full font-semibold text-white shadow-md hover:scale-105 transition"
+                        className="px-6 py-3 rounded-full font-semibold text-center text-white shadow-md hover:scale-105 transition"
                         style={{
                           background:
                             "linear-gradient(90deg, var(--brandAccent), var(--brandColor))",
@@ -123,23 +124,29 @@ export default function BannerSlider() {
 
       {/* Navigation Arrows */}
       <button
+        type="button"
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/70 text-[var(--brandColor)] p-3 rounded-full transition shadow-md"
+        aria-label="Previous slide"
+        className="absolute left-4 bottom-2 md:bottom-auto md:top-1/2 md:-translate-y-1/2 bg-white/60 md:bg-white/40 hover:bg-white/80 md:hover:bg-white/70 text-[var(--brandColor)] p-2 md:p-3 rounded-full transition shadow-md"
       >
-        <ArrowLeft size={26} />
+        <ArrowLeft className="w-5 h-5 md:w-[26px] md:h-[26px]" />
       </button>
       <button
+        type="button"
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/40 hover:bg-white/70 text-[var(--brandColor)] p-3 rounded-full transition shadow-md"
+        aria-label="Next slide"
+        className="absolute right-4 bottom-2 md:bottom-auto md:top-1/2 md:-translate-y-1/2 bg-white/60 md:bg-white/40 hover:bg-white/80 md:hover:bg-white/70 text-[var(--brandColor)] p-2 md:p-3 rounded-full transition shadow-md"
       >
-        <ArrowRight size={26} />
+        <ArrowRight className="w-5 h-5 md:w-[26px] md:h-[26px]" />
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-3">
+      <div className="absolute bottom-5 md:bottom-6 left-0 right-0 flex justify-center gap-3">
         {slides.map((_, i) => (
           <button
             key={i}
+            type="button"
+            aria-label={`Go to slide ${i + 1}`}
             onClick={() => setCurrent(i)}
             className={`w-3 h-3 rounded-full transition-all ${
               i === current
