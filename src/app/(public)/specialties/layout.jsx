@@ -20,8 +20,8 @@ export default function SpecialLayout({ children }) {
                     </h2>
                 </div>
             </div>
-            <div className="min-h-screen bg-[var(--bgLight)] pt-10 pb-20">
-                <div className="container mx-auto flex flex-col md:flex-row gap-8 px-6">
+            <div className="min-h-screen bg-[var(--bgLight)] pt-6 lg:pt-10 pb-20">
+                <div className="container mx-auto flex flex-col lg:flex-row gap-4 lg:gap-8 px-4 sm:px-6">
 
                     {/* ---------------- LEFT SIDEBAR ---------------- */}
 
