@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -139,7 +139,6 @@ const sidebarItems = [
   }
 ];
 
-// ---- Slugify function ----
 function slugify(str) {
   return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
@@ -148,11 +147,15 @@ export default function SpecialitiesFilter() {
   const pathname = usePathname();
   const [open, setOpen] = useState(null);
 
-  // NEW
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // NEW → Build a searchable flat list
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
   const searchList = useMemo(() => {
     let list = [];
 
@@ -178,7 +181,6 @@ export default function SpecialitiesFilter() {
     return list;
   }, []);
 
-  // Filter by search input
   const filteredSuggestions = useMemo(() => {
     if (!query.trim()) return [];
 
@@ -187,104 +189,123 @@ export default function SpecialitiesFilter() {
   }, [query, searchList]);
 
   return (
-    <aside className="md:w-[500px] w-full bg-white border border-[var(--borderLight)] rounded-xl shadow-[var(--shadowCard)] p-4 h-max sticky md:top-32 top-22">
+    <aside className="lg:w-[500px] w-full bg-white border border-[var(--borderLight)] rounded-xl shadow-[var(--shadowCard)] p-4 h-max lg:sticky lg:top-32">
 
-      <h2 className="font-bold text-xl text-[var(--textDark)] mb-4">Specialties</h2>
+      <h2 className="hidden lg:block font-bold text-xl text-[var(--textDark)] mb-4">Specialties</h2>
 
-      {/* 🔍 Search Bar */}
-      <div className="relative mb-4">
-        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-[var(--borderLight)]">
-          <Search size={18} className="text-[var(--textLight)]" />
-          <input
-            type="text"
-            autoFocus
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setShowSuggestions(true);
-            }}
-            placeholder="Search specialties..."
-            className="w-full bg-transparent focus:outline-none text-[var(--textDark)]"
-          />
+      <button
+        type="button"
+        onClick={() => setMobileOpen((prev) => !prev)}
+        aria-expanded={mobileOpen}
+        aria-controls="specialties-panel"
+        className="lg:hidden flex justify-between items-center w-full font-bold text-xl text-[var(--textDark)]"
+      >
+        <span>Specialties</span>
+        <ChevronDown
+          size={22}
+          className={`transition-transform ${mobileOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+      <div
+        id="specialties-panel"
+        className={`${mobileOpen ? "block mt-4" : "hidden"} lg:block max-h-[70vh] overflow-y-auto lg:max-h-none lg:overflow-visible`}
+      >
+
+        {/* 🔍 Search Bar */}
+        <div className="relative mb-4">
+          <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg border border-[var(--borderLight)]">
+            <Search size={18} className="text-[var(--textLight)]" />
+            <input
+              type="text"
+              autoFocus
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setShowSuggestions(true);
+              }}
+              placeholder="Search specialties..."
+              className="w-full bg-transparent focus:outline-none text-[var(--textDark)]"
+            />
+          </div>
+
+          {/* 🔽 Auto-suggestions */}
+          {showSuggestions && filteredSuggestions.length > 0 && (
+            <div className="absolute z-20 bg-white w-full shadow-lg rounded-lg border border-[var(--borderLight)] mt-1 max-h-60 overflow-y-auto">
+              {filteredSuggestions.map((item, i) => (
+                <Link
+                  key={i}
+                  href={item.slug}
+                  onClick={() => {
+                    setShowSuggestions(false);
+                    setQuery("");
+                  }}
+                  className="block px-3 py-2 hover:bg-[var(--brandColorLight)] transition"
+                >
+                  <div className="text-[var(--textDark)] font-medium">
+                    {item.label}
+                  </div>
+                  {item.type === "child" && (
+                    <div className="text-xs text-[var(--textLight)]">
+                      ({item.parent})
+                    </div>
+                  )}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* 🔽 Auto-suggestions */}
-        {showSuggestions && filteredSuggestions.length > 0 && (
-          <div className="absolute z-20 bg-white w-full shadow-lg rounded-lg border border-[var(--borderLight)] mt-1 max-h-60 overflow-y-auto">
-            {filteredSuggestions.map((item, i) => (
-              <Link
-                key={i}
-                href={item.slug}
-                onClick={() => {
-                  setShowSuggestions(false);
-                  setQuery("");
-                }}
-                className="block px-3 py-2 hover:bg-[var(--brandColorLight)] transition"
+        {/* ---- Sidebar Items ---- */}
+        {sidebarItems.map((item, index) => {
+          const parentSlug = item?.link || `/specialties/${slugify(item.title)}`;
+          const isParentActive = pathname === parentSlug;
+
+          return (
+            <div key={index} className="mb-2">
+              <button
+                className={`flex justify-between items-center w-full font-medium p-3 rounded-lg transition
+                  ${isParentActive
+                    ? "bg-[var(--brandColor)] text-white"
+                    : "bg-[var(--brandColorLight)] text-[var(--textDark)] hover:bg-[var(--brandColor)] hover:text-white"}
+                `}
+                onClick={() => item.children && setOpen(open === index ? null : index)}
               >
-                <div className="text-[var(--textDark)] font-medium">
-                  {item.label}
-                </div>
-                {item.type === "child" && (
-                  <div className="text-xs text-[var(--textLight)]">
-                    ({item.parent})
-                  </div>
+                {item?.disabled ? <span>{item.title}</span> : <Link href={parentSlug}>{item.title}</Link>}
+
+                {item.children && (
+                  <ChevronDown
+                    size={18}
+                    className={`transition-transform ${open === index ? "rotate-180" : ""}`}
+                  />
                 )}
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
+              </button>
 
-      {/* ---- Sidebar Items ---- */}
-      {sidebarItems.map((item, index) => {
-        const parentSlug = item?.link || `/specialties/${slugify(item.title)}`;
-        const isParentActive = pathname === parentSlug;
+              {open === index && item.children && (
+                <div className="ml-2 mt-2 space-y-2">
+                  {item.children.map((child, i) => {
+                    const childSlug = `/specialties/${slugify(child)}`;
+                    const isChildActive = pathname === childSlug;
 
-        return (
-          <div key={index} className="mb-2">
-            <button
-              className={`flex justify-between items-center w-full font-medium p-3 rounded-lg transition
-                ${isParentActive
-                  ? "bg-[var(--brandColor)] text-white"
-                  : "bg-[var(--brandColorLight)] text-[var(--textDark)] hover:bg-[var(--brandColor)] hover:text-white"}
-              `}
-              onClick={() => item.children && setOpen(open === index ? null : index)}
-            >
-              {item?.disabled ? <span>{item.title}</span> : <Link href={parentSlug}>{item.title}</Link>}
-
-              {item.children && (
-                <ChevronDown
-                  size={18}
-                  className={`transition-transform ${open === index ? "rotate-180" : ""}`}
-                />
+                    return (
+                      <Link
+                        key={i}
+                        href={childSlug}
+                        className={`block text-sm px-2 py-1 rounded-md transition
+                          ${isChildActive
+                            ? "bg-[var(--brandColorLight)] text-[var(--brandColor)] font-semibold"
+                            : "text-[var(--textLight)] hover:text-[var(--brandColor)]"}
+                        `}
+                      >
+                        {child}
+                      </Link>
+                    );
+                  })}
+                </div>
               )}
-            </button>
-
-            {open === index && item.children && (
-              <div className="ml-2 mt-2 space-y-2">
-                {item.children.map((child, i) => {
-                  const childSlug = `/specialties/${slugify(child)}`;
-                  const isChildActive = pathname === childSlug;
-
-                  return (
-                    <Link
-                      key={i}
-                      href={childSlug}
-                      className={`block text-sm px-2 py-1 rounded-md transition
-                        ${isChildActive
-                          ? "bg-[var(--brandColorLight)] text-[var(--brandColor)] font-semibold"
-                          : "text-[var(--textLight)] hover:text-[var(--brandColor)]"}
-                      `}
-                    >
-                      {child}
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        );
-      })}
+            </div>
+          );
+        })}
+      </div>
     </aside>
   );
 }
